@@ -8,7 +8,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'People Are People', // default fallback title
+      title: `Can't fix JACK!`, // default fallback title
       htmlAttrs: {
         lang: 'en',
       },
