@@ -8,11 +8,13 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: `Can't fix JACK!`, // default fallback title
+      title: `CantFixJack.com – Exposing Jack Ciattarelli`, // updated title
       htmlAttrs: {
         lang: 'en',
       },
       meta: [
+        { name: 'description', content: 'One-page exposé unpacking Jack Ciattarelli\'s flip-flops, MAGA ties, and authoritarian agenda. Join People Are People NJ to stop him.' },
+        { name: 'keywords', content: 'Jack Ciattarelli, NJ politics, MAGA, Stop the Steal, Super PAC, Trump ties, authoritarianism' },
         { name: 'msapplication-TileColor', content: '#0a84ff' },
         { name: 'theme-color', content: '#0a84ff' }
       ],

@@ -1,6 +1,6 @@
 <template>
-  <div class="p-4 container">
-    <the-header class="mb-5" />
+  <div>
+    <the-header />
     <main>
       <NuxtPage />
     </main>
