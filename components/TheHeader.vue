@@ -5,8 +5,9 @@ const openDonateLink = () => {
 
 const shareWebsite = async () => {
   const shareData = {
-    title: 'Jack Can\'t Millions – Exposing Jack Ciattarelli\'s Political Flip-Flops',
-    text: 'Watch Jack Ciattarelli flip-flop through 300+ policy reversals. From Trump critic to MAGA supporter, see how Jack can\'t stick to any position for millions of reasons.',
+    title:
+      "Jack Can't Fix Jack - Exposing Jack Ciattarelli's Political Flip-Flops",
+    text: "Watch Jack Ciattarelli flip-flop through 300+ policy reversals. From Trump critic to MAGA supporter, see how Jack can't stick to any position for millions of reasons.",
     url: window.location.href
   }
 
@@ -34,14 +35,28 @@ const shareWebsite = async () => {
     <header class="bg-white shadow-sm sticky top-0 z-50">
       <div class="container mx-auto px-4 py-4">
         <div class="flex justify-between items-center">
-          <NuxtLink to="/" class="text-2xl font-bold text-red-800 hover:text-red-600 transition-colors">
+          <NuxtLink
+            to="/"
+            class="text-2xl font-bold text-red-800 hover:text-red-600 transition-colors"
+          >
             CantFixJack.com
           </NuxtLink>
           <div class="flex items-center space-x-4">
-            <Button label="Share" icon="pi pi-share-alt" severity="secondary" size="small" class="hidden md:inline-flex"
-              @click="shareWebsite" />
-            <Button label="Donate" severity="danger" size="small" class="bg-red-600 hover:bg-red-700"
-              @click="openDonateLink" />
+            <Button
+              label="Share"
+              icon="pi pi-share-alt"
+              severity="secondary"
+              size="small"
+              class="hidden md:inline-flex"
+              @click="shareWebsite"
+            />
+            <Button
+              label="Donate"
+              severity="danger"
+              size="small"
+              class="bg-red-600 hover:bg-red-700"
+              @click="openDonateLink"
+            />
           </div>
         </div>
       </div>
