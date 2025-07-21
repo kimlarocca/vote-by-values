@@ -14,15 +14,16 @@
         <!-- Main Title Split Like Mikie Made Millions -->
         <div class="mb-8">
           <h1 class="text-6xl md:text-8xl font-bold mb-4 tracking-wider">
-            <span class="block">Jack Can't</span>
-            <span class="block text-yellow-400">Millions</span>
+            <span class="block">Jack Ciattarelli</span>
+            <span class="block text-yellow-400">Can't Fix Jack</span>
           </h1>
         </div>
 
         <!-- Hero Image/Cutout Area -->
         <div class="relative mb-8">
           <div class="w-96 h-96 mx-auto bg-gray-300 rounded-lg opacity-80 flex items-center justify-center">
-            <span class="text-gray-600 text-xl">Jack Ciattarelli Image</span>
+            <img src="/images/WeathervaneJack.jpg" alt="Jack Ciattarelli Can't Fix Jack Image"
+              class="w-full h-full object-cover rounded-lg shadow-lg">
           </div>
         </div>
 
