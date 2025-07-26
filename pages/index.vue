@@ -7,11 +7,13 @@
     </section>
 
     <section class="grid grid-cols-1 lg:grid-cols-2">
-      <img
-        src="/images/weathervane.png"
-        alt="weathervane jack ciattarelli"
-        class="w-full h-auto bg-red"
-      />
+      <div class="bg-red h-full w-full">
+        <img
+          src="/images/weathervane.png"
+          alt="weathervane jack ciattarelli"
+          class="w-full h-auto bg-red"
+        />
+      </div>
       <div class="flex flex-col justify-center p-6 lg:p-12">
         <h2 class="mb-8">
           Jack will go whichever way the wind blows—because he's not leading,
@@ -32,35 +34,68 @@
 
     <section class="grid grid-cols-1 lg:grid-cols-2">
       <div class="flex flex-col justify-center p-6 lg:p-12 order-2 lg:order-1">
-        <h2>Trump's Lapdog</h2>
+        <h2 class="mb-8">
+          Like any good lapdog, Jack echoes Trump's worst ideas without a
+          moment's hesitation.
+        </h2>
+        <p class="text-xl mb-2">✔ Dismantle The Dept. of Education</p>
+        <p class="text-xl mb-2">✔ Private Prison Profit Motive</p>
+        <p class="text-xl mb-2">✔ ICE Raids &amp; Sanctuary Repeal</p>
+        <p class="text-xl mb-2">✔ Fiscal "Conservatism" Fallout (NJDOGE)</p>
+        <p class="text-xl mb-2">❌ January 6th Pardons (Crickets)</p>
       </div>
-      <img
-        src="/images/trump-lapdog.png"
-        alt="Trump's Lapdog"
-        class="w-full h-auto bg-red order-1 lg:order-2"
-      />
+
+      <div class="bg-red h-full w-full order-1 lg:order-2">
+        <img
+          src="/images/trump-lapdog.png"
+          alt="Trump's Lapdog"
+          class="w-full h-auto"
+        />
+      </div>
     </section>
 
     <section class="grid grid-cols-1 lg:grid-cols-2">
-      <img
-        src="/images/confused-jack.png"
-        alt="Moderate One Day, MAGA the Next"
-        class="w-full h-auto bg-red"
-      />
+      <div class="bg-red h-full w-full">
+        <img
+          src="/images/confused-jack.png"
+          alt="Moderate One Day, MAGA the Next"
+          class="w-full h-auto"
+        />
+      </div>
       <div class="flex flex-col justify-center p-6 lg:p-12">
-        <h2>Moderate One Day, MAGA the Next</h2>
+        <h2 class="mb-8">
+          Jack's journey from Trump critic to MAGA acolyte twists faster than a
+          weathervane.
+        </h2>
+        <div
+          v-for="event in timelineEvents"
+          :key="event.date"
+          class="text-xl mb-2"
+        >
+          <p class="text-red-600 font-bold mr-2">
+            {{ event.date }}
+          </p>
+          <p v-html="event.content" />
+        </div>
       </div>
     </section>
 
     <section class="grid grid-cols-1 lg:grid-cols-2">
       <div class="flex flex-col justify-center p-6 lg:p-12 order-2 lg:order-1">
-        <h2>DeSantis Copycat</h2>
+        <h2 class="mb-8">New Jersey does not want a Ron DeSantis copycat.</h2>
+        <p class="text-xl mb-2">
+          The distinguishing feature of the gubernatorial administration of Ron
+          DeSantis has been his unrestrained and malevolent cultural war against
+          the Black citizenry of the State of Florida. - NJInsider.com
+        </p>
       </div>
-      <img
-        src="/images/copycat.png"
-        alt="Ron DeSantis Copycat"
-        class="w-full h-auto bg-red order-1 lg:order-2"
-      />
+      <div class="bg-red h-full w-full order-1 lg:order-2">
+        <img
+          src="/images/copycat.png"
+          alt="Ron DeSantis Copycat"
+          class="w-full h-auto"
+        />
+      </div>
     </section>
 
     <!-- Video Section -->
@@ -234,7 +269,7 @@
         >
           <div class="text-center">
             <div class="text-6xl mb-4">🎭</div>
-            <p class="text-xl">Background: Jack's Political Theater</p>
+            <p class="text-xl mb-2">Background: Jack's Political Theater</p>
           </div>
         </div>
       </div>
@@ -394,59 +429,6 @@
       </div>
     </section>
 
-    <!-- Trump Echo Table -->
-    <section class="py-16 bg-dark-gray">
-      <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-8 text-center text-white">
-          Trump Echo Table
-        </h2>
-        <div class="overflow-x-auto">
-          <ClientOnly>
-            <DataTable :value="trumpEchoData" class="shadow-lg bg-white">
-              <Column
-                field="policy"
-                header="Policy"
-                class="font-semibold"
-              ></Column>
-              <Column field="trump" header="Trump" class="text-center">
-                <template #body="slotProps">
-                  <span
-                    v-if="slotProps.data.trump === 'yes'"
-                    class="text-green-600 text-xl"
-                    >✅</span
-                  >
-                  <span v-else class="text-red-600 text-xl">❌</span>
-                </template>
-              </Column>
-              <Column
-                field="jack"
-                header="Jack Ciattarelli"
-                class="text-center"
-              >
-                <template #body="slotProps">
-                  <span
-                    v-if="slotProps.data.jack === 'yes'"
-                    class="text-green-600 text-xl"
-                    >✅</span
-                  >
-                  <span
-                    v-else-if="slotProps.data.jack === 'crickets'"
-                    class="text-red-600"
-                    >❌ crickets</span
-                  >
-                  <span v-else class="text-red-600 text-xl">❌</span>
-                </template>
-              </Column>
-            </DataTable>
-          </ClientOnly>
-        </div>
-        <p class="text-center text-white mt-4 text-lg">
-          Jack isn't an exception—he echoes Trump's worst ideas without a
-          moment's hesitation.
-        </p>
-      </div>
-    </section>
-
     <!-- Stop The Steal Video -->
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4 text-center">
@@ -478,48 +460,6 @@
               </div>
             </template>
           </Card>
-        </div>
-      </div>
-    </section>
-
-    <!-- MAGA Confusion Carousel -->
-    <section class="py-16 bg-dark-gray">
-      <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-8 text-center text-white">
-          MAGA Confusion Carousel
-        </h2>
-        <div class="max-w-4xl mx-auto">
-          <p class="text-xl mb-8 text-center text-white">
-            Jack's journey from Trump critic to MAGA acolyte twists faster than
-            a weathervane:
-          </p>
-
-          <ClientOnly>
-            <Timeline :value="timelineEvents" class="w-full">
-              <template #marker="slotProps">
-                <span
-                  class="flex w-8 h-8 items-center justify-center bg-red-600 text-white rounded-full z-10 shadow-lg"
-                >
-                  <i class="pi pi-calendar"></i>
-                </span>
-              </template>
-              <template #content="slotProps">
-                <Card class="shadow-md bg-white border-2 border-black">
-                  <template #title>
-                    <div class="text-red-600 font-bold">
-                      {{ slotProps.item.date }}
-                    </div>
-                  </template>
-                  <template #content>
-                    <div
-                      class="text-black"
-                      v-html="slotProps.item.content"
-                    ></div>
-                  </template>
-                </Card>
-              </template>
-            </Timeline>
-          </ClientOnly>
         </div>
       </div>
     </section>
@@ -685,35 +625,6 @@ useSeoMeta({
     'Jack Ciattarelli, NJ politics, MAGA, Stop the Steal, Super PAC, Trump ties, flip-flops, policy reversals, political theater'
 })
 
-// Data for Trump Echo Table
-const trumpEchoData = ref([
-  {
-    policy: 'Dismantle Dept. of Education',
-    trump: 'yes',
-    jack: 'yes'
-  },
-  {
-    policy: 'Private Prison Profit Motive',
-    trump: 'yes',
-    jack: 'yes'
-  },
-  {
-    policy: 'Jan. 6 Pardons',
-    trump: 'yes',
-    jack: 'crickets'
-  },
-  {
-    policy: 'ICE Raids & Sanctuary Repeal',
-    trump: 'yes',
-    jack: 'yes'
-  },
-  {
-    policy: 'Fiscal "Conservatism" Fallout (NJDOGE)',
-    trump: 'yes',
-    jack: 'yes'
-  }
-])
-
 // Timeline data for MAGA Confusion Carousel
 const timelineEvents = ref([
   {
@@ -742,11 +653,6 @@ const timelineEvents = ref([
       <strong>Phase 2:</strong> Praised limited clemency for non-violent offenders.<br>
       <strong>Phase 3:</strong> Embraced Trump's blanket Jan. 6 pardons as "national reconciliation"—exactly what "Daddy Trump" demanded.
     `
-  },
-  {
-    date: 'Silence on Officer Brian Sicknick',
-    content:
-      'Not a single public word on the pardon of the rioters who killed him—a family called it "an insult to justice."'
   }
 ])
 
