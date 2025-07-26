@@ -26,7 +26,7 @@ img {
 }
 
 a {
-    color: var(--p-primary-600);
+    color: var(--red);
     border-bottom: 1px solid transparent;
     text-decoration: none;
     transition:
@@ -35,7 +35,7 @@ a {
     -webkit-touch-callout: none; /* disable the iOS long press action */
     -webkit-user-select: none; /* disable text selection */
     &:hover {
-        border-bottom-color: var(--p-primary-600);
+        border-bottom-color: var(--red);
     }
     &.plain {
         border-bottom: none;
@@ -72,4 +72,25 @@ a {
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
+}
+
+.p-card{
+border-radius: 0;
+}
+.p-card.black-outline {
+    border: 1px solid var(--black);
+    color: var(--black);
+}
+.p-card.white-outline {
+    border: 1px solid var(--white);
+    color: var(--white);
+    background: transparent;
+}
+.p-card .p-card-body {
+    height: 100%;
+    display: flex;
+
+    @screen md {
+        justify-content: center;
+    }
 }

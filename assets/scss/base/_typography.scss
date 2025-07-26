@@ -36,7 +36,7 @@
   h1,
   .like-h1 {
     text-transform: uppercase;
-    @include typeface(header, 14);
+    @include typeface(header, 15);
     font-weight: 800;
     letter-spacing: 0.5px;
     line-height: 3rem;
@@ -70,16 +70,16 @@
 
   h3,
   .like-h3 {
-    @include typeface(primary, 8);
-    font-weight: 400;
+    @include typeface(primary, 9);
+    font-weight: 700;
     font-size: 20px;
-    line-height: 20px;
+    line-height: 30px;
 
     @screen md {
-      @include typeface(primary, 9);
+      @include typeface(primary, 10);
       font-size: 25px;
-      line-height: 25px;
-      font-weight: 400;
+      line-height: 35px;
+      font-weight: 700;
     }
   }
 

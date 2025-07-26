@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen">
-    <section class="bg-dark-gray px-4 py-32 text-center">
+    <section class="bg-dark-gray px-4 py-16 lg:py-32 text-center">
       <h1 class="text-white">
         Exposing Jack Ciattarelli's Political Flip-Flops
       </h1>
@@ -82,11 +82,28 @@
 
     <section class="grid grid-cols-1 lg:grid-cols-2">
       <div class="flex flex-col justify-center p-6 lg:p-12 order-2 lg:order-1">
-        <h2 class="mb-8">New Jersey does not want a Ron DeSantis copycat.</h2>
-        <p class="text-xl mb-2">
-          The distinguishing feature of the gubernatorial administration of Ron
-          DeSantis has been his unrestrained and malevolent cultural war against
-          the Black citizenry of the State of Florida. - NJInsider.com
+        <h2 class="mb-8">
+          New Jersey does not want a DeSantis copycat for a governor.
+        </h2>
+        <p class="text-xl mb-4">
+          “I don't think we should be teaching our students that white people
+          perpetuate systemic racism.” - Jack Ciattarelli
+        </p>
+        <p class="text-xl mb-4">
+          Jack Ciattarelli has made it clear that he intends to copy DeSantis'
+          playbook in New Jersey. "The distinguishing feature of the
+          gubernatorial administration of Ron DeSantis has been his unrestrained
+          and malevolent cultural war against the Black citizenry of the State
+          of Florida." -
+          <a
+            href="https://www.insidernj.com/desantis-2024-create-political-nightmare-ciattarelli/"
+            target="_blank"
+            >NJInsider.com</a
+          >
+        </p>
+        <p class="text-xl">
+          Do we really want to allow New Jersey to follow in Florida's
+          footsteps?
         </p>
       </div>
       <div class="bg-red h-full w-full order-1 lg:order-2">
@@ -98,7 +115,7 @@
       </div>
     </section>
 
-    <!-- Video Section -->
+    <!-- Video Section 1-->
     <section class="p-6 lg:py-32 bg-black">
       <div class="w-fit mx-auto">
         <iframe
@@ -111,226 +128,164 @@
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin"
           allowfullscreen
-        ></iframe>
+        />
       </div>
     </section>
 
-    <!-- Image Gallery Section - Trading Cards Style -->
-    <section class="py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-8 text-center text-black">
-          Jack's Greatest Flip-Flops
-        </h2>
-        <p class="text-center text-black mb-12 text-lg">
-          According to
-          <a href="#" class="text-red-600 underline">PublicRecords.org</a>,
-          <span class="font-bold text-red-600"
-            >Jack Ciattarelli's largest policy reversals include:</span
-          >
-        </p>
+    <!-- Flip Flops -->
+    <section>
+      <img
+        src="/images/flip-flops.jpg"
+        alt="Jack's Greatest Flip-Flops"
+        class="w-full h-auto -mb-2"
+      />
 
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <!-- Flip-Flop Card 1 -->
-          <Card class="shadow-lg bg-red-600 border-2 border-black text-white">
-            <template #content>
-              <div class="p-6 text-center">
-                <div class="text-2xl font-bold text-white mb-2">
-                  Trump Position
-                </div>
-                <div class="text-lg mb-4">December 2015</div>
-                <div class="bg-white p-4 rounded-lg shadow-inner">
-                  <p class="text-black font-medium">
-                    "Trump is a charlatan... an embarrassment to the Republican
-                    Party."
-                  </p>
-                </div>
-                <div class="mt-4 text-sm text-white">
-                  <strong>Current Status:</strong> Full MAGA supporter
-                </div>
-              </div>
-            </template>
-          </Card>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3">
+        <!-- Flip-Flop Card 1 -->
+        <Card class="bg-red text-white">
+          <template #content>
+            <div class="p-6 text-center">
+              <p class="text-lg mb-4">December 2015</p>
+              <h3 class="mb-4">
+                "Trump is a charlatan... an embarrassment to the Republican
+                Party."
+              </h3>
+              <p class="text-lg">
+                <strong>Current Status:</strong> Full MAGA supporter
+              </p>
+            </div>
+          </template>
+        </Card>
 
-          <!-- Flip-Flop Card 2 -->
-          <Card class="shadow-lg bg-black border-2 border-red-600 text-white">
-            <template #content>
-              <div class="p-6 text-center">
-                <div class="text-2xl font-bold text-white mb-2">
-                  Stop the Steal
-                </div>
-                <div class="text-lg mb-4">November 2020</div>
-                <div class="bg-white p-4 rounded-lg shadow-inner">
-                  <p class="text-black font-medium">
-                    Spoke at Bedminster rally, then claimed "I didn't know what
-                    it was"
-                  </p>
-                </div>
-                <div class="mt-4 text-sm text-white">
-                  <strong>Evidence:</strong> Official flyer shows his name
-                </div>
-              </div>
-            </template>
-          </Card>
+        <!-- Flip-Flop Card 2 -->
+        <Card>
+          <template #content>
+            <div class="p-6 text-center">
+              <p class="text-lg mb-4">November 2020</p>
+              <h3 class="mb-4">
+                Spoke at the Stop The Steal rally in Bedminster, then claimed "I
+                didn't know what it was."
+              </h3>
+              <p class="text-lg">
+                <strong>Evidence:</strong> Official flyer shows his name
+              </p>
+            </div>
+          </template>
+        </Card>
 
-          <!-- Flip-Flop Card 3 -->
-          <Card class="shadow-lg bg-red-600 border-2 border-black text-white">
-            <template #content>
-              <div class="p-6 text-center">
-                <div class="text-2xl font-bold text-white mb-2">
-                  Jan 6 Pardons
-                </div>
-                <div class="text-lg mb-4">January 2025</div>
-                <div class="bg-white p-4 rounded-lg shadow-inner">
-                  <p class="text-black font-medium">
-                    From "lawbreakers shouldn't be pardoned" to embracing
-                    "national reconciliation"
-                  </p>
-                </div>
-                <div class="mt-4 text-sm text-white">
-                  <strong>Impact:</strong> Silent on Officer Sicknick's killers
-                </div>
-              </div>
-            </template>
-          </Card>
+        <!-- Flip-Flop Card 3 -->
+        <Card class="bg-red text-white">
+          <template #content>
+            <div class="p-6 text-center">
+              <p class="text-lg mb-4">January 2025</p>
+              <h3 class="mb-4">
+                From "lawbreakers shouldn't be pardoned" to embracing "national
+                reconciliation" for the Jan 6 Pardons.
+              </h3>
+              <p class="text-lg">
+                <strong>Impact:</strong> Silent on Officer Sicknick's killers
+              </p>
+            </div>
+          </template>
+        </Card>
 
-          <!-- Flip-Flop Card 4 -->
-          <Card class="shadow-lg bg-black border-2 border-red-600 text-white">
-            <template #content>
-              <div class="p-6 text-center">
-                <div class="text-2xl font-bold text-white mb-2">
-                  Education Policy
-                </div>
-                <div class="text-lg mb-4">2024-2025</div>
-                <div class="bg-white p-4 rounded-lg shadow-inner">
-                  <p class="text-black font-medium">
-                    From supporting public education to echoing Trump's DOE
-                    dismantling
-                  </p>
-                </div>
-                <div class="mt-4 text-sm text-white">
-                  <strong>Result:</strong> Threatens Title I funding
-                </div>
-              </div>
-            </template>
-          </Card>
+        <!-- Flip-Flop Card 4 -->
+        <Card>
+          <template #content>
+            <div class="p-6 text-center">
+              <p class="text-lg mb-4">2024-2025</p>
+              <h3 class="mb-4">
+                From supporting public education to echoing Trump's Department
+                of Education dismantling.
+              </h3>
+              <p class="text-lg">
+                <strong>Result:</strong> Threatens Title I funding
+              </p>
+            </div>
+          </template>
+        </Card>
 
-          <!-- Flip-Flop Card 5 -->
-          <Card class="shadow-lg bg-red-600 border-2 border-black text-white">
-            <template #content>
-              <div class="p-6 text-center">
-                <div class="text-2xl font-bold text-white mb-2">
-                  Due Process
-                </div>
-                <div class="text-lg mb-4">2024</div>
-                <div class="bg-white p-4 rounded-lg shadow-inner">
-                  <p class="text-black font-medium">
-                    "Defend due process" for guns, but supports warrantless ICE
-                    raids
-                  </p>
-                </div>
-                <div class="mt-4 text-sm text-white">
-                  <strong>Hypocrisy:</strong> Selective constitutional
-                  protection
-                </div>
-              </div>
-            </template>
-          </Card>
+        <!-- Flip-Flop Card 5 -->
+        <Card class="bg-red text-white">
+          <template #content>
+            <div class="p-6 text-center">
+              <p class="text-lg mb-4">2024</p>
+              <h3 class="mb-4">
+                "Defend due process" for guns, but supports warrantless ICE
+                raids.
+              </h3>
+              <p class="text-lg">
+                <strong>Hypocrisy:</strong> Selective constitutional protection
+              </p>
+            </div>
+          </template>
+        </Card>
 
-          <!-- Flip-Flop Card 6 -->
-          <Card class="shadow-lg bg-black border-2 border-red-600 text-white">
-            <template #content>
-              <div class="p-6 text-center">
-                <div class="text-2xl font-bold text-white mb-2">
-                  Medicare Promise
-                </div>
-                <div class="text-lg mb-4">Campaign Trail</div>
-                <div class="bg-white p-4 rounded-lg shadow-inner">
-                  <p class="text-black font-medium">
-                    "Never support cuts" while party slashes $880 billion
-                  </p>
-                </div>
-                <div class="mt-4 text-sm text-white">
-                  <strong>Reality:</strong> Empty promises to seniors
-                </div>
-              </div>
-            </template>
-          </Card>
-        </div>
+        <!-- Flip-Flop Card 6 -->
+        <Card>
+          <template #content>
+            <div class="p-6 text-center">
+              <p class="text-lg mb-4">Campaign Trail</p>
+              <h3 class="mb-4">
+                "Never support cuts" while party slashes $880 billion in
+                Medicare and Medicaid.
+              </h3>
+              <p class="text-lg">
+                <strong>Reality:</strong> Empty promises to seniors
+              </p>
+            </div>
+          </template>
+        </Card>
       </div>
     </section>
 
-    <!-- Background Video Section -->
-    <section class="py-16 relative overflow-hidden bg-dark-gray">
-      <!-- Background Video Placeholder -->
-      <div class="absolute inset-0 bg-dark-gray">
-        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-        <div
-          class="absolute inset-0 flex items-center justify-center text-white"
-        >
-          <div class="text-center">
-            <div class="text-6xl mb-4">🎭</div>
-            <p class="text-xl mb-2">Background: Jack's Political Theater</p>
-          </div>
-        </div>
+    <!-- Video Section 2 -->
+    <section class="p-6 lg:py-32 bg-black">
+      <div class="w-fit mx-auto">
+        <iframe
+          width="1120"
+          height="630"
+          class="max-w-full"
+          src="https://www.youtube.com/embed/g8PG_XLY2xs?si=9zWk3ya8GMefMId7"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        />
       </div>
     </section>
 
     <!-- Issue Breakdown -->
-    <section id="issues" class="py-16 bg-white">
+    <section id="issues" class="py-16 lg:py-32 bg-white">
       <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-12 text-center text-black">
-          Issue Breakdown
-        </h2>
+        <h2 class="mb-12 like-h1 text-center">Issue Breakdown</h2>
 
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           <!-- Education Rollbacks -->
-          <Card
-            class="shadow-lg hover:shadow-xl transition-shadow bg-white border-2 border-black"
-          >
-            <template #header>
-              <div class="bg-red-600 text-white p-4">
-                <h3 class="text-xl font-bold">
-                  Education Rollbacks & DOE Dismantling
-                </h3>
-              </div>
-            </template>
+          <Card class="black-outline">
             <template #content>
-              <div class="p-4">
-                <p class="mb-4 text-black">
+              <div class="p-4 text-center">
+                <h3 class="text-xl font-bold mb-4">
+                  Education Rollbacks &amp; DOE Dismantling
+                </h3>
+                <p class="text-black">
                   Jack is terrified to teach real history—slavery, Jim Crow,
                   labor battles, civil-rights protests vanish from classrooms.
                   He echoes Trump's push to gut the U.S. Department of
                   Education.
                 </p>
-                <ul class="space-y-2 text-sm text-black">
-                  <li>Manages Title I grants for low-income schools</li>
-                  <li>Enforces IDEA protections for special-needs students</li>
-                  <li>Conducts civil-rights investigations</li>
-                  <li>Provides teacher training and literacy interventions</li>
-                </ul>
-                <blockquote
-                  class="mt-4 p-3 bg-dark-gray text-white border-l-4 border-red-600 italic"
-                >
-                  "We'll rename the state Comptroller NJDOGE, elevate him to a
-                  cabinet post, and weed out fraud."
-                </blockquote>
               </div>
             </template>
           </Card>
 
           <!-- Private Prisons -->
-          <Card
-            class="shadow-lg hover:shadow-xl transition-shadow bg-white border-2 border-black"
-          >
-            <template #header>
-              <div class="bg-red-600 text-white p-4">
-                <h3 class="text-xl font-bold">
+          <Card class="black-outline">
+            <template #content>
+              <div class="p-4 text-center">
+                <h3 class="text-xl font-bold mb-4">
                   Private Prisons & Jan. 6 Pardons
                 </h3>
-              </div>
-            </template>
-            <template #content>
-              <div class="p-4">
                 <p class="text-black">
                   Jack preaches "law and order"—while cheering private-prison
                   profiteers and staying stone-cold silent when Trump pardoned
@@ -341,18 +296,12 @@
           </Card>
 
           <!-- ICE Raids -->
-          <Card
-            class="shadow-lg hover:shadow-xl transition-shadow bg-white border-2 border-black"
-          >
-            <template #header>
-              <div class="bg-red-600 text-white p-4">
-                <h3 class="text-xl font-bold">
+          <Card class="black-outline">
+            <template #content>
+              <div class="p-4 text-center">
+                <h3 class="text-xl font-bold mb-4">
                   Masked ICE Raids & Due Process Hypocrisy
                 </h3>
-              </div>
-            </template>
-            <template #content>
-              <div class="p-4">
                 <p class="text-black">
                   Jack champions "defend due process" only for gun owners; on
                   immigration, he backs masked ICE agents snatching neighbors
@@ -363,18 +312,12 @@
           </Card>
 
           <!-- Social Security -->
-          <Card
-            class="shadow-lg hover:shadow-xl transition-shadow bg-white border-2 border-black"
-          >
-            <template #header>
-              <div class="bg-red-600 text-white p-4">
-                <h3 class="text-xl font-bold">
+          <Card class="black-outline">
+            <template #content>
+              <div class="p-4 text-center">
+                <h3 class="text-xl font-bold mb-4">
                   Social Security & Medicare Betrayal
                 </h3>
-              </div>
-            </template>
-            <template #content>
-              <div class="p-4">
                 <p class="text-black">
                   "Jack will never support cuts to Social Security or Medicare
                   for seniors"? His party in Washington just rammed a budget
@@ -385,16 +328,12 @@
           </Card>
 
           <!-- Authoritarian Aid -->
-          <Card
-            class="shadow-lg hover:shadow-xl transition-shadow bg-white border-2 border-black"
-          >
-            <template #header>
-              <div class="bg-red-600 text-white p-4">
-                <h3 class="text-xl font-bold">Authoritarian Aid Withholding</h3>
-              </div>
-            </template>
+          <Card class="black-outline">
             <template #content>
-              <div class="p-4">
+              <div class="p-4 text-center">
+                <h3 class="text-xl font-bold mb-4">
+                  Authoritarian Aid Withholding
+                </h3>
                 <p class="text-black">
                   Jack warns that cities "who disobey could have municipal aid
                   withheld from Trenton until they comply." Strongman tactics
@@ -405,18 +344,10 @@
           </Card>
 
           <!-- Public Health -->
-          <Card
-            class="shadow-lg hover:shadow-xl transition-shadow bg-white border-2 border-black"
-          >
-            <template #header>
-              <div class="bg-red-600 text-white p-4">
-                <h3 class="text-xl font-bold">
-                  Public Health & Vaccine Rollbacks
-                </h3>
-              </div>
-            </template>
+          <Card class="black-outline">
             <template #content>
-              <div class="p-4">
+              <div class="p-4 text-center">
+                <h3 class="mb-4">Public Health &amp; Vaccine Rollbacks</h3>
                 <p class="text-black">
                   He'd gut scientific advisory panels, block vaccine mandates
                   under broad religious exemptions, and starve routine
@@ -429,108 +360,46 @@
       </div>
     </section>
 
-    <!-- Stop The Steal Video -->
-    <section class="py-16 bg-white">
-      <div class="container mx-auto px-4 text-center">
-        <h2 class="text-4xl font-bold mb-8 text-black">
-          Jack at the "Stop the Steal" Rally
-        </h2>
-        <div class="max-w-4xl mx-auto">
-          <Card class="shadow-lg bg-white border-2 border-black">
+    <!-- NJ at Risk -->
+    <section class="py-16 lg:py-32 bg-dark-gray">
+      <div class="container mx-auto px-4">
+        <h2 class="like-h1 mb-8 text-center text-white">NJ at Risk</h2>
+
+        <div class="grid gap-6 md:grid-cols-2 mb-16">
+          <!-- Rights Data Cards -->
+          <Card
+            v-for="right in rightsData"
+            :key="right.right"
+            class="white-outline"
+          >
             <template #content>
-              <div class="p-8">
-                <p class="text-xl mb-6 text-black">
-                  On January 6, 2021, Jack Ciattarelli spoke at the same
-                  Bedminster stage as Stop the Steal organizers—then claimed he
-                  "didn't know" its purpose, despite being on the official
-                  flyer.
-                </p>
-                <div class="bg-dark-gray text-white p-8 rounded-lg mb-4">
-                  <p class="text-white text-lg">
-                    [Video Embed: Jack at Stop the Steal Rally]
-                  </p>
-                  <p class="text-sm text-gray-300 mt-2">
-                    YouTube: https://www.youtube.com/watch?v=R7cr_UfRkyE
-                  </p>
-                </div>
-                <p class="text-black italic">
-                  Jack at the Stop the Steal rally—his ignorance excuse fell
-                  flat.
-                </p>
+              <div class="p-4 text-center">
+                <h3 class="mb-4">{{ right.right }}</h3>
+                <p>{{ right.threat }}</p>
               </div>
             </template>
           </Card>
         </div>
-      </div>
-    </section>
-
-    <!-- Rights At Risk -->
-    <section class="py-16 bg-white">
-      <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-8 text-center text-black">
-          Rights Jack Puts At Risk
-        </h2>
-        <div class="overflow-x-auto">
-          <ClientOnly>
-            <DataTable
-              :value="rightsData"
-              class="shadow-lg bg-white border-2 border-black"
-            >
-              <Column
-                field="right"
-                header="Right"
-                class="font-semibold w-1/4"
-              ></Column>
-              <Column
-                field="threat"
-                header="How Jack Threatens It"
-                class="w-3/4"
-              ></Column>
-            </DataTable>
-          </ClientOnly>
-        </div>
-      </div>
-    </section>
-
-    <!-- NJ at Risk - Satirical Futures -->
-    <section class="py-16 bg-dark-gray">
-      <div class="container mx-auto px-4">
-        <h2 class="text-4xl font-bold mb-8 text-center text-white">
-          NJ at Risk — Satirical Futures
-        </h2>
-        <p class="text-center text-white italic mb-8">
-          Not far-fetched under today's overreach.
+        <h2 class="text-center text-white mb-4">Satirical Futures</h2>
+        <p class="text-center text-white mb-8">
+          Possibilities that are not that far-fetched under today's overreach!
         </p>
-
         <div class="grid gap-6 md:grid-cols-2">
-          <Card
-            class="shadow-lg hover:shadow-xl transition-shadow bg-white border-2 border-red-600"
-          >
-            <template #title>
-              <div class="text-red-600 font-bold p-4 bg-white">
-                Jersey Shore Alcatraz
-              </div>
-            </template>
+          <!-- Static NJ Risk Cards -->
+          <Card class="white-outline">
             <template #content>
-              <div class="p-4">
-                <p class="text-black">
-                  Beach-side prison moat patrolled by Snooki and ICE SWAT.
-                </p>
+              <div class="p-4 text-center">
+                <h3 class="mb-4">Jersey Shore Alcatraz</h3>
+                <p>Beach-side prison moat patrolled by Snooki and ICE SWAT.</p>
               </div>
             </template>
           </Card>
 
-          <Card
-            class="shadow-lg hover:shadow-xl transition-shadow bg-white border-2 border-red-600"
-          >
-            <template #title>
-              <div class="text-red-600 font-bold p-4 bg-white">
-                Camden Camps
-              </div>
-            </template>
+          <Card class="white-outline">
             <template #content>
-              <div class="p-4">
-                <p class="text-black">
+              <div class="p-4 text-center">
+                <h3 class="mb-4">Camden Camps</h3>
+                <p>
                   Barbed-wire "processing centers" for immigrants—no due process
                   required.
                 </p>
@@ -538,76 +407,25 @@
             </template>
           </Card>
 
-          <Card
-            class="shadow-lg hover:shadow-xl transition-shadow bg-white border-2 border-red-600"
-          >
-            <template #title>
-              <div class="text-red-600 font-bold p-4 bg-white">
-                Drowning Suburbs
-              </div>
-            </template>
+          <Card class="white-outline">
             <template #content>
-              <div class="p-4">
-                <p class="text-black">
-                  No FEMA, no flood insurance; your street becomes a canal.
-                </p>
+              <div class="p-4 text-center">
+                <h3 class="mb-4">Drowning Suburbs</h3>
+                <p>No FEMA, no flood insurance; your street becomes a canal.</p>
               </div>
             </template>
           </Card>
 
-          <Card
-            class="shadow-lg hover:shadow-xl transition-shadow bg-white border-2 border-red-600"
-          >
-            <template #title>
-              <div class="text-red-600 font-bold p-4 bg-white">
-                Medicare Mausoleum
-              </div>
-            </template>
+          <Card class="white-outline">
             <template #content>
-              <div class="p-4">
-                <p class="text-black">
+              <div class="p-4 text-center">
+                <h3 class="mb-4">Medicare Mausoleum</h3>
+                <p>
                   Senior centers turned relic warehouses once benefits vanish.
                 </p>
               </div>
             </template>
           </Card>
-        </div>
-      </div>
-    </section>
-
-    <!-- Call to Action -->
-    <section class="py-16 bg-red-600 text-white">
-      <div class="container mx-auto px-4 text-center">
-        <h2 class="text-4xl font-bold mb-12">Take Action Now</h2>
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-4xl mx-auto">
-          <Button
-            label="Request a Yard Sign"
-            severity="secondary"
-            size="large"
-            class="bg-white text-black hover:bg-gray-100 font-semibold py-3 border-2 border-black"
-            @click="requestYardSign"
-          />
-          <Button
-            label="Volunteer for the Resistance"
-            severity="secondary"
-            size="large"
-            class="bg-black text-white hover:bg-gray-800 font-semibold py-3 border-2 border-white"
-            @click="openVolunteerLink"
-          />
-          <Button
-            label="Share This Site"
-            severity="secondary"
-            size="large"
-            class="bg-white text-black hover:bg-gray-100 font-semibold py-3 border-2 border-black"
-            @click="shareWebsite"
-          />
-          <Button
-            label="Donate Now"
-            severity="secondary"
-            size="large"
-            class="bg-black text-white hover:bg-gray-800 font-semibold py-3 border-2 border-white"
-            @click="openDonateLink"
-          />
         </div>
       </div>
     </section>

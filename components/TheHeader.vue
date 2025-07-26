@@ -50,7 +50,7 @@ const shareWebsite = async () => {
     >
       <!-- Navigation bar overlay -->
       <div class="absolute top-0 left-0 right-0 z-10">
-        <div class="container mx-auto px-4 py-4">
+        <div class="mx-auto px-4 py-4">
           <div class="flex justify-end items-center">
             <div class="flex items-center space-x-4">
               <Button
