@@ -1,6 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap');
-
-$medium: 768px;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
+@tailwind base;
 
 @mixin typeface($type, $size) {
   font-family: var(--font-family-#{$type});
@@ -8,79 +7,116 @@ $medium: 768px;
   font-size: var(--font-size-#{$size});
 }
 
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  padding: 0;
-  color: var(--p-text-color);
-}
+@layer base {
 
-h1,
-.like-h1 {
-  @include typeface(header, 13);
-  font-weight: 300;
-  letter-spacing: 0.5px;
-  @media all and (min-width: $medium) {
-    @include typeface(header, 16);
-    font-weight: 300;
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    padding: 0;
+    color: var(--text-color);
   }
-}
 
-h2,
-.like-h2 {
-  @include typeface(header, 10);
-  font-weight: 300;
-  letter-spacing: 0.5px;
-  @media all and (min-width: $medium) {
+  p {
+    @include typeface(primary, 5);
+    font-weight: 400;
+    line-height: 1.5;
+
+    @screen md {
+      @include typeface(primary, 6);
+      font-weight: 400;
+      line-height: 1.75;
+    }
+  }
+
+  h1,
+  .like-h1 {
+    text-transform: uppercase;
+    @include typeface(header, 14);
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    line-height: 3rem;
+
+    @screen md {
+      @include typeface(header, 16);
+      font-weight: 800;
+      line-height: 3.75rem;
+    }
+
+    @screen lg {
+      font-size: 95px;
+      font-weight: 800;
+      line-height: 95px;
+    }
+  }
+
+  h2,
+  .like-h2 {
     @include typeface(header, 12);
-    font-weight: 300;
-  }
-}
-
-h3,
-.like-h3 {
-  @include typeface(primary, 9);
-  font-weight: 300;
-  letter-spacing: 0.5px;
-  line-height: 2;
-  @media all and (min-width: $medium) {
-    @include typeface(primary, 10);
+    font-weight: 400;
     letter-spacing: 0.5px;
-    font-weight: 300;
-  }
-}
+    font-size: 40px;
+      line-height: 50px;
 
-h4,
-.like-h4 {
-  @include typeface(primary, 7);
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  @media all and (min-width: $medium) {
+    @screen md {
+      font-size: 55px;
+      line-height: 65px;
+    }
+  }
+
+  h3,
+  .like-h3 {
     @include typeface(primary, 8);
-    font-weight: 500;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+
+    @screen md {
+      @include typeface(primary, 9);
+      font-size: 25px;
+      line-height: 25px;
+      font-weight: 400;
+    }
+  }
+
+  h4,
+  .like-h4 {
+    @include typeface(primary, 7);
+    font-weight: 400;
     letter-spacing: 0.5px;
-  }
-}
+    text-transform: uppercase;
 
-label,
-.small {
-  font-size: var(--font-size-5);
-  @media all and (min-width: $medium) {
+    @screen md {
+      @include typeface(primary, 8);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  label,
+  .small {
     font-size: var(--font-size-5);
+
+    @screen md {
+      font-size: var(--font-size-5);
+    }
   }
-}
 
-label {
-  display: block;
-}
+  label {
+    display: block;
+  }
 
-h5,
-.like-h5 {
-  font-weight: 500;
-  text-transform: uppercase;
+  h5,
+  .like-h5 {
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  .font-semibold {
+    font-weight: 500 ! important;
+  }
 }

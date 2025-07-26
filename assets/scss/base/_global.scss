@@ -48,39 +48,11 @@ a {
     margin: auto;
 }
 
-.no-wrap {
-    white-space: nowrap;
+.bg-dark-gray {
+    background-color: var(--dark-gray);
 }
-.no-hyphens {
-    hyphens: none;
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    -ms-hyphens: none;
-}
-
-.cursor-pointer,
-.clickable {
-    cursor: pointer;
-    opacity: 1;
-    transition: var(--transition);
-    &:hover {
-        opacity: var(--opacity-on-hover);
-    }
-}
-
-.toast {
-    position: fixed;
-    bottom: 0;
-    right: 25px;
-    width: 350px;
-    z-index: 1000;
-}
-
-.large-gutters > .col {
-    padding: 0 1rem;
-}
-.large-gutters > .col-fixed {
-    padding: 0 1rem;
+.bg-red {
+    background-color: var(--red);
 }
 
 // accessibility
