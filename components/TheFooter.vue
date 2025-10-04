@@ -3,9 +3,11 @@ const currentYear = new Date().getFullYear()
 </script>
 
 <template>
-  <footer class="blue-section pb-2">
+  <footer class="blue-section pb-20">
     <div class="bg-red" style="height: 56px" />
-    <div class="relative container grid grid-cols-1 lg:grid-cols-4 gap-24">
+    <div
+      class="relative container grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-24"
+    >
       <div class="lg:col-span-2 order-2 lg:order-1 pt-12">
         <p class="mb-6">
           The views expressed herein are exclusively those of the authors and do
