@@ -26,19 +26,14 @@ img {
 }
 
 a {
-    color: var(--red);
-    border-bottom: 1px solid transparent;
+    color: var(--blue);
     text-decoration: none;
-    transition:
-        outline-color 0.2s,
-        border-color 0.2s;
-    -webkit-touch-callout: none; /* disable the iOS long press action */
-    -webkit-user-select: none; /* disable text selection */
+    transition: var(--transition);
     &:hover {
-        border-bottom-color: var(--red);
+        text-decoration: underline;
     }
     &.plain {
-        border-bottom: none;
+        text-decoration: none;
     }
 }
 
@@ -48,11 +43,44 @@ a {
     margin: auto;
 }
 
-.bg-dark-gray {
-    background-color: var(--dark-gray)!important;
+.text-white {
+    color: var(--white) !important;
+}
+.text-blue {
+    color: var(--blue) !important;
+}
+.text-red {
+    color: var(--red) !important;
+}
+
+.bg-blue {
+    background-color: var(--blue) !important;
 }
 .bg-red {
-    background-color: var(--red)!important;
+    background-color: var(--red) !important;
+}
+
+.blue-section {
+    background-color: var(--blue);
+    color: var(--white);
+    a {
+        color: var(--orange);
+    }
+}
+
+// primevue overrides
+.p-button {
+    border-width: 2px !important;
+}
+.p-button .p-button-label {
+    font-weight: 900 !important;
+    font-size: 21px !important;
+    line-height: 25px !important;
+    text-transform: uppercase !important;
+}
+.pi-plus:before {
+    font-weight: 900 !important;
+    font-size: 24px !important;
 }
 
 // accessibility
@@ -72,25 +100,4 @@ a {
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Standard syntax */
-}
-
-.p-card{
-border-radius: 0!important;
-}
-.p-card.black-outline {
-    border: 1px solid var(--black);
-    color: var(--black);
-}
-.p-card.white-outline {
-    border: 1px solid var(--white);
-    color: var(--white);
-    background: transparent;
-}
-.p-card .p-card-body {
-    height: 100%;
-    display: flex;
-
-    @screen md {
-        justify-content: center;
-    }
 }

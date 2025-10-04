@@ -1,8 +1,10 @@
 :root,
 [data-style-mode='light'],
-.light-mode {
-    --font-family: 'Open Sans', sans-serif;
-    --font-family-header: 'Open Sans', sans-serif;
+.light-mode,
+[data-style-mode='dark'],
+.dark-mode {
+    --font-family: 'Lato', sans-serif;
+    --font-family-header: 'Merriweather', serif;
     --font-size: 1rem;
     --font-ratio: 1.125;
     --font-size-1: calc(var(--font-size-2) / var(--font-ratio));
@@ -39,16 +41,33 @@
     --dark-gray: #1f1f1f;
     --white: #ffffff;
     --black: #000000;
-    --red: #f92f3d;
+    --red: #a62f03;
+    --blue: #193b59;
+    --orange: #f28705;
 
     --opacity-on-hover: 0.7;
     --transition: all var(--p-transition-duration) ease-out;
-    --max-container-width: 1366px;
+    --max-container-width: 1440px;
 
     --background: var(--white);
-}
+    --p-text-color: var(--black);
+    --link-color: var(--blue);
 
-[data-style-mode='dark'],
-.dark-mode {
-    --background: var(--p-surface-950);
+    // BUTTONS
+    --p-button-border-radius: 0;
+    --p-button-padding-x: 3.5rem;
+    --p-button-padding-y: 0.7rem;
+    --p-button-icon-only-width: 50px;
+    --p-button-primary-border-color: var(--blue);
+    --p-button-primary-hover-border-color: var(--blue);
+    --p-button-primary-background: var(--orange);
+    --p-button-primary-color: var(--blue);
+    --p-button-primary-hover-background: var(--blue);
+    --p-button-primary-hover-color: var(--orange);
+    --p-button-secondary-border-color: var(--orange);
+    --p-button-secondary-hover-border-color: var(--orange);
+    --p-button-secondary-background: var(--blue);
+    --p-button-secondary-color: var(--orange);
+    --p-button-secondary-hover-background: var(--orange);
+    --p-button-secondary-hover-color: var(--blue);
 }

@@ -45,33 +45,29 @@ const shareWebsite = async () => {
 </script>
 
 <template>
-  <footer class="bg-black text-white px-6 py-16">
-    <div class="text-center">
-      <!-- Action Buttons -->
-      <div class="flex justify-center items-center space-x-4 mb-6">
-        <Button
-          label="Share"
-          icon="pi pi-share-alt"
-          severity="secondary"
-          size="small"
-          class="bg-white text-black border-white hover:bg-gray-200"
-          @click="shareWebsite"
-        />
-        <Button
-          label="Donate"
-          severity="danger"
-          size="small"
-          class="bg-red text-white border-red hover:bg-red-700"
-          @click="openDonateLink"
-        />
+  <footer class="blue-section">
+    <div class="bg-red h-16" />
+    <div class="p-12 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div>
+        <p class="mb-6">
+          The views expressed herein are exclusively those of the authors and do
+          not reflect the official stance of any political candidate or other
+          organization and have not been requested or endorsed by any related
+          entity. Information presented has been verified as accurate to the
+          best of our ability.
+        </p>
+        <p class="mb-6">
+          This advertisement was not requested or authorized by any candidate or
+          candidate's committee.Paid for by People Are People LLC, 971 US
+          Highway 202N #8014, Branchburg, NJ 08876.
+        </p>
+        <p>Copyright © {{ currentYear }}</p>
       </div>
-      <p class="text-lg text-whit4 mb-2">
-        Paid for by People Are People NJ. Because New Jersey deserves a governor
-        with backbone—not a weathervane.
-      </p>
-      <p class="text-white">
-        Copyright © {{ currentYear }} People Are People NJ. All Rights Reserved.
-      </p>
+      <div>
+        <p class="mb-2">
+          <a href="https://papnj.com" target="_blank"> People Are People </a>
+        </p>
+      </div>
     </div>
   </footer>
 </template>

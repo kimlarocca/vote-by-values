@@ -1,14 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
 @tailwind base;
 
-@mixin typeface($type, $size) {
-  font-family: var(--font-family-#{$type});
-  letter-spacing: normal;
-  font-size: var(--font-size-#{$size});
-}
-
 @layer base {
-
   p,
   h1,
   h2,
@@ -22,101 +15,59 @@
   }
 
   p {
-    @include typeface(primary, 5);
+    font-family: 'Lato';
     font-weight: 400;
-    line-height: 1.5;
-
-    @screen md {
-      @include typeface(primary, 6);
-      font-weight: 400;
-      line-height: 1.75;
+    font-size: 18px;
+    line-height: 22px;
+    @screen lg {
+      font-size: 21px;
+      line-height: 25px;
     }
   }
 
   h1,
   .like-h1 {
-    text-transform: uppercase;
-    @include typeface(header, 15);
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    line-height: 3rem;
-
-    @screen md {
-      @include typeface(header, 16);
-      font-weight: 800;
-      line-height: 3.75rem;
-    }
-
+    font-family: 'Merriweather';
+    font-weight: 900;
+    font-size: 34px;
+    line-height: 43px;
+    color: #193b59;
     @screen lg {
-      font-size: 95px;
-      font-weight: 800;
-      line-height: 95px;
+      font-size: 55px;
+      line-height: 69px;
     }
   }
 
   h2,
   .like-h2 {
-    @include typeface(header, 10);
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    font-size: 30px;
-      line-height: 40px;
-
-    @screen md {
-      font-size: 55px;
-      line-height: 65px;
-    }
+    font-family: 'Merriweather';
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 43px;
+    color: #193b59;
   }
 
   h3,
   .like-h3 {
-    @include typeface(primary, 9);
+    font-family: 'Lato';
+    font-style: normal;
     font-weight: 700;
-    font-size: 20px;
-    line-height: 30px;
-
-    @screen md {
-      @include typeface(primary, 10);
-      font-size: 25px;
-      line-height: 35px;
-      font-weight: 700;
-    }
-  }
-
-  h4,
-  .like-h4 {
-    @include typeface(primary, 7);
-    font-weight: 400;
-    letter-spacing: 0.5px;
+    font-size: 34px;
+    line-height: 41px;
     text-transform: uppercase;
-
-    @screen md {
-      @include typeface(primary, 8);
-      font-weight: 500;
-      letter-spacing: 0.5px;
-    }
   }
 
   label,
   .small {
-    font-size: var(--font-size-5);
-
-    @screen md {
-      font-size: var(--font-size-5);
+    font-size: 14px;
+    line-height: 18px;
+    @screen lg {
+      font-size: 16px;
+      line-height: 20px;
     }
   }
 
   label {
     display: block;
-  }
-
-  h5,
-  .like-h5 {
-    font-weight: 500;
-    text-transform: uppercase;
-  }
-
-  .font-semibold {
-    font-weight: 500 ! important;
   }
 }
