@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="container">home page</div>
+  <div class="container">key dates</div>
 </template>
 
 <style lang="scss"></style>

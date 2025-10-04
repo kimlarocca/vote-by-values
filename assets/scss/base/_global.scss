@@ -93,6 +93,21 @@ a {
     font-size: 22px !important;
 }
 
+.p-menubar {
+    border: none !important;
+    background: var(--red) !important;
+    @screen xl {
+        background: var(--white) !important;
+    }
+}
+.p-menubar-item-link {
+    color: var(--white) !important;
+    overflow: visible !important;
+    @screen xl {
+        color: var(--blue) !important;
+    }
+}
+
 // accessibility
 // hide outline when using a mouse but not when using a keyboard
 .js-focus-visible :focus:not(.focus-visible) {

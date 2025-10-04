@@ -4,6 +4,6 @@
     <main>
       <NuxtPage />
     </main>
-    <the-footer />
+    <the-footer class="mt-16" />
   </div>
 </template>

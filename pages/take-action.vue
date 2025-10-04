@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <div class="container">home page</div>
+  <div class="container">take action</div>
 </template>
 
 <style lang="scss"></style>
