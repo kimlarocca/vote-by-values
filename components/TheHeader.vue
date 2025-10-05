@@ -66,8 +66,8 @@ const navItems = [
             class="text-white small hidden xl:flex mr-6"
             style="line-height: 56px"
           >
-            <strong>It's time to take action!</strong>
-            Contribute to the cause and stop NJ from turning red.
+            <strong>It's time to take action!</strong>&nbsp;Contribute to the
+            cause and stop NJ from turning red.
           </p>
           <a
             href="https://papnj.com/#volunteer"
