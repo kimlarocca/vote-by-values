@@ -72,7 +72,7 @@ const navItems = [
           <a
             href="https://papnj.com/#volunteer"
             target="_blank"
-            class="hidden sm:block"
+            class="hidden md:block"
           >
             <Button size="small" label="Volunteer" class="mr-2" />
           </a>

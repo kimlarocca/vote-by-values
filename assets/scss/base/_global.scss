@@ -39,7 +39,7 @@ a {
 
 .container {
     width: 100%;
-    max-width: var(--max-container-width);
+    max-width: var(--max-container-width) !important;
     margin: auto;
     padding: 0 30px;
     @screen lg {
@@ -75,6 +75,10 @@ a {
 // primevue overrides
 .p-button {
     border-width: 2px !important;
+    color: var((--blue)) !important;
+    background: var(--orange) !important;
+    border: 2px solid var(--blue) !important;
+    border-radius: 0 !important;
 }
 .p-button .p-button-label {
     font-weight: 900 !important;
