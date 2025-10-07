@@ -100,6 +100,12 @@ const navItems = [
           {{ item.label }}
         </NuxtLink>
       </p>
+      <a href="https://papnj.com/#volunteer" target="_blank">
+        <Button size="small" label="Volunteer" class="mt-4 mb-4" />
+      </a>
+      <a href="https://secure.papnj.com/donate" target="_blank">
+        <Button size="small" label="Donate" />
+      </a>
     </Drawer>
   </header>
 </template>
