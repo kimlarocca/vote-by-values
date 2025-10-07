@@ -32,8 +32,13 @@ a {
     &:hover {
         text-decoration: underline;
     }
-    &.plain {
-        text-decoration: none;
+}
+.plain {
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: var(--transition);
+    &:hover {
+        opacity: var(--opacity-on-hover) !important;
     }
 }
 
@@ -71,11 +76,15 @@ a {
 // primevue overrides
 .p-button {
     border-width: 2px !important;
-    color: var((--blue)) !important;
+    color: var(--blue) !important;
     background: var(--orange) !important;
     border: 2px solid var(--blue) !important;
     border-radius: 0 !important;
     padding: 0.7rem 3.5rem !important;
+    transition: var(--transition) !important;
+    &:hover {
+        opacity: var(--opacity-on-hover) !important;
+    }
 }
 .p-button .p-button-label {
     font-weight: 900 !important;
@@ -109,6 +118,30 @@ a {
     @screen xl {
         color: var(--blue) !important;
     }
+}
+.p-dialog {
+    border-radius: 0 !important;
+    border: none !important;
+}
+.p-dialog-mask {
+    background: rgba(25, 59, 89, 0.95) !important;
+}
+.p-dialog-header {
+    background: var(--red) !important;
+    border-bottom: none !important;
+    padding: 0 !important;
+    justify-content: flex-end !important;
+}
+.p-dialog-header .p-button {
+    padding: 8px !important;
+    border: 3px solid var(--blue) !important;
+    svg {
+        width: 24px !important;
+        height: 24px !important;
+    }
+}
+.p-dialog-content {
+    padding: 0 !important;
 }
 
 // accessibility

@@ -1,7 +1,10 @@
 <script setup></script>
 
 <template>
-  <div class="container">issues affecting nj</div>
+  <div class="container">
+    <h1 class="mb-4">Issues Affecting New Jersey</h1>
+    <p>Coming soon!</p>
+  </div>
 </template>
 
 <style lang="scss"></style>

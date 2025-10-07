@@ -1,4 +1,12 @@
-<script setup></script>
+<script setup>
+const showFreeSpeech = ref(false)
+const showMilitaryTakeOver = ref(false)
+const showDueProcess = ref(false)
+const showPublicEducation = ref(false)
+const showVaccineRollback = ref(false)
+const showBodilyAutonomy = ref(false)
+const showFEMA = ref(false)
+</script>
 
 <template>
   <div class="home container">
@@ -20,7 +28,7 @@
           Can we trust Jack's values, <br class="hidden sm:block" />or will he
           say anything to win?
         </h2>
-        <NuxtLink to="/take-action">
+        <NuxtLink to="https://papnj.com/#volunteer" target="_blank">
           <Button label="Take Action!" severity="secondary" class="mr-2 mb-9" />
         </NuxtLink>
         <div class="hidden lg:block">
@@ -64,11 +72,13 @@
           />
         </div>
         <div class="self-center">
-          <img
-            src="/images/JackTheFlipper.jpg"
-            alt="Are Jack's policies dangerous for New Jersey? - Jack The Flipper"
-            class="w-full lg:w-fit"
-          />
+          <NuxtLink to="/jacks-dangerous-policies" class="plain">
+            <img
+              src="/images/JackTheFlipper.jpg"
+              alt="Are Jack's policies dangerous for New Jersey? - Jack The Flipper"
+              class="w-full lg:w-fit"
+            />
+          </NuxtLink>
           <p class="mt-4 px-6 mx-auto lg:w-5/6">
             Jack the Flipper has been all over the map, from Sussex to Cape May,
             on some of the most important issues facing New Jersey and the
@@ -97,10 +107,14 @@
         class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-4 lg:gap-16 xl:gap-32 mt-12"
       >
         <div class="px-6 lg:px-0 text-center">
-          <img src="/images/KeyDates.jpg" alt="Key Dates" />
+          <NuxtLink to="/key-dates" class="plain">
+            <img src="/images/KeyDates.jpg" alt="Key Dates" />
+          </NuxtLink>
         </div>
         <div class="px-6 lg:px-0 text-center">
-          <img src="/images/DYOR.jpg" alt="DYOR - Do Your Own Research" />
+          <NuxtLink to="/dyor" class="plain">
+            <img src="/images/DYOR.jpg" alt="DYOR - Do Your Own Research" />
+          </NuxtLink>
         </div>
       </div>
     </div>
@@ -126,28 +140,101 @@
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-fit m-auto"
       >
         <div class="text-center">
-          <img src="/images/FreeSpeech.jpg" alt="Free Speech" />
+          <img
+            src="/images/FreeSpeech.jpg"
+            alt="Free Speech"
+            class="plain"
+            @click="showFreeSpeech = true"
+          />
         </div>
         <div class="text-center">
-          <img src="/images/MilitaryTakeOver.jpg" alt="Military Take Over" />
+          <img
+            src="/images/MilitaryTakeOver.jpg"
+            alt="Military Take Over"
+            class="plain"
+            @click="showMilitaryTakeOver = true"
+          />
         </div>
         <div class="text-center">
-          <img src="/images/DueProcess.jpg" alt="Due Process" />
+          <img
+            src="/images/DueProcess.jpg"
+            alt="Due Process"
+            class="plain"
+            @click="showDueProcess = true"
+          />
         </div>
         <div class="text-center">
-          <img src="/images/PublicEducation.jpg" alt="Public Education" />
+          <img
+            src="/images/PublicEducation.jpg"
+            alt="Public Education"
+            class="plain"
+            @click="showPublicEducation = true"
+          />
         </div>
         <div class="text-center">
-          <img src="/images/VaccineRollback.jpg" alt="Vaccine Rollback" />
+          <img
+            src="/images/VaccineRollback.jpg"
+            alt="Vaccine Rollback"
+            class="plain"
+            @click="showVaccineRollback = true"
+          />
         </div>
         <div class="text-center">
-          <img src="/images/BodilyAutonomy.jpg" alt="Bodily Autonomy" />
+          <img
+            src="/images/BodilyAutonomy.jpg"
+            alt="Bodily Autonomy"
+            class="plain"
+            @click="showBodilyAutonomy = true"
+          />
         </div>
         <div class="text-center">
-          <img src="/images/FEMA.jpg" alt="FEMA" />
+          <img
+            src="/images/FEMA.jpg"
+            alt="FEMA"
+            class="plain"
+            @click="showFEMA = true"
+          />
         </div>
       </div>
     </div>
+    <!-- Dialogs -->
+    <Dialog v-model:visible="showFreeSpeech" modal :style="{ width: '90vw' }">
+      <FreeSpeech />
+    </Dialog>
+    <Dialog
+      v-model:visible="showMilitaryTakeOver"
+      modal
+      :style="{ width: '90vw' }"
+    >
+      <MilitaryTakeOver />
+    </Dialog>
+    <Dialog v-model:visible="showDueProcess" modal :style="{ width: '90vw' }">
+      <DueProcess />
+    </Dialog>
+    <Dialog
+      v-model:visible="showPublicEducation"
+      modal
+      :style="{ width: '90vw' }"
+    >
+      <PublicEducation />
+    </Dialog>
+    <Dialog
+      v-model:visible="showVaccineRollback"
+      modal
+      :style="{ width: '90vw' }"
+    >
+      <VaccineRollback />
+    </Dialog>
+    <Dialog
+      v-model:visible="showBodilyAutonomy"
+      modal
+      :style="{ width: '90vw' }"
+    >
+      <BodilyAutonomy />
+    </Dialog>
+    <Dialog v-model:visible="showFEMA" modal :style="{ width: '90vw' }">
+      <FEMA />
+    </Dialog>
   </div>
 </template>
 

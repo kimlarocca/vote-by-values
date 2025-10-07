@@ -1,6 +1,9 @@
 <script setup>
+import { useRouter } from 'vue-router'
+
 const router = useRouter()
 const visible = ref(false)
+
 const navItems = [
   {
     label: 'Jack playing politics',
@@ -39,9 +42,8 @@ const navItems = [
   },
   {
     label: 'Take action',
-    to: '/take-action',
     command: () => {
-      router.push('/take-action')
+      window.open('https://papnj.com/#volunteer', '_blank')
     }
   },
   {

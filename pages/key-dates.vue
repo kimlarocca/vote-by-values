@@ -1,7 +1,5 @@
-<script setup></script>
-
 <template>
-  <div class="container">key dates</div>
+  <div class="container px-4 xl:px-0">
+    <KeyDates />
+  </div>
 </template>
-
-<style lang="scss"></style>
