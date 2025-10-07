@@ -86,7 +86,9 @@
         <p class="text-white mb-8">
           How does Jack compare to his opponent, Mikie Sherrill?
         </p>
-        <Button label="See For Yourself" />
+        <NuxtLink to="/jack-vs-mikie">
+          <Button label="See For Yourself" />
+        </NuxtLink>
       </div>
     </div>
     <!-- key dates / DYOR -->
@@ -149,7 +151,7 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .hero {
   background: url('/images/smaller-mobile-hero.jpg') no-repeat top center;
   background-size: contain;

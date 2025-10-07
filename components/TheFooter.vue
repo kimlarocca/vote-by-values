@@ -38,7 +38,9 @@ const currentYear = new Date().getFullYear()
         class="order-1 lg:order-3 lg:absolute lg:right-0"
         style="margin-top: -56px"
       >
-        <LogoFooter />
+        <NuxtLink to="/">
+          <LogoFooter />
+        </NuxtLink>
       </div>
     </div>
   </footer>
