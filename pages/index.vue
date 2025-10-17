@@ -89,6 +89,26 @@ const showDialog = topic => {
         </div>
       </div>
     </div>
+
+    <!-- important issues -->
+    <div id="issues" class="p-12 text-center">
+      <h2 class="like-h1 mb-8">
+        Issues important to the people of New Jersey:
+      </h2>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-fit m-auto"
+      >
+        <div class="text-center" v-for="issue in issues" :key="issue.topic">
+          <img
+            :src="issue.image"
+            :alt="issue.topic"
+            class="plain"
+            @click="showDialog(issue.topic)"
+          />
+        </div>
+      </div>
+    </div>
+
     <!-- jack vs mikie -->
     <div
       class="jack-vs-mikie flex md:items-center justify-center mt-12 lg:mt-0"
@@ -133,24 +153,6 @@ const showDialog = topic => {
         </a>
       </div>
     </div>
-    <!-- important issues -->
-    <div id="issues" class="p-12 text-center">
-      <h2 class="like-h1 mb-8">
-        Issues important to the people of New Jersey:
-      </h2>
-      <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-fit m-auto"
-      >
-        <div class="text-center" v-for="issue in issues" :key="issue.topic">
-          <img
-            :src="issue.image"
-            :alt="issue.topic"
-            class="plain"
-            @click="showDialog(issue.topic)"
-          />
-        </div>
-      </div>
-    </div>
     <!-- Dialogs -->
     <Dialog v-model:visible="visible" modal :style="{ width: '80vw' }">
       <IssueDialog :topic="currentTopic" />
@@ -192,7 +194,7 @@ const showDialog = topic => {
 .jack-vs-mikie {
   background: url('/images/JackVsMikie-Mobile.jpg') no-repeat bottom center;
   background-size: cover;
-  height: 720px;
+  height: 600px;
   @media (min-width: 768px) {
     background: url('/images/JackVsMikie-Desktop.jpg') no-repeat top center;
     background-size: cover;
