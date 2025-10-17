@@ -1,11 +1,10 @@
 <script setup>
-const showFreeSpeech = ref(false)
-const showMilitaryTakeOver = ref(false)
-const showDueProcess = ref(false)
-const showPublicEducation = ref(false)
-const showVaccineRollback = ref(false)
-const showBodilyAutonomy = ref(false)
-const showFEMA = ref(false)
+const visible = ref(false)
+const currentTopic = ref(null)
+const showDialog = topic => {
+  currentTopic.value = topic
+  visible.value = true
+}
 </script>
 
 <template>
@@ -142,101 +141,19 @@ const showFEMA = ref(false)
       <div
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 w-fit m-auto"
       >
-        <div class="text-center">
+        <div class="text-center" v-for="issue in issues" :key="issue.topic">
           <img
-            src="/images/FreeSpeech.jpg"
-            alt="Free Speech"
+            :src="issue.image"
+            :alt="issue.topic"
             class="plain"
-            @click="showFreeSpeech = true"
-          />
-        </div>
-        <div class="text-center">
-          <img
-            src="/images/MilitaryTakeOver.jpg"
-            alt="Military Take Over"
-            class="plain"
-            @click="showMilitaryTakeOver = true"
-          />
-        </div>
-        <div class="text-center">
-          <img
-            src="/images/DueProcess.jpg"
-            alt="Due Process"
-            class="plain"
-            @click="showDueProcess = true"
-          />
-        </div>
-        <div class="text-center">
-          <img
-            src="/images/PublicEducation.jpg"
-            alt="Public Education"
-            class="plain"
-            @click="showPublicEducation = true"
-          />
-        </div>
-        <div class="text-center">
-          <img
-            src="/images/VaccineRollback.jpg"
-            alt="Vaccine Rollback"
-            class="plain"
-            @click="showVaccineRollback = true"
-          />
-        </div>
-        <div class="text-center">
-          <img
-            src="/images/BodilyAutonomy.jpg"
-            alt="Bodily Autonomy"
-            class="plain"
-            @click="showBodilyAutonomy = true"
-          />
-        </div>
-        <div class="text-center">
-          <img
-            src="/images/FEMA.jpg"
-            alt="FEMA"
-            class="plain"
-            @click="showFEMA = true"
+            @click="showDialog(issue.topic)"
           />
         </div>
       </div>
     </div>
     <!-- Dialogs -->
-    <Dialog v-model:visible="showFreeSpeech" modal :style="{ width: '90vw' }">
-      <FreeSpeech />
-    </Dialog>
-    <Dialog
-      v-model:visible="showMilitaryTakeOver"
-      modal
-      :style="{ width: '90vw' }"
-    >
-      <MilitaryTakeOver />
-    </Dialog>
-    <Dialog v-model:visible="showDueProcess" modal :style="{ width: '90vw' }">
-      <DueProcess />
-    </Dialog>
-    <Dialog
-      v-model:visible="showPublicEducation"
-      modal
-      :style="{ width: '90vw' }"
-    >
-      <PublicEducation />
-    </Dialog>
-    <Dialog
-      v-model:visible="showVaccineRollback"
-      modal
-      :style="{ width: '90vw' }"
-    >
-      <VaccineRollback />
-    </Dialog>
-    <Dialog
-      v-model:visible="showBodilyAutonomy"
-      modal
-      :style="{ width: '90vw' }"
-    >
-      <BodilyAutonomy />
-    </Dialog>
-    <Dialog v-model:visible="showFEMA" modal :style="{ width: '90vw' }">
-      <FEMA />
+    <Dialog v-model:visible="visible" modal :style="{ width: '80vw' }">
+      <IssueDialog :topic="currentTopic" />
     </Dialog>
   </div>
 </template>

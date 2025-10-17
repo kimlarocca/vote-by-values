@@ -1,5 +1,11 @@
 <script setup>
-const issueDescription = issues.find(issue => issue.topic === 'Healthcare')
+const props = defineProps({
+  topic: {
+    type: String,
+    required: true
+  }
+})
+const issueDescription = issues.find(issue => issue.topic === props.topic)
 </script>
 <template>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
