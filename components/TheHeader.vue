@@ -36,7 +36,7 @@ const navItems = [
         <Logo />
       </NuxtLink>
       <div>
-        <div class="flex items-center ml-12" style="height: 56px">
+        <div class="flex items-center justify-end" style="height: 56px">
           <!-- <p
             class="text-white small hidden xl:flex mr-6"
             style="line-height: 56px"
@@ -62,8 +62,8 @@ const navItems = [
             <i class="pi pi-bars text-4xl text-white cursor-pointer" />
           </div>
         </div>
-        <nav class="hidden xl:flex justify-between ml-12 mt-4">
-          <p v-for="item in navItems" :key="item.label" class="small mr-4">
+        <nav class="hidden w-full xl:flex justify-end mt-4">
+          <p v-for="item in navItems" :key="item.label" class="small ml-4">
             <NuxtLink :to="item.to" @click="visible = false" class="plain">
               {{ item.label }}
             </NuxtLink>

@@ -30,7 +30,6 @@ const showDialog = topic => {
         <NuxtLink to="#issues">
           <Button label="Learn More" severity="secondary" class="mr-2 mb-9" />
         </NuxtLink>
-        <div id="playing-politics" />
         <div class="hidden lg:block">
           <iframe
             width="560"
@@ -45,12 +44,13 @@ const showDialog = topic => {
         </div>
       </div>
     </div>
+    <div id="playing-politics" />
     <!-- video for mobile -->
     <div class="lg:hidden mb-6">
       <iframe
-        width="100%"
+        width="560"
         height="315"
-        src="https://www.youtube.com/embed/2TnsMJn1pU0?si=2Us-4DKzCBsWVpu_"
+        src="https://www.youtube.com/embed/ZW0S74-4b68?si=CkoQ2lKMcHOQt2-K"
         title="YouTube video player"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
