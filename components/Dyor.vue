@@ -3,40 +3,42 @@
     <div>
       <h1 class="mb-4">DYOR: Do Your Own Research</h1>
       <div class="content">
-        <h2 class="mb-4">
+        <h2 class="mb-8">
           Jack Ciattarelli's Voting Record in the NJ Assembly
         </h2>
-        <ul class="mb-8">
-          <li>
-            <a
-              href="https://www.njleg.state.nj.us/voting-records/2010/343/votes"
-              target="_blank"
-              >2010-2011 Votes</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.njleg.state.nj.us/voting-records/2012/343/votes"
-              target="_blank"
-              >2012-2013 Votes</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.njleg.state.nj.us/voting-records/2014/343/votes"
-              target="_blank"
-              >2014-2015 Votes</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.njleg.state.nj.us/voting-records/2016/343/votes
+        <div class="mb-8">
+          <a
+            href="https://www.njleg.state.nj.us/voting-records/2010/343/votes"
+            target="_blank"
+            class="inline-block mr-2 mb-2"
+            ><Button label="2010-2011 Votes" icon="pi pi-external-link"
+          /></a>
+          <a
+            href="https://www.njleg.state.nj.us/voting-records/2012/343/votes"
+            target="_blank"
+            class="inline-block mr-2 mb-2"
+          >
+            <Button label="2012-2013 Votes" icon="pi pi-external-link" />
+          </a>
+          <a
+            href="https://www.njleg.state.nj.us/voting-records/2014/343/votes"
+            target="_blank"
+            class="inline-block mr-2"
+          >
+            <Button
+              label="2014-2015 Votes"
+              icon="pi pi-external-link
 "
-              target="_blank"
-              >2016-2017 Votes</a
-            >
-          </li>
-        </ul>
+            />
+          </a>
+          <a
+            href="https://www.njleg.state.nj.us/voting-records/2016/343/votes
+"
+            class="inline-block mr-2 mb-2"
+            target="_blank"
+            ><Button label="2016-2017 Votes" icon="pi pi-external-link" />
+          </a>
+        </div>
         <h2 class="mb-4">AFL-CIO on Jack</h2>
         <a
           href="https://njaflcio.org/codeu-2025/ciatterellis-record/"
