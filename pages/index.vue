@@ -50,6 +50,7 @@ const showDialog = topic => {
       <iframe
         width="560"
         height="315"
+        style="max-width: 100%"
         src="https://www.youtube.com/embed/ZW0S74-4b68?si=CkoQ2lKMcHOQt2-K"
         title="YouTube video player"
         frameborder="0"
