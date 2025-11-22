@@ -15,6 +15,15 @@ const navItems = [
   },
   { label: "News", to: "/" },
 ]
+const keyword = ref("")
+
+const keywordSearch = () => {
+  // take user to search page with query param
+  const query = keyword.value
+  if (query && query.trim() !== "") {
+    navigateTo(`/search?query=${encodeURIComponent(query)}`)
+  }
+}
 </script>
 
 <template>
@@ -23,8 +32,23 @@ const navItems = [
       <NuxtLink to="/" class="plain">
         <Logo />
       </NuxtLink>
-      <!-- <div>
-        <nav class="hidden w-full lg:flex justify-end gap-4 mt-4">
+      <div>
+        <InputGroup>
+          <InputText
+            v-model="keyword"
+            placeholder="Search Candidates"
+            @keyup.enter="keywordSearch()"
+          />
+          <InputGroupAddon>
+            <Button
+              icon="pi pi-search"
+              severity="secondary"
+              variant="text"
+              @click="keywordSearch()"
+            />
+          </InputGroupAddon>
+        </InputGroup>
+        <!-- <nav class="hidden w-full lg:flex justify-end gap-4 mt-4">
           <p v-for="item in navItems" :key="item.label" class="small">
             <NuxtLink :to="item.to" @click="visible = false" class="plain">
               {{ item.label }}
@@ -34,8 +58,8 @@ const navItems = [
             <i class="pi pi-filter text-xl cursor-pointer mr-3" />
             <i class="pi pi-bars text-xl cursor-pointer" />
           </div>
-        </nav>
-      </div> -->
+        </nav> -->
+      </div>
     </div>
     <Drawer v-model:visible="visible" position="right" header=" ">
       <p v-for="item in navItems" :key="item.label" class="mb-5">

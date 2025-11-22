@@ -4,8 +4,7 @@
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
     id="Bluesky--Streamline-Simple-Icons"
-    height="24"
-    width="24"
+    class="bluesky"
   >
     <title>Bluesky</title>
     <path
@@ -15,3 +14,16 @@
     ></path>
   </svg>
 </template>
+
+<style scoped>
+.bluesky {
+  width: 16px;
+  height: 16px;
+  margin-bottom: -1px;
+  overflow: visible;
+  &.size2xl {
+    width: 24px;
+    height: 24px;
+  }
+}
+</style>

@@ -110,7 +110,7 @@ onMounted(async () => {
               aria-label="Bluesky"
               class="text-black plain flex items-center"
             >
-              <Bluesky />
+              <Bluesky class="size2xl" />
               <div class="small ml-2">{{ candidate.bluesky }}</div>
             </a>
             <a

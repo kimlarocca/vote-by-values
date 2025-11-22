@@ -1,25 +1,13 @@
 <script setup>
-const supabase = useSupabaseClient()
-const candidates = ref([])
-const loading = ref(true)
-
-const getCandidates = async () => {
-  const { data, error } = await supabase
-    .from("candidates")
-    .select(`*`)
-    .eq("race", "NJ-11")
-    .order("party")
-    .order("name")
-  if (error) {
-    console.error(error)
-  } else {
-    candidates.value = data
-    loading.value = false
-  }
-}
-
-onMounted(async () => {
-  getCandidates()
+const props = defineProps({
+  candidates: {
+    type: Array,
+    required: true,
+  },
+  loading: {
+    type: Boolean,
+    required: true,
+  },
 })
 </script>
 
@@ -48,14 +36,44 @@ onMounted(async () => {
             <p class="small font-bold mb-1">{{ candidate.name }}</p>
             <p class="text-sm mb-3">{{ candidate.micro_bio }}</p>
             <div class="flex space-x-4 items-center justify-center">
-              <a href="/" aria-label="tiktok" class="text-xl text-black icon-link">
+              <a
+                v-if="candidate.tiktok"
+                :href="`https://www.tiktok.com/@${candidate.tiktok}`"
+                aria-label="tiktok"
+                class="text-xl text-black plain block relative z-20"
+                target="_blank"
+                @click.stop
+              >
                 <i class="pi pi-tiktok"></i>
               </a>
-              <a href="/" aria-label="instagram" class="text-xl text-black icon-link">
+              <a
+                v-if="candidate.instagram"
+                :href="`https://www.instagram.com/${candidate.instagram}`"
+                aria-label="instagram"
+                class="text-xl text-black plain block relative z-20"
+                target="_blank"
+                @click.stop
+              >
                 <i class="pi pi-instagram"></i>
               </a>
-              <Bluesky />
-              <a href="/" aria-label="youtube" class="text-xl text-black icon-link">
+              <a
+                v-if="candidate.bluesky"
+                :href="`https://bsky.app/profile/${candidate.bluesky}.bsky.social`"
+                aria-label="instagram"
+                class="text-xl text-black plain block relative z-20"
+                target="_blank"
+                @click.stop
+              >
+                <Bluesky />
+              </a>
+              <a
+                v-if="candidate.youtube"
+                :href="`https://www.youtube.com/@${candidate.youtube}`"
+                aria-label="youtube"
+                class="text-xl text-black plain block relative z-20"
+                target="_blank"
+                @click.stop
+              >
                 <i class="pi pi-youtube"></i>
               </a>
             </div>

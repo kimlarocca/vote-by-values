@@ -100,7 +100,7 @@ a {
     color: var(--white) !important;
     background: var(--black) !important;
     border: 2px solid var(--black) !important;
-    border-radius: 0.75rem !important;
+    border-radius: 0.25rem !important;
     transition: var(--transition) !important;
     &:hover {
         opacity: var(--opacity-on-hover) !important;
@@ -119,6 +119,10 @@ a {
 .pi-plus:before {
     font-weight: 900 !important;
     font-size: 22px !important;
+}
+.p-inputgroup .p-button {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
 }
 
 .p-menubar {
