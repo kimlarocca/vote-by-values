@@ -23,10 +23,12 @@ onMounted(async () => {
 
 <template>
   <section v-if="candidates.length" class="candidates">
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
+    <div
+      class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
+    >
       <NuxtLink
         :to="`/${candidate.slug}`"
-        class="plain"
+        class="plain flex flex-col h-full"
         v-for="candidate in candidates"
         :key="candidate.id"
       >
@@ -39,7 +41,8 @@ onMounted(async () => {
             />
           </div>
           <div
-            class="candidate-card-details bg-white border-blue z-10 rounded-xl p-2 text-center text-black h-full"
+            class="candidate-card-details bg-white border-blue z-10 rounded-xl p-2 text-center text-black"
+            style="min-height: 138px"
           >
             <p class="small font-bold mb-1">{{ candidate.name }}</p>
             <p class="text-sm mb-3">{{ candidate.micro_bio }}</p>
