@@ -62,9 +62,7 @@ onMounted(() => {
     </div>
 
     <!-- Loading State -->
-    <div v-if="loading" class="text-center py-12">
-      <ProgressSpinner />
-    </div>
+    <CandidatesSkeleton v-if="loading" />
 
     <!-- No Query -->
     <div v-else-if="!searchQuery" class="bg-white rounded-xl p-8 text-center">

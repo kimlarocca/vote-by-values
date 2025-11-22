@@ -1,54 +1,28 @@
 <script setup>
-const supabase = useSupabaseClient()
-const candidate = ref(null)
 const notFound = ref(false)
-const route = useRoute()
 
-const getCandidate = async () => {
-  const { data, error } = await supabase
-    .from("candidates")
-    .select(`*`)
-    .eq("slug", route.params.slug)
-  if (error) {
-    console.error(error)
-  } else {
-    if (data && data.length > 0) {
-      candidate.value = data[0] // Get first item since it's an array
-    } else {
-      notFound.value = true
-    }
-  }
-}
-
-const hasSocialMedia = computed(() => {
-  if (!candidate.value) return false
-  return (
-    candidate.value.website ||
-    candidate.value.tiktok ||
-    candidate.value.instagram ||
-    candidate.value.bluesky ||
-    candidate.value.youtube
-  )
+const props = defineProps({
+  candidate: {
+    type: Object,
+    required: true,
+  },
 })
 
-onMounted(async () => {
-  getCandidate()
+const hasSocialMedia = computed(() => {
+  if (!props.candidate) return false
+  return (
+    props.candidate.website ||
+    props.candidate.tiktok ||
+    props.candidate.instagram ||
+    props.candidate.bluesky ||
+    props.candidate.youtube
+  )
 })
 </script>
 
 <template>
-  <!-- Not Found Message -->
-  <section v-if="notFound" class="container p-4 text-center py-16">
-    <i class="pi pi-exclamation-triangle text-6xl text-red mb-4"></i>
-    <h1 class="mb-4">404 Not Found</h1>
-    <p class="mb-6">Sorry! The candidate you're looking for could not be found.</p>
-    <NuxtLink to="/">
-      <Button label="Back to All Candidates" icon="pi pi-arrow-left" />
-    </NuxtLink>
-  </section>
-
   <!-- Candidate Detail -->
-  <section v-else-if="candidate" class="candidate-detail container p-4">
+  <section v-if="candidate" class="candidate-detail container p-4">
     <!-- Hero Section -->
     <div class="rounded-xl mb-12">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
