@@ -30,12 +30,17 @@ const props = defineProps({
             />
           </div>
           <div
-            class="candidate-card-details bg-white border-blue z-10 rounded-xl p-2 text-center text-black"
+            class="candidate-card-details bg-white z-10 rounded-xl p-2 text-center text-black"
+            :class="{
+              'border-blue': candidate.party === 'Democrat',
+              'border-red': candidate.party === 'Republican',
+              'border-purple': candidate.party === 'Independent',
+            }"
             style="min-height: 138px"
           >
             <p class="small font-bold mb-1">{{ candidate.name }}</p>
-            <p class="text-sm mb-3">{{ candidate.micro_bio }}</p>
-            <div class="flex space-x-4 items-center justify-center">
+            <p class="text-sm mb-2">{{ candidate.micro_bio }}</p>
+            <div class="flex space-x-3 items-center justify-center">
               <a
                 v-if="candidate.tiktok"
                 :href="`https://www.tiktok.com/@${candidate.tiktok}`"
