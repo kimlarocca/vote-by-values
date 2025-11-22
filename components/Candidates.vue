@@ -9,16 +9,99 @@ const props = defineProps({
     required: true,
   },
 })
+
+const selectedParties = ref([])
+const filterDialogVisible = ref(false)
+
+const parties = computed(() => {
+  const uniqueParties = []
+  props.candidates.forEach((candidate) => {
+    if (candidate.party && !uniqueParties.includes(candidate.party)) {
+      uniqueParties.push(candidate.party)
+    }
+  })
+  return uniqueParties
+})
+
+const filteredCandidates = computed(() => {
+  if (selectedParties.value.length === 0) {
+    return props.candidates
+  }
+  return props.candidates.filter((candidate) =>
+    selectedParties.value.includes(candidate.party)
+  )
+})
+
+const filterLabel = computed(() => {
+  if (selectedParties.value.length === 0) {
+    return "Filter"
+  }
+  if (selectedParties.value.length === 1) {
+    return `Filter (${selectedParties.value[0]})`
+  }
+  return `Filter (${selectedParties.value.length} selected)`
+})
+
+const clearFilters = () => {
+  selectedParties.value = []
+}
 </script>
 
 <template>
   <CandidatesSkeleton v-if="loading" />
   <section v-else-if="candidates.length" class="candidates">
+    <!-- Filter Button -->
+    <div
+      class="filter-section mb-4 flex items-center justify-end gap-2 cursor-pointer"
+      @click="filterDialogVisible = true"
+    >
+      <i class="pi pi-filter text-2xl" />
+      <p class="like-h4">{{ filterLabel }}</p>
+    </div>
+
+    <!-- Filter Dialog -->
+    <Dialog
+      v-model:visible="filterDialogVisible"
+      modal
+      header="Filter by Party"
+      :style="{ width: '90vw', maxWidth: '500px' }"
+    >
+      <div class="flex flex-col gap-4">
+        <div v-for="party in parties" :key="party" class="flex items-center gap-3">
+          <Checkbox
+            v-model="selectedParties"
+            :inputId="party"
+            :value="party"
+            name="party"
+          />
+          <label :for="party" class="cursor-pointer text-lg">{{ party }}</label>
+        </div>
+
+        <Divider />
+
+        <div class="flex gap-3">
+          <Button
+            label="Clear All"
+            severity="secondary"
+            @click="clearFilters"
+            class="flex-1"
+            size="small"
+          />
+          <Button
+            label="Apply"
+            @click="filterDialogVisible = false"
+            class="flex-1"
+            size="small"
+          />
+        </div>
+      </div>
+    </Dialog>
+
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
       <NuxtLink
         :to="`/${candidate.slug}`"
         class="plain flex flex-col h-full"
-        v-for="candidate in candidates"
+        v-for="candidate in filteredCandidates"
         :key="candidate.id"
       >
         <div class="candidate-card rounded-xl">
