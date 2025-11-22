@@ -21,9 +21,9 @@
   height: 16px;
   margin-bottom: -1px;
   overflow: visible;
-  &.size2xl {
-    width: 24px;
-    height: 24px;
+  &.xl {
+    width: 20px;
+    height: 20px;
   }
 }
 </style>

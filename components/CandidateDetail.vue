@@ -89,7 +89,7 @@ onMounted(async () => {
               aria-label="Website"
               class="text-black plain flex items-center"
             >
-              <i class="text-2xl pi pi-globe" />
+              <i class="text-xl pi pi-globe" />
               <p class="small ml-2">{{ formatUrl(candidate.website_url) }}</p>
             </a>
             <a
@@ -99,7 +99,7 @@ onMounted(async () => {
               aria-label="TikTok"
               class="text-black plain flex items-center"
             >
-              <i class="text-2xl pi pi-tiktok" />
+              <i class="text-xl pi pi-tiktok" />
               <div class="small ml-2">{{ candidate.tiktok }}</div>
             </a>
             <a
@@ -107,9 +107,9 @@ onMounted(async () => {
               :href="`https://www.instagram.com/${candidate.instagram}`"
               target="_blank"
               aria-label="Instagram"
-              class="text-black plain flex items-center"
+              class="text-black plain flex items-cxenter"
             >
-              <i class="text-2xl pi pi-instagram" />
+              <i class="text-xl pi pi-instagram" />
               <div class="small ml-2">{{ candidate.instagram }}</div>
             </a>
             <a
@@ -117,7 +117,7 @@ onMounted(async () => {
               :href="`https://bsky.app/profile/${candidate.bluesky}.bsky.social`"
               target="_blank"
               aria-label="Bluesky"
-              class="text-black plain flex items-center size2xl"
+              class="text-black plain flex items-center xl"
             >
               <Bluesky class="size2xl" />
               <div class="small ml-2">{{ candidate.bluesky }}</div>
