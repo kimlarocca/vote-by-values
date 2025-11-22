@@ -1,6 +1,7 @@
 <script setup>
 const supabase = useSupabaseClient()
 const candidates = ref([])
+const loading = ref(true)
 
 const getCandidates = async () => {
   const { data, error } = await supabase
@@ -13,6 +14,7 @@ const getCandidates = async () => {
     console.error(error)
   } else {
     candidates.value = data
+    loading.value = false
   }
 }
 
@@ -22,10 +24,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section v-if="candidates.length" class="candidates">
-    <div
-      class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
-    >
+  <CandidatesSkeleton v-if="loading" />
+  <section v-else-if="candidates.length" class="candidates">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
       <NuxtLink
         :to="`/${candidate.slug}`"
         class="plain flex flex-col h-full"
@@ -63,6 +64,7 @@ onMounted(async () => {
       </NuxtLink>
     </div>
   </section>
+  <p v-else class="text-center">No candidates found.</p>
 </template>
 
 <style lang="scss">
