@@ -238,6 +238,6 @@ const truncateText = (text, maxLength) => {
 .candidate-card-details {
   position: relative;
   margin: -2rem auto 0;
-  width: calc(100% - 3rem);
+  width: calc(100% - 1.5rem);
 }
 </style>
