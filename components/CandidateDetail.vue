@@ -94,7 +94,7 @@ onMounted(async () => {
             </a>
             <a
               v-if="candidate.tiktok"
-              :href="candidate.tiktok"
+              :href="`https://www.tiktok.com/@${candidate.tiktok}`"
               target="_blank"
               aria-label="TikTok"
               class="text-black plain flex items-center"
@@ -104,7 +104,7 @@ onMounted(async () => {
             </a>
             <a
               v-if="candidate.instagram"
-              :href="candidate.instagram"
+              :href="`https://www.instagram.com/${candidate.instagram}`"
               target="_blank"
               aria-label="Instagram"
               class="text-black plain flex items-center"
@@ -114,17 +114,17 @@ onMounted(async () => {
             </a>
             <a
               v-if="candidate.bluesky"
-              :href="candidate.bluesky"
+              :href="`https://bsky.app/profile/${candidate.bluesky}.bsky.social`"
               target="_blank"
               aria-label="Bluesky"
-              class="text-black plain flex items-center"
+              class="text-black plain flex items-center size2xl"
             >
               <Bluesky class="size2xl" />
               <div class="small ml-2">{{ candidate.bluesky }}</div>
             </a>
             <a
               v-if="candidate.youtube"
-              :href="candidate.youtube"
+              :href="`https://www.youtube.com/@${candidate.youtube}`"
               target="_blank"
               aria-label="YouTube"
               class="text-black plain flex items-center"
