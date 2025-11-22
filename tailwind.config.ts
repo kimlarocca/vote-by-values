@@ -22,10 +22,10 @@ export default <Partial<Config>>{
     screens: {
       // Custom breakpoints: 
       // Make sure these are matching the values in the scss vars in the assets/scss/breakpoints.scss file
-      'xs': '320px',
-      'sm': '430px',
-      'md': '768px',
-      'lg': '1024px',
+      'xs': '480px',
+      'sm': '768px',
+      'md': '1170px',
+      'lg': '1280px',
       'xl': '1440px',
       'xxl': '1920px',
     },

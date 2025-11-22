@@ -122,4 +122,31 @@ onUnmounted(() => {
   color: #666;
   letter-spacing: 0.75px;
 }
+
+/* Smaller size for screens 400px and below */
+@media (max-width: 400px) {
+  .countdown-timer {
+    gap: 0.5rem;
+  }
+
+  .flip-number {
+    font-size: 1.25rem;
+    padding: 0.4rem 0.6rem;
+    min-width: 45px;
+    border-radius: 4px;
+  }
+
+  .flip-number::before {
+    height: 1px;
+  }
+
+  .label {
+    font-size: 0.625rem;
+    letter-spacing: 0.5px;
+  }
+
+  .time-unit {
+    gap: 0.25rem;
+  }
+}
 </style>
