@@ -39,8 +39,8 @@ onMounted(async () => {
       <i class="pi pi-exclamation-triangle text-2xl text-red mb-4"></i>
       <h1 class="mb-4">404 Not Found</h1>
       <p class="mb-6">Sorry! The candidate you're looking for could not be found.</p>
-      <NuxtLink to="/">
-        <Button label="Back to All Candidates" icon="pi pi-arrow-left" />
+      <NuxtLink :to="`/race/${candidate.race_slug}`">
+        <Button label="Back" icon="pi pi-arrow-left" />
       </NuxtLink>
     </section>
   </div>

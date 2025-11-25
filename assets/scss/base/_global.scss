@@ -79,6 +79,9 @@ a {
     background-color: var(--gray) !important;
 }
 
+.border-black {
+    border: solid 1px var(--black) !important;
+}
 .border-blue {
     border: solid 2px var(--blue) !important;
 }
@@ -95,6 +98,27 @@ a {
     a {
         color: var(--orange);
     }
+}
+
+.state-svg {
+    width: auto;
+    max-height: 60px;
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+    padding: 0.25rem 1rem;
+    // border: 1px solid var(--purple);
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    background-color: var(--black);
+    color: var(--white);
+    transition: var(--transition);
 }
 
 // primevue overrides

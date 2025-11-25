@@ -12,7 +12,7 @@ const currentYear = new Date().getFullYear()
         Highway 202N #8014, Branchburg, NJ 08876.
       </p>
       <p class="small">
-        Copyright © {{ currentYear }} — NJ11th.com. All Rights Reserved.
+        Copyright © {{ currentYear }} — People Are People NJ. All Rights Reserved.
       </p>
     </div>
   </footer>

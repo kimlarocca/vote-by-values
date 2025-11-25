@@ -43,8 +43,10 @@ const toggleSearch = () => {
         <InputGroup>
           <InputText
             v-model="keyword"
-            placeholder="Search Candidates"
+            placeholder="Search Races & Candidates"
             @keyup.enter="keywordSearch()"
+            class="max-w-full"
+            style="width: 230px"
           />
           <InputGroupAddon>
             <Button

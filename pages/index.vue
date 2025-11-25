@@ -1,36 +1,60 @@
 <script setup>
 const supabase = useSupabaseClient()
 
-const candidates = ref([])
+// today's date in timestampz format
+const today = new Date().toISOString()
 const loading = ref(true)
+const races = ref([])
 
-const getCandidates = async () => {
+const getRaces = async () => {
   const { data, error } = await supabase
-    .from("candidates")
+    .from("races")
     .select(`*`)
-    .eq("race", "NJ-11")
-    .order("party")
+    .gt("election_date", today)
     .order("name")
   if (error) {
     console.error(error)
   } else {
-    candidates.value = data
+    races.value = data
   }
   loading.value = false
 }
 
 onMounted(async () => {
-  getCandidates()
+  getRaces()
 })
 </script>
 
 <template>
   <div class="home container p-4">
-    <section class="text-center">
-      <p class="like-h4 mb-2">Primary Polls Open In</p>
-      <CountdownTimer end-date="2026-02-05T06:00:00-05:00" class="mb-4" />
-      <h1 class="text-center mb-8">Choose wisely. Vote informed.</h1>
+    <section class="text-center mb-16">
+      <p class="tag mb-5 m-auto">
+        <i class="pi pi-check-circle ml-3" /> {{ races.length }} Upcoming
+        {{ races.length === 1 ? "Race" : "Races" }}
+      </p>
+      <h1 class="text-center mb-5">Choose wisely. Vote informed.</h1>
+      <p class="max-w-2xl m-auto">
+        Helping you compare your personal values with political candidates' positions so
+        you can make informed, confident decisions at the ballot box.
+      </p>
     </section>
-    <Candidates :candidates="candidates" :loading="loading" />
+
+    <section v-if="!loading && races.length" class="races-list mb-12">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <NuxtLink
+          v-for="race in races"
+          :key="race.id"
+          :to="`/race/${race.slug}`"
+          class="p-6 rounded-xl shadow-lg border-black text-center clickable plain"
+        >
+          <states-nj />
+          <h2 class="mb-2">{{ race.name }}</h2>
+          <p class="small mb-2">{{ race.description }}</p>
+          <p class="tag m-auto">
+            Election Date: {{ new Date(race.election_date).toLocaleDateString() }}
+          </p>
+        </NuxtLink>
+      </div>
+    </section>
   </div>
 </template>
