@@ -54,7 +54,7 @@ onMounted(async () => {
           <Title>NJ 11th Special Election | {{ race?.name }}</Title>
         </Head>
       </Html>
-      <p class="like-h4 mb-2">Primary Polls Open In</p>
+      <p class="like-h4 mb-2">The Polls Open In</p>
       <CountdownTimer
         v-if="race?.election_date"
         :end-date="race.election_date"
