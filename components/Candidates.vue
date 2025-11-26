@@ -231,7 +231,6 @@ const truncateText = (text, maxLength) => {
       </NuxtLink>
     </div>
   </section>
-  <p v-else class="text-center">No candidates found.</p>
 </template>
 
 <style lang="scss">

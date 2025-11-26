@@ -8,12 +8,14 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: `Vote By Values helps you compare your personal values with political candidates' positions so you can make informed, confident decisions at the ballot box.`,
+      title: `Vote By Values`,
       htmlAttrs: {
         lang: 'en',
       },
       meta: [
-        { name: 'description', content: '' },
+        {
+          name: 'description', content: `Helping you compare your personal values with political candidates' positions so you can make informed, confident decisions at the ballot box.`
+        },
         { name: 'msapplication-TileColor', content: '#0a84ff' },
         { name: 'theme-color', content: '#0a84ff' }
       ],

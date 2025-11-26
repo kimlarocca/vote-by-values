@@ -2,15 +2,18 @@
 const supabase = useSupabaseClient()
 const route = useRoute()
 const candidates = ref([])
+const races = ref([])
 const loading = ref(true)
-const searchQuery = ref("")
+const searchQuery = ref(route.query.query)
 
-const searchCandidates = async () => {
+const search = async () => {
   loading.value = true
-  searchQuery.value = route.query.query || ""
+  const q = route.query.query
+  searchQuery.value = ((Array.isArray(q) ? q[0] : q) || "").trim()
 
   if (!searchQuery.value) {
     candidates.value = []
+    races.value = []
     loading.value = false
     return
   }
@@ -28,6 +31,25 @@ const searchCandidates = async () => {
   } else {
     candidates.value = data || []
   }
+
+  const { data: racesData, error: racesError } = await supabase
+    .from("races")
+    .select("*")
+    .order("name")
+
+  if (racesError) {
+    console.error(racesError)
+  } else {
+    const query = searchQuery.value.toLowerCase()
+    races.value = (racesData || []).filter((race) => {
+      return (
+        (race.name && race.name.toLowerCase().includes(query)) ||
+        (race.description && race.description.toLowerCase().includes(query)) ||
+        (race.slug && race.slug.toLowerCase().includes(query))
+      )
+    })
+  }
+
   loading.value = false
 }
 
@@ -35,12 +57,12 @@ const searchCandidates = async () => {
 watch(
   () => route.query.query,
   () => {
-    searchCandidates()
+    search()
   }
 )
 
 onMounted(() => {
-  searchCandidates()
+  search()
 })
 </script>
 
@@ -56,7 +78,10 @@ onMounted(() => {
     <div v-if="searchQuery" class="mb-8">
       <hr class="mt-12 mb-1" />
       <p class="mb-6 uppercase small">
-        {{ candidates.length }} result{{ candidates.length !== 1 ? "s" : "" }} for:
+        {{ candidates.length + races.length }} result{{
+          candidates.length + races.length !== 1 ? "s" : ""
+        }}
+        for:
       </p>
       <h1 class="mb-6 uppercase">{{ searchQuery }}</h1>
     </div>
@@ -72,8 +97,32 @@ onMounted(() => {
     </div>
 
     <!-- Results -->
-    <div v-else-if="candidates.length > 0">
-      <Candidates :candidates="candidates" :loading="loading" />
+    <div v-else-if="candidates.length > 0 || races.length > 0">
+      <!-- Races Results -->
+      <div v-if="races.length > 0" class="mb-12">
+        <h2 class="mb-6">Races</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <NuxtLink
+            v-for="race in races"
+            :key="race.id"
+            :to="`/race/${race.slug}`"
+            class="p-6 rounded-xl shadow-lg border-black text-center clickable plain"
+          >
+            <states-nj />
+            <h2 class="mb-2">{{ race.name }}</h2>
+            <p class="small mb-2">{{ race.description }}</p>
+            <p class="tag m-auto">
+              Election Date: {{ new Date(race.election_date).toLocaleDateString() }}
+            </p>
+          </NuxtLink>
+        </div>
+      </div>
+
+      <!-- Candidates Results -->
+      <div v-if="candidates.length > 0">
+        <h2 v-if="races.length > 0" class="mb-6">Candidates</h2>
+        <Candidates :candidates="candidates" :loading="loading" />
+      </div>
     </div>
 
     <!-- No Results -->
@@ -81,13 +130,6 @@ onMounted(() => {
       <i class="pi pi-search text-6xl mb-4"></i>
       <h2 class="mb-4">No Results Found</h2>
       <p class="mb-6">Please try a different search term.</p>
-    </div>
-
-    <!-- Back Button -->
-    <div class="mt-12">
-      <NuxtLink to="/">
-        <Button label="View All Candidates" icon="pi pi-arrow-left" />
-      </NuxtLink>
     </div>
   </div>
 </template>

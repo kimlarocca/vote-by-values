@@ -1,6 +1,4 @@
 <script setup>
-const notFound = ref(false)
-
 const props = defineProps({
   candidate: {
     type: Object,
@@ -182,7 +180,7 @@ const hasSocialMedia = computed(() => {
     </div>
 
     <!-- Back Button -->
-    <NuxtLink to="/">
+    <NuxtLink :to="`/race/${candidate.race_slug}`">
       <Button label="Back to All Candidates" icon="pi pi-arrow-left" />
     </NuxtLink>
   </section>
