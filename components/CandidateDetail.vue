@@ -160,8 +160,16 @@ const hasSocialMedia = computed(() => {
       <div>
         <h2 class="mb-4">PAC Funding</h2>
         <p class="mb-2">
-          <span class="font-bold">Corporate PACS?</span>
+          <span class="font-bold">Corporate PACs?</span>
           {{ candidate.corporate_pacs || "No Position On Record" }}
+        </p>
+        <p class="mb-2">
+          <span class="font-bold">Musk-Backed PACs?</span>
+          {{ candidate.musk_pacs || "No Position On Record" }}
+        </p>
+        <p class="mb-2">
+          <span class="font-bold">Bezos-Backed PACs?</span>
+          {{ candidate.bezos_pacs || "No Position On Record" }}
         </p>
         <p class="mb-2">
           <span class="font-bold">AIPAC?</span>

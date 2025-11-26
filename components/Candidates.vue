@@ -181,8 +181,8 @@ const truncateText = (text, maxLength) => {
             }"
           >
             <p class="small font-bold mb-1">{{ candidate.name }}</p>
-            <p class="text-sm mb-2" style="height: 40px">
-              {{ truncateText(candidate.micro_bio, 35) }}
+            <p class="text-xs mb-2" style="height: 40px">
+              {{ candidate.micro_bio }}
             </p>
             <div class="flex space-x-3 items-center justify-center">
               <a
