@@ -1,5 +1,5 @@
 <template>
-  <div class="container px-4 xl:px-0">
+  <div class="home container p-4">
     <Html lang="en">
       <Head>
         <Title>VoteByValues.com | Styleguide</Title>
