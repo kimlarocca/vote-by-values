@@ -1,5 +1,10 @@
 <template>
   <ClientOnly>
+    <Html lang="en">
+      <Head>
+        <Title>VoteByValues.com | Survey</Title>
+      </Head>
+    </Html>
     <SurveyComponent :model="survey" />
   </ClientOnly>
 </template>

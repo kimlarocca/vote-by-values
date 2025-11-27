@@ -70,7 +70,7 @@ onMounted(() => {
   <div class="container px-4 xl:px-0">
     <Html lang="en">
       <Head>
-        <Title>NJ 11th Special Election | Search Results | {{ searchQuery }}</Title>
+        <Title>VoteByValues.com | Search Results | {{ searchQuery }}</Title>
       </Head>
     </Html>
 

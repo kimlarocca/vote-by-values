@@ -29,7 +29,7 @@ onMounted(async () => {
   <div>
     <Html lang="en" v-if="candidate?.name">
       <Head>
-        <Title>NJ 11th Special Election | {{ candidate.name }}</Title>
+        <Title>VoteByValues.com | {{ candidate.name }}</Title>
       </Head>
     </Html>
 

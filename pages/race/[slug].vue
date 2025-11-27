@@ -51,7 +51,7 @@ onMounted(async () => {
     <section v-if="race" class="text-center">
       <Html lang="en">
         <Head>
-          <Title>NJ 11th Special Election | {{ race?.name }}</Title>
+          <Title>VoteByValues.com | {{ race?.name }}</Title>
         </Head>
       </Html>
       <p class="like-h4 mb-2">The Polls Open In</p>
