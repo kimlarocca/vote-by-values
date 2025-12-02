@@ -35,6 +35,7 @@ const search = async () => {
   const { data: racesData, error: racesError } = await supabase
     .from("races")
     .select("*")
+    .eq("draft", false)
     .order("name")
 
   if (racesError) {
