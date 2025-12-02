@@ -11,6 +11,7 @@ const getRaces = async () => {
     .from("races")
     .select(`*`)
     .gt("election_date", today)
+    .eq("draft", false)
     .order("name")
   if (error) {
     console.error(error)
