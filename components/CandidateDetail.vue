@@ -138,7 +138,7 @@ const hasSocialMedia = computed(() => {
           <ul>
             <li v-if="candidate.announcement_url">
               <a :href="candidate.announcement_url" target="_blank">
-                Announcement Video
+                Campaign Announcement
               </a>
             </li>
             <li v-if="candidate.video_url">
