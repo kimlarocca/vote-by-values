@@ -1,10 +1,14 @@
 <script setup>
+const supabase = useSupabaseClient()
+
 const props = defineProps({
   candidate: {
     type: Object,
     required: true,
   },
 })
+
+const endorsedCandidate = ref(null)
 
 const hasSocialMedia = computed(() => {
   if (!props.candidate) return false
@@ -16,6 +20,32 @@ const hasSocialMedia = computed(() => {
     props.candidate.youtube
   )
 })
+
+const getEndorsedCandidate = async () => {
+  if (!props.candidate?.endorsing) return
+
+  const { data, error } = await supabase
+    .from("candidates")
+    .select("*")
+    .eq("id", props.candidate.endorsing)
+    .single()
+
+  if (error) {
+    console.error(error)
+  } else {
+    endorsedCandidate.value = data
+  }
+}
+
+watch(
+  () => props.candidate,
+  () => {
+    if (props.candidate?.endorsing) {
+      getEndorsedCandidate()
+    }
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
@@ -35,6 +65,44 @@ const hasSocialMedia = computed(() => {
 
         <!-- Main Info -->
         <div class="lg:col-span-2 p-4">
+          <Message
+            v-if="candidate.candidate_status === 'Withdrawn'"
+            severity="warn"
+            icon="pi pi-exclamation-circle"
+            class="mb-6"
+          >
+            <p>
+              This candidate has <strong>withdrawn</strong> from the
+              {{ candidate.race_slug }} election<template v-if="endorsedCandidate"
+                >, and is officially endorsing
+                <NuxtLink :to="`/${endorsedCandidate.slug}`">
+                  {{ endorsedCandidate.name }}
+                </NuxtLink> </template
+              >.
+            </p>
+          </Message>
+          <Message
+            v-if="candidate.candidate_status === 'Won'"
+            severity="success"
+            icon="pi pi-exclamation-circle"
+            class="mb-6"
+          >
+            <p>
+              This candidate has <strong>won</strong> the
+              {{ candidate.race_slug }} election!
+            </p>
+          </Message>
+          <Message
+            v-if="candidate.candidate_status === 'Lost'"
+            severity="error"
+            icon="pi pi-exclamation-circle"
+            class="mb-6"
+          >
+            <p>
+              This candidate has <strong>lost</strong> the
+              {{ candidate.race_slug }} election.
+            </p>
+          </Message>
           <div class="mb-4">
             <p
               v-if="candidate.party"
