@@ -12,6 +12,7 @@ const props = defineProps({
 
 const selectedParties = ref([])
 const selectedCandidates = ref([])
+const showActiveOnly = ref(false)
 const filterDialogVisible = ref(false)
 
 const parties = computed(() => {
@@ -26,6 +27,13 @@ const parties = computed(() => {
 
 const filteredCandidates = computed(() => {
   let filtered = props.candidates
+
+  // Filter by active status
+  if (showActiveOnly.value) {
+    filtered = filtered.filter(
+      (candidate) => candidate.candidate_status === "Active"
+    )
+  }
 
   // Filter by party
   if (selectedParties.value.length > 0) {
@@ -45,7 +53,10 @@ const filteredCandidates = computed(() => {
 })
 
 const filterLabel = computed(() => {
-  const totalFilters = selectedParties.value.length + selectedCandidates.value.length
+  const totalFilters =
+    selectedParties.value.length +
+    selectedCandidates.value.length +
+    (showActiveOnly.value ? 1 : 0)
   if (totalFilters === 0) {
     return "Filter"
   }
@@ -55,6 +66,7 @@ const filterLabel = computed(() => {
 const clearFilters = () => {
   selectedParties.value = []
   selectedCandidates.value = []
+  showActiveOnly.value = false
 }
 
 const truncateText = (text, maxLength) => {
@@ -76,7 +88,11 @@ const truncateText = (text, maxLength) => {
         <i class="pi pi-filter text-2xl" />
       </div>
       <Button
-        v-if="selectedParties.length > 0 || selectedCandidates.length > 0"
+        v-if="
+          selectedParties.length > 0 ||
+          selectedCandidates.length > 0 ||
+          showActiveOnly
+        "
         icon="pi pi-times"
         severity="secondary"
         variant="text"
@@ -95,6 +111,21 @@ const truncateText = (text, maxLength) => {
       :style="{ width: '90vw', maxWidth: '600px' }"
     >
       <div class="flex flex-col gap-4">
+        <!-- Filter by Active Status -->
+        <div>
+          <h3 class="mb-3 font-bold">Status</h3>
+          <div class="flex items-center gap-3">
+            <Checkbox
+              v-model="showActiveOnly"
+              inputId="active-only"
+              :binary="true"
+            />
+            <label for="active-only" class="cursor-pointer">Active Candidates Only</label>
+          </div>
+        </div>
+
+        <Divider />
+
         <!-- Filter by Party Section -->
         <div>
           <h3 class="mb-3 font-bold">By Party</h3>
@@ -165,12 +196,27 @@ const truncateText = (text, maxLength) => {
         :key="candidate.id"
       >
         <div class="candidate-card rounded-xl">
-          <div class="candidate-card-image z-0">
+          <div class="candidate-card-image z-0 relative">
             <img
               :src="candidate.image"
               :alt="candidate.name"
               class="w-full h-auto rounded-xl"
             />
+            <div
+              v-if="
+                candidate.candidate_status === 'Won' ||
+                candidate.candidate_status === 'Lost' ||
+                candidate.candidate_status === 'Withdrawn'
+              "
+              class="candidate-status absolute top-0 right-0 rounded-tr-xl rounded-bl-xl p-2 font-bold uppercase"
+              :class="{
+                'bg-green-600': candidate.candidate_status === 'Won',
+                'bg-red-600': candidate.candidate_status === 'Lost',
+                'bg-gray-300': candidate.candidate_status === 'Withdrawn',
+              }"
+            >
+              {{ candidate.candidate_status }}
+            </div>
           </div>
           <div
             class="candidate-card-details bg-white z-10 rounded-xl p-2 text-center text-black"
