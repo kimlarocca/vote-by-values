@@ -40,7 +40,7 @@ onMounted(async () => {
     </div>
 
     <!-- Not Found Message -->
-    <section v-if="notFound" class="container p-4 text-center py-16">
+    <section v-else-if="notFound" class="container p-4 text-center py-16">
       <i class="pi pi-exclamation-triangle text-2xl text-red mb-4"></i>
       <h1 class="mb-4">404 Not Found</h1>
       <p class="mb-6">Sorry! The candidate you're looking for could not be found.</p>
