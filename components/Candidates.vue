@@ -30,9 +30,7 @@ const filteredCandidates = computed(() => {
 
   // Filter by active status
   if (showActiveOnly.value) {
-    filtered = filtered.filter(
-      (candidate) => candidate.candidate_status === "Active"
-    )
+    filtered = filtered.filter((candidate) => candidate.candidate_status === "Active")
   }
 
   // Filter by party
@@ -60,7 +58,7 @@ const filterLabel = computed(() => {
   if (totalFilters === 0) {
     return "Filter"
   }
-  return `Clear (${totalFilters} Filter${totalFilters > 1 ? "s" : ""}`
+  return `Clear ${totalFilters} Filter${totalFilters > 1 ? "s" : ""}`
 })
 
 const clearFilters = () => {
@@ -89,9 +87,7 @@ const truncateText = (text, maxLength) => {
       </div>
       <Button
         v-if="
-          selectedParties.length > 0 ||
-          selectedCandidates.length > 0 ||
-          showActiveOnly
+          selectedParties.length > 0 || selectedCandidates.length > 0 || showActiveOnly
         "
         icon="pi pi-times"
         severity="secondary"
@@ -115,11 +111,7 @@ const truncateText = (text, maxLength) => {
         <div>
           <h3 class="mb-3 font-bold">Status</h3>
           <div class="flex items-center gap-3">
-            <Checkbox
-              v-model="showActiveOnly"
-              inputId="active-only"
-              :binary="true"
-            />
+            <Checkbox v-model="showActiveOnly" inputId="active-only" :binary="true" />
             <label for="active-only" class="cursor-pointer">Active Candidates Only</label>
           </div>
         </div>
