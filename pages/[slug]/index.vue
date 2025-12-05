@@ -3,6 +3,7 @@ const supabase = useSupabaseClient()
 const candidate = ref(null)
 const route = useRoute()
 const notFound = ref(false)
+const loading = ref(true)
 
 const getCandidate = async () => {
   const { data, error } = await supabase
@@ -18,6 +19,7 @@ const getCandidate = async () => {
       notFound.value = true
     }
   }
+  loading.value = false
 }
 
 onMounted(async () => {
@@ -32,6 +34,10 @@ onMounted(async () => {
         <Title>VoteByValues.com | {{ candidate.name }}</Title>
       </Head>
     </Html>
+
+    <div v-if="loading" class="container p-4">
+      <CandidateDetailSkeleton />
+    </div>
 
     <!-- Not Found Message -->
     <section v-if="notFound" class="container p-4 text-center py-16">
