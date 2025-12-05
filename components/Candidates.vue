@@ -12,7 +12,7 @@ const props = defineProps({
 
 const selectedParties = ref([])
 const selectedCandidates = ref([])
-const showActiveOnly = ref(false)
+const includeWithdrawn = ref(false)
 const filterDialogVisible = ref(false)
 
 const parties = computed(() => {
@@ -28,9 +28,9 @@ const parties = computed(() => {
 const filteredCandidates = computed(() => {
   let filtered = props.candidates
 
-  // Filter by active status
-  if (showActiveOnly.value) {
-    filtered = filtered.filter((candidate) => candidate.candidate_status === "Active")
+  // Exclude withdrawn candidates by default
+  if (!includeWithdrawn.value) {
+    filtered = filtered.filter((candidate) => candidate.candidate_status !== "Withdrawn")
   }
 
   // Filter by party
@@ -54,7 +54,7 @@ const filterLabel = computed(() => {
   const totalFilters =
     selectedParties.value.length +
     selectedCandidates.value.length +
-    (showActiveOnly.value ? 1 : 0)
+    (includeWithdrawn.value ? 1 : 0)
   if (totalFilters === 0) {
     return "Filter"
   }
@@ -64,7 +64,7 @@ const filterLabel = computed(() => {
 const clearFilters = () => {
   selectedParties.value = []
   selectedCandidates.value = []
-  showActiveOnly.value = false
+  includeWithdrawn.value = false
 }
 
 const truncateText = (text, maxLength) => {
@@ -87,7 +87,7 @@ const truncateText = (text, maxLength) => {
       </div>
       <Button
         v-if="
-          selectedParties.length > 0 || selectedCandidates.length > 0 || showActiveOnly
+          selectedParties.length > 0 || selectedCandidates.length > 0 || includeWithdrawn
         "
         icon="pi pi-times"
         severity="secondary"
@@ -107,12 +107,18 @@ const truncateText = (text, maxLength) => {
       :style="{ width: '90vw', maxWidth: '600px' }"
     >
       <div class="flex flex-col gap-4">
-        <!-- Filter by Active Status -->
+        <!-- Filter by Status -->
         <div>
           <h3 class="mb-3 font-bold">Status</h3>
           <div class="flex items-center gap-3">
-            <Checkbox v-model="showActiveOnly" inputId="active-only" :binary="true" />
-            <label for="active-only" class="cursor-pointer">Active Candidates Only</label>
+            <Checkbox
+              v-model="includeWithdrawn"
+              inputId="include-withdrawn"
+              :binary="true"
+            />
+            <label for="include-withdrawn" class="cursor-pointer"
+              >Include Withdrawn Candidates</label
+            >
           </div>
         </div>
 
