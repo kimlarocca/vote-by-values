@@ -40,6 +40,8 @@ onMounted(async () => {
       </p>
     </section>
 
+    <RacesSkeleton v-if="loading" />
+
     <section v-if="!loading && races.length" class="races-list mb-12">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         <NuxtLink
