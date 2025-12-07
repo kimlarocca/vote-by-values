@@ -127,9 +127,11 @@ watch(
             </p>
           </div>
           <h1 class="mb-4">{{ candidate.name }}</h1>
-          <p v-if="candidate.micro_bio" class="like-h3 mb-4">
-            {{ candidate.micro_bio }}
-          </p>
+          <p
+            v-if="candidate.micro_bio"
+            v-html="candidate.micro_bio"
+            class="like-h3 mb-4"
+          />
 
           <!-- Biography Section -->
           <template v-if="candidate.bio">
