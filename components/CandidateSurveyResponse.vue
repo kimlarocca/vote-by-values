@@ -108,7 +108,7 @@ const getAnswerClass = (answer) => {
           <p class="font-semibold mb-2">{{ response.title }}</p>
           <div class="flex items-start gap-3">
             <span
-              class="inline-block px-3 py-1 rounded-full text-sm font-medium"
+              class="inline-block px-3 py-1 rounded-xl text-sm font-medium"
               :class="getAnswerClass(response.answer)"
             >
               {{ response.answerLabel }}
