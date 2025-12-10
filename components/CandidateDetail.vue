@@ -196,7 +196,7 @@ watch(
     </div>
 
     <!-- Additional Info -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16 mb-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16 mb-6">
       <div class="lg:col-span-2">
         <template v-if="candidate.experience">
           <h2 class="mb-4">Experience</h2>
@@ -256,6 +256,11 @@ watch(
         </div>
       </div>
     </div>
+
+    <CandidateSurveyResponse
+      v-if="candidate.survey_response"
+      :survey-response="candidate.survey_response"
+    />
 
     <!-- Back Button -->
     <NuxtLink :to="`/race/${candidate.race_slug}`">
