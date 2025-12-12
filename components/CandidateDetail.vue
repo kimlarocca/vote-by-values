@@ -203,18 +203,9 @@ watch(
           <p v-html="candidate.experience" class="mb-8" />
         </template>
 
-        <template v-if="candidate.announcement_url || candidate.video_url">
+        <template v-if="candidate.key_links">
           <h2 class="mb-4">Key Links</h2>
-          <ul>
-            <li v-if="candidate.announcement_url">
-              <a :href="candidate.announcement_url" target="_blank">
-                Campaign Announcement
-              </a>
-            </li>
-            <li v-if="candidate.video_url">
-              <a :href="candidate.video_url" target="_blank"> Campaign Video </a>
-            </li>
-          </ul>
+          <div v-html="candidate.key_links" class="mb-8" />
         </template>
 
         <template v-if="candidate.endorsements">
