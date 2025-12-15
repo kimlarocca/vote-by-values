@@ -61,7 +61,7 @@ onMounted(async () => {
         class="mb-4"
       />
       <h1 class="mb-4">{{ race?.name }}</h1>
-      <p v-if="race?.description" class="mb-4">{{ race.description }}</p>
+      <p v-if="race?.description" class="mb-4" v-html="race.description" />
     </section>
     <Candidates :candidates="candidates" :loading="loading" />
 
