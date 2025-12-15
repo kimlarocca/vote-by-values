@@ -21,6 +21,14 @@ const hasSocialMedia = computed(() => {
   )
 })
 
+const blueskyUrl = computed(() => {
+  if (!props.candidate?.bluesky) return ""
+  if (props.candidate.bluesky.includes("bsky.app")) {
+    return props.candidate.bluesky
+  }
+  return `https://bsky.app/profile/${props.candidate.bluesky}.bsky.social`
+})
+
 const getEndorsedCandidate = async () => {
   if (!props.candidate?.endorsing) return
 
@@ -172,7 +180,7 @@ watch(
             </a>
             <a
               v-if="candidate.bluesky"
-              :href="`https://bsky.app/profile/${candidate.bluesky}.bsky.social`"
+              :href="blueskyUrl"
               target="_blank"
               aria-label="Bluesky"
               class="text-black plain flex items-center xl"
