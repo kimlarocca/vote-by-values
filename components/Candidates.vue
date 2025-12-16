@@ -72,6 +72,14 @@ const truncateText = (text, maxLength) => {
   if (text.length <= maxLength) return text
   return text.substring(0, maxLength) + "..."
 }
+
+const getBlueskyUrl = (candidate) => {
+  if (!candidate?.bluesky) return ""
+  if (candidate.bluesky.includes("bsky.app")) {
+    return candidate.bluesky
+  }
+  return `https://bsky.app/profile/${candidate.bluesky}.bsky.social`
+}
 </script>
 
 <template>
@@ -251,7 +259,7 @@ const truncateText = (text, maxLength) => {
               </a>
               <a
                 v-if="candidate.bluesky"
-                :href="`https://bsky.app/profile/${candidate.bluesky}.bsky.social`"
+                :href="getBlueskyUrl(candidate)"
                 aria-label="instagram"
                 class="text-xl text-black plain block relative z-20"
                 target="_blank"
