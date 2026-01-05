@@ -39,9 +39,10 @@ const getBlueskyUrl = (candidate) => {
   <CandidatesSkeleton v-if="loading" />
   <section v-else-if="candidates.length" class="candidates">
     <!-- Filter Component -->
-    <CandidateFilters 
-      :candidates="candidates" 
+    <CandidateFilters
+      :candidates="candidates"
       @update:filteredCandidates="updateFilteredCandidates"
+      class="mb-4"
     />
 
     <div
