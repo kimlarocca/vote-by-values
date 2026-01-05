@@ -148,10 +148,14 @@ const hasResponse = (answer) => {
       </p>
 
       <div class="overflow-x-auto">
-        <table class="w-full bg-white">
+        <table class="bg-white table-fixed-mobile">
           <thead>
             <tr>
-              <th>&nbsp;</th>
+              <th
+                class="bg-white sticky left-0 z-20 p-4 text-left font-semibold min-w-[400px]"
+              >
+                Issue
+              </th>
               <th
                 v-for="candidate in candidates"
                 :key="candidate.id"
@@ -215,6 +219,11 @@ const hasResponse = (answer) => {
 .issues-comparison-chart table {
   border-collapse: separate;
   border-spacing: 0;
+}
+
+.table-fixed-mobile {
+  width: 100%;
+  min-width: 1200px;
 }
 
 .issues-comparison-chart thead th.sticky {
