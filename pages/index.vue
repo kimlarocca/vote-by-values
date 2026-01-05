@@ -30,7 +30,8 @@ onMounted(async () => {
   <div class="home container p-4">
     <section class="text-center mb-16">
       <p class="tag mb-5 m-auto">
-        <i class="pi pi-check-circle ml-3" /> {{ races.length }} Upcoming
+        <i class="pi pi-check-circle ml-3" />
+        <template v-if="!loading">{{ races.length }}</template> Upcoming
         {{ races.length === 1 ? "Race" : "Races" }}
       </p>
       <h1 class="text-center mb-5">Choose wisely. Vote informed.</h1>

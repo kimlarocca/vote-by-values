@@ -65,6 +65,11 @@ onMounted(async () => {
     </section>
     <Candidates :candidates="candidates" :loading="loading" />
 
+    <!-- Issues Comparison Chart -->
+    <section v-if="!loading && candidates.length > 0" class="mt-12">
+      <IssuesComparisonChart :candidates="candidates" />
+    </section>
+
     <!-- Not Found Message -->
     <section v-if="notFound" class="container p-4 text-center py-16">
       <i class="pi pi-exclamation-triangle text-2xl text-red mb-4"></i>
