@@ -132,6 +132,44 @@ const hasResponse = (answer) => {
   return answer && answer !== "nr"
 }
 
+// Search keyword
+const searchKeyword = ref("")
+
+// Filtered candidates from the filter component
+const filteredCandidates = ref([])
+
+// Update filtered candidates when filters change
+const updateFilteredCandidates = (filtered) => {
+  filteredCandidates.value = filtered
+}
+
+// Use filtered candidates for comparison, fallback to all candidates
+const displayedCandidates = computed(() => {
+  return filteredCandidates.value.length > 0 ? filteredCandidates.value : props.candidates
+})
+
+// Filter questions based on search keyword
+const filteredGroupedQuestions = computed(() => {
+  if (!searchKeyword.value.trim()) {
+    return groupedQuestions.value
+  }
+
+  const keyword = searchKeyword.value.toLowerCase()
+  const filtered = {}
+
+  Object.keys(groupedQuestions.value).forEach((section) => {
+    const matchingQuestions = groupedQuestions.value[section].filter((question) =>
+      question.title.toLowerCase().includes(keyword)
+    )
+
+    if (matchingQuestions.length > 0) {
+      filtered[section] = matchingQuestions
+    }
+  })
+
+  return filtered
+})
+
 // Track expanded sections for mobile view
 const expandedSections = ref(new Set())
 
@@ -163,8 +201,28 @@ const isSectionExpanded = (section) => {
     v-if="candidates.length > 0 && yesNoQuestions.length > 0"
     class="issues-comparison-chart"
   >
+    <!-- Candidate Filters -->
+    <CandidateFilters
+      :candidates="candidates"
+      @update:filteredCandidates="updateFilteredCandidates"
+    />
+
+    <!-- Search Input -->
+    <div class="mb-6">
+      <InputGroup>
+        <InputText
+          v-model="searchKeyword"
+          placeholder="Search issues..."
+          class="w-full"
+        />
+        <InputGroupAddon>
+          <Button icon="pi pi-search" severity="secondary" variant="text" />
+        </InputGroupAddon>
+      </InputGroup>
+    </div>
+
     <div
-      v-for="(questions, section) in groupedQuestions"
+      v-for="(questions, section) in filteredGroupedQuestions"
       :key="section"
       class="mb-8 border-1 rounded-xl border-black section-container"
     >
@@ -192,7 +250,7 @@ const isSectionExpanded = (section) => {
                 Issue
               </th>
               <th
-                v-for="candidate in candidates"
+                v-for="candidate in displayedCandidates"
                 :key="candidate.id"
                 class="text-center p-0 font-semibold w-12 max-w-12 candidate-header"
               >
@@ -212,7 +270,7 @@ const isSectionExpanded = (section) => {
                 {{ question.title }}
               </td>
               <td
-                v-for="candidate in candidates"
+                v-for="candidate in displayedCandidates"
                 :key="candidate.id"
                 class="text-center bg-white w-12 max-w-12 candidate-cell"
               >
@@ -252,7 +310,7 @@ const isSectionExpanded = (section) => {
         >
           <h4 class="font-semibold mb-4 mobile-question-title">{{ question.title }}</h4>
           <div class="space-y-3">
-            <div v-for="candidate in candidates" :key="candidate.id">
+            <div v-for="candidate in displayedCandidates" :key="candidate.id">
               <!-- Yes/No Response: Icon + Name -->
               <div
                 v-if="
@@ -289,6 +347,13 @@ const isSectionExpanded = (section) => {
           </div>
         </div>
       </div>
+    </div>
+
+    <div
+      v-if="Object.keys(filteredGroupedQuestions).length === 0 && searchKeyword"
+      class="text-center py-8"
+    >
+      <p class="text-gray-500">No questions match your search.</p>
     </div>
 
     <div v-if="Object.keys(groupedQuestions).length === 0" class="text-center py-8">

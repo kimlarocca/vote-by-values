@@ -14,61 +14,10 @@ const props = defineProps({
   },
 })
 
-const selectedParties = ref([])
-const selectedCandidates = ref([])
-const includeWithdrawn = ref(false)
-const filterDialogVisible = ref(false)
+const filteredCandidates = ref([])
 
-const parties = computed(() => {
-  const uniqueParties = []
-  props.candidates.forEach((candidate) => {
-    if (candidate.party && !uniqueParties.includes(candidate.party)) {
-      uniqueParties.push(candidate.party)
-    }
-  })
-  return uniqueParties
-})
-
-const filteredCandidates = computed(() => {
-  let filtered = props.candidates
-
-  // Exclude withdrawn candidates by default
-  if (!includeWithdrawn.value) {
-    filtered = filtered.filter((candidate) => candidate.candidate_status !== "Withdrawn")
-  }
-
-  // Filter by party
-  if (selectedParties.value.length > 0) {
-    filtered = filtered.filter((candidate) =>
-      selectedParties.value.includes(candidate.party)
-    )
-  }
-
-  // Filter by specific candidates
-  if (selectedCandidates.value.length > 0) {
-    filtered = filtered.filter((candidate) =>
-      selectedCandidates.value.includes(candidate.id)
-    )
-  }
-
-  return filtered
-})
-
-const filterLabel = computed(() => {
-  const totalFilters =
-    selectedParties.value.length +
-    selectedCandidates.value.length +
-    (includeWithdrawn.value ? 1 : 0)
-  if (totalFilters === 0) {
-    return "Filter"
-  }
-  return `Clear ${totalFilters} Filter${totalFilters > 1 ? "s" : ""}`
-})
-
-const clearFilters = () => {
-  selectedParties.value = []
-  selectedCandidates.value = []
-  includeWithdrawn.value = false
+const updateFilteredCandidates = (filtered) => {
+  filteredCandidates.value = filtered
 }
 
 const truncateText = (text, maxLength) => {
@@ -89,112 +38,11 @@ const getBlueskyUrl = (candidate) => {
 <template>
   <CandidatesSkeleton v-if="loading" />
   <section v-else-if="candidates.length" class="candidates">
-    <!-- Filter Button -->
-    <div class="filter-section mb-4 flex items-center justify-end gap-2">
-      <div
-        class="flex items-center gap-2 cursor-pointer"
-        @click="filterDialogVisible = true"
-      >
-        <i class="pi pi-filter text-2xl" />
-      </div>
-      <Button
-        v-if="
-          selectedParties.length > 0 || selectedCandidates.length > 0 || includeWithdrawn
-        "
-        icon="pi pi-times"
-        severity="secondary"
-        variant="text"
-        @click="clearFilters"
-        size="small"
-        aria-label="Clear filters"
-        :label="filterLabel"
-      />
-    </div>
-
-    <!-- Filter Dialog -->
-    <Dialog
-      v-model:visible="filterDialogVisible"
-      modal
-      header="Filter Candidates"
-      :style="{ width: '90vw', maxWidth: '600px' }"
-    >
-      <div class="flex flex-col gap-4">
-        <!-- Filter by Status -->
-        <div>
-          <h3 class="mb-3 font-bold">Status</h3>
-          <div class="flex items-center gap-3">
-            <Checkbox
-              v-model="includeWithdrawn"
-              inputId="include-withdrawn"
-              :binary="true"
-            />
-            <label for="include-withdrawn" class="cursor-pointer"
-              >Include Withdrawn Candidates</label
-            >
-          </div>
-        </div>
-
-        <Divider />
-
-        <!-- Filter by Party Section -->
-        <div>
-          <h3 class="mb-3 font-bold">By Party</h3>
-          <div class="flex flex-col gap-3">
-            <div v-for="party in parties" :key="party" class="flex items-center gap-3">
-              <Checkbox
-                v-model="selectedParties"
-                :inputId="`party-${party}`"
-                :value="party"
-                name="party"
-              />
-              <label :for="`party-${party}`" class="cursor-pointer">{{ party }}</label>
-            </div>
-          </div>
-        </div>
-
-        <Divider />
-
-        <!-- Filter by Candidate Section -->
-        <div>
-          <h3 class="mb-3 font-bold">By Candidate</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-64 overflow-y-auto">
-            <div
-              v-for="candidate in candidates"
-              :key="candidate.id"
-              class="flex items-center gap-3"
-            >
-              <Checkbox
-                v-model="selectedCandidates"
-                :inputId="`candidate-${candidate.id}`"
-                :value="candidate.id"
-                name="candidate"
-              />
-              <label :for="`candidate-${candidate.id}`" class="cursor-pointer">
-                {{ candidate.name }}
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <Divider />
-
-        <div class="flex gap-3">
-          <Button
-            label="Clear All"
-            severity="secondary"
-            @click="clearFilters"
-            class="flex-1"
-            size="small"
-          />
-          <Button
-            label="Apply"
-            @click="filterDialogVisible = false"
-            class="flex-1"
-            size="small"
-          />
-        </div>
-      </div>
-    </Dialog>
+    <!-- Filter Component -->
+    <CandidateFilters 
+      :candidates="candidates" 
+      @update:filteredCandidates="updateFilteredCandidates"
+    />
 
     <div
       class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"
