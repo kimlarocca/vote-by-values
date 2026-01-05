@@ -57,8 +57,8 @@ onMounted(async () => {
       <NuxtLink :to="`/race/${route.params.slug}`" class="inline-block mb-4">
         <i class="pi pi-arrow-left mr-2"></i>Back to Race
       </NuxtLink>
-      <h1 class="mb-4">{{ race?.name }}</h1>
-      <p class="like-h3">Issues Comparison</p>
+      <h1 class="mb-4">Issues Comparison</h1>
+      <p class="like-h3">{{ race?.name }}</p>
     </section>
 
     <!-- Issues Comparison Chart -->
