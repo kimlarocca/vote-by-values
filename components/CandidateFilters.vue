@@ -6,7 +6,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['update:filteredCandidates'])
+const emit = defineEmits(["update:filteredCandidates"])
 
 const selectedParties = ref([])
 const selectedCandidates = ref([])
@@ -49,9 +49,13 @@ const filteredCandidates = computed(() => {
 })
 
 // Emit filtered candidates whenever filters change
-watch(filteredCandidates, (newValue) => {
-  emit('update:filteredCandidates', newValue)
-}, { immediate: true })
+watch(
+  filteredCandidates,
+  (newValue) => {
+    emit("update:filteredCandidates", newValue)
+  },
+  { immediate: true }
+)
 
 const filterLabel = computed(() => {
   const totalFilters =
@@ -71,14 +75,18 @@ const clearFilters = () => {
 }
 
 const hasActiveFilters = computed(() => {
-  return selectedParties.value.length > 0 || selectedCandidates.value.length > 0 || includeWithdrawn.value
+  return (
+    selectedParties.value.length > 0 ||
+    selectedCandidates.value.length > 0 ||
+    includeWithdrawn.value
+  )
 })
 </script>
 
 <template>
   <div class="candidate-filters">
     <!-- Filter Button -->
-    <div class="filter-section mb-4 flex items-center justify-end gap-2">
+    <div class="filter-section flex items-center justify-end gap-2">
       <div
         class="flex items-center gap-2 cursor-pointer"
         @click="filterDialogVisible = true"

@@ -132,6 +132,36 @@ const hasResponse = (answer) => {
   return answer && answer !== "nr"
 }
 
+// Get comment for a specific question
+const getComment = (candidate, questionKey) => {
+  if (!candidate.survey_response) return null
+  const commentKey = `${questionKey}-Comment`
+  return candidate.survey_response[commentKey] || null
+}
+
+// Check if candidate has a comment for a question
+const hasComment = (candidate, questionKey) => {
+  const comment = getComment(candidate, questionKey)
+  return comment && comment.trim() !== ""
+}
+
+// Dialog state for showing comments
+const commentDialogVisible = ref(false)
+const currentComment = ref(null)
+
+// Show comment dialog
+const showComment = (candidate, questionKey) => {
+  const comment = getComment(candidate, questionKey)
+  if (comment) {
+    currentComment.value = {
+      candidateName: candidate.name,
+      questionTitle: questionMap.value[questionKey]?.title || "",
+      comment: comment,
+    }
+    commentDialogVisible.value = true
+  }
+}
+
 // Search keyword
 const searchKeyword = ref("")
 
@@ -201,30 +231,41 @@ const isSectionExpanded = (section) => {
     v-if="candidates.length > 0 && yesNoQuestions.length > 0"
     class="issues-comparison-chart"
   >
-    <!-- Candidate Filters -->
-    <CandidateFilters
-      :candidates="candidates"
-      @update:filteredCandidates="updateFilteredCandidates"
-    />
+    <!-- Search and Filter Row -->
+    <div class="mb-6 flex items-center gap-2">
+      <!-- Search Input -->
+      <div class="flex-1">
+        <InputGroup>
+          <InputText
+            v-model="searchKeyword"
+            placeholder="Search issues..."
+            class="w-full"
+          />
+          <InputGroupAddon>
+            <Button icon="pi pi-search" severity="secondary" variant="text" />
+          </InputGroupAddon>
+          <InputGroupAddon v-if="searchKeyword">
+            <Button
+              icon="pi pi-times"
+              severity="secondary"
+              variant="text"
+              @click="searchKeyword = ''"
+            />
+          </InputGroupAddon>
+        </InputGroup>
+      </div>
 
-    <!-- Search Input -->
-    <div class="mb-6">
-      <InputGroup>
-        <InputText
-          v-model="searchKeyword"
-          placeholder="Search issues..."
-          class="w-full"
-        />
-        <InputGroupAddon>
-          <Button icon="pi pi-search" severity="secondary" variant="text" />
-        </InputGroupAddon>
-      </InputGroup>
+      <!-- Candidate Filters -->
+      <CandidateFilters
+        :candidates="candidates"
+        @update:filteredCandidates="updateFilteredCandidates"
+      />
     </div>
 
     <div
       v-for="(questions, section) in filteredGroupedQuestions"
       :key="section"
-      class="mb-8 border-1 rounded-xl border-black section-container"
+      class="mb-6 lg:mb-12 border-1 rounded-xl border-black section-container"
     >
       <p
         class="inline-block bg-black text-white font-bold p-4 w-full cursor-pointer section-header"
@@ -294,6 +335,12 @@ const isSectionExpanded = (section) => {
                       getResponseLabel(getResponse(candidate, question.key), question.key)
                     }}
                   </span>
+                  <i
+                    v-if="hasComment(candidate, question.key)"
+                    class="pi pi-info-circle text-blue text-2xl cursor-pointer ml-1"
+                    @click.stop="showComment(candidate, question.key)"
+                    v-tooltip="'View Candidate Comment'"
+                  ></i>
                 </div>
               </td>
             </tr>
@@ -301,14 +348,14 @@ const isSectionExpanded = (section) => {
         </table>
       </div>
 
-      <!-- Mobile List View -->
+      <!-- Mobile Table View -->
       <div v-if="isSectionExpanded(section)" class="mobile-view bg-white">
         <div
           v-for="question in questions"
           :key="question.key"
           class="mobile-question-item p-4 border-b border-gray-200 last:border-b-0"
         >
-          <h4 class="font-semibold mb-4 mobile-question-title">{{ question.title }}</h4>
+          <p class="font-semibold mb-4">{{ question.title }}</p>
           <div class="space-y-3">
             <div v-for="candidate in displayedCandidates" :key="candidate.id">
               <!-- Yes/No Response: Icon + Name -->
@@ -317,7 +364,7 @@ const isSectionExpanded = (section) => {
                   hasResponse(getResponse(candidate, question.key)) &&
                   isYesNoResponse(getResponse(candidate, question.key))
                 "
-                class="flex items-center align-center"
+                class="flex items-center"
               >
                 <div class="w-6 mr-1">
                   <i
@@ -329,6 +376,12 @@ const isSectionExpanded = (section) => {
                   ></i>
                 </div>
                 <span class="text-sm">{{ candidate.name }}</span>
+                <i
+                  v-if="hasComment(candidate, question.key)"
+                  class="pi pi-info-circle text-xl text-blue cursor-pointer -mt-1 ml-2"
+                  @click.stop="showComment(candidate, question.key)"
+                  title="View comment"
+                ></i>
               </div>
 
               <!-- Non-Yes/No Response: Name with Response Below -->
@@ -336,7 +389,15 @@ const isSectionExpanded = (section) => {
                 v-else-if="hasResponse(getResponse(candidate, question.key))"
                 class="mb-3"
               >
-                <div class="text-sm font-medium">{{ candidate.name }}</div>
+                <div class="text-sm font-medium flex items-center">
+                  <span>{{ candidate.name }}</span>
+                  <i
+                    v-if="hasComment(candidate, question.key)"
+                    class="pi pi-info-circle text-sm text-blue-600 cursor-pointer ml-2"
+                    @click.stop="showComment(candidate, question.key)"
+                    title="View comment"
+                  ></i>
+                </div>
                 <div class="text-sm text-gray-600 ml-4 mt-1">
                   {{
                     getResponseLabel(getResponse(candidate, question.key), question.key)
@@ -353,12 +414,25 @@ const isSectionExpanded = (section) => {
       v-if="Object.keys(filteredGroupedQuestions).length === 0 && searchKeyword"
       class="text-center py-8"
     >
-      <p class="text-gray-500">No questions match your search.</p>
+      <p class="text-gray-500">Sorry! No questions match your search.</p>
     </div>
 
     <div v-if="Object.keys(groupedQuestions).length === 0" class="text-center py-8">
       <p class="text-gray-500">No survey responses available for comparison.</p>
     </div>
+
+    <!-- Comment Dialog -->
+    <Dialog
+      v-model:visible="commentDialogVisible"
+      modal
+      :header="currentComment?.candidateName"
+      :style="{ width: '90vw', maxWidth: '600px' }"
+    >
+      <div v-if="currentComment">
+        <p class="font-semibold mb-3">{{ currentComment.questionTitle }}</p>
+        <p class="text-gray-700">{{ currentComment.comment }}</p>
+      </div>
+    </Dialog>
   </div>
 </template>
 
@@ -377,10 +451,6 @@ const isSectionExpanded = (section) => {
 
 .mobile-question-item:nth-child(even) {
   background-color: #f9fafb;
-}
-
-.mobile-question-title {
-  padding-bottom: 0.5rem;
 }
 
 .section-container {
