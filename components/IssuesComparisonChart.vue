@@ -138,8 +138,6 @@ const hasResponse = (answer) => {
     v-if="candidates.length > 0 && yesNoQuestions.length > 0"
     class="issues-comparison-chart"
   >
-    <h2 class="like-h1 mb-6 text-center">Candidate Issues</h2>
-
     <div
       v-for="(questions, section) in groupedQuestions"
       :key="section"
