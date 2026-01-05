@@ -48,29 +48,26 @@ onMounted(async () => {
 
 <template>
   <div class="home container p-4">
-    <section v-if="race" class="text-center">
+    <section v-if="race" class="text-center mb-8">
       <Html lang="en">
         <Head>
-          <Title>VoteByValues.com | {{ race?.name }}</Title>
+          <Title>VoteByValues.com | {{ race?.name }} - Issues Comparison</Title>
         </Head>
       </Html>
-      <p class="like-h4 mb-2">The Polls Open In</p>
-      <CountdownTimer
-        v-if="race?.election_date"
-        :end-date="race.election_date"
-        class="mb-4"
-      />
+      <NuxtLink :to="`/race/${route.params.slug}`" class="inline-block mb-4">
+        <i class="pi pi-arrow-left mr-2"></i>Back to Race
+      </NuxtLink>
       <h1 class="mb-4">{{ race?.name }}</h1>
-      <p v-if="race?.description" class="mb-4" v-html="race.description" />
+      <p class="like-h3">Issues Comparison</p>
     </section>
-    <Candidates
-      :candidates="candidates"
-      :loading="loading"
-      :race-slug="route.params.slug"
-    />
+
+    <!-- Issues Comparison Chart -->
+    <section v-if="!loading && candidates.length > 0">
+      <IssuesComparisonChart :candidates="candidates" />
+    </section>
 
     <!-- Not Found Message -->
-    <section v-if="notFound" class="container p-4 text-center py-16">
+    <section v-if="notFound" class="text-center py-16">
       <i class="pi pi-exclamation-triangle text-2xl text-red mb-4"></i>
       <h1 class="mb-4">404 Not Found</h1>
       <p class="mb-6">Sorry! The page you're looking for could not be found.</p>

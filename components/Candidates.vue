@@ -8,6 +8,10 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  raceSlug: {
+    type: String,
+    default: null,
+  },
 })
 
 const selectedParties = ref([])
@@ -278,6 +282,22 @@ const getBlueskyUrl = (candidate) => {
                 <i class="pi pi-youtube"></i>
               </a>
             </div>
+          </div>
+        </div>
+      </NuxtLink>
+
+      <!-- Compare Candidates Card -->
+      <NuxtLink
+        v-if="raceSlug"
+        :to="`/race/${raceSlug}/compare`"
+        class="plain flex flex-col h-full"
+      >
+        <div
+          class="candidate-card rounded-xl h-full flex items-center justify-center bg-black text-white p-6"
+        >
+          <div class="text-center">
+            <i class="pi pi-chart-bar text-4xl mb-3"></i>
+            <p class="font-bold">Compare Candidates On Issues</p>
           </div>
         </div>
       </NuxtLink>

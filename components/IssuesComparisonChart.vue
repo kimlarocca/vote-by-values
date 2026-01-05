@@ -145,31 +145,22 @@ const hasResponse = (answer) => {
       :key="section"
       class="mb-8 border-1 rounded-xl border-black overflow-hidden"
     >
-      <p class="inline-block bg-black text-white px-4 py-2 w-full">
+      <p class="inline-block bg-black text-white font-bold p-4 w-full">
         {{ section }}
       </p>
 
       <div class="overflow-x-auto">
         <table class="w-full bg-white">
           <thead>
-            <tr class="bg-gray-100">
-              <th
-                class="text-left p-4 font-semibold sticky left-0 bg-gray-100 z-10 min-w-[400px]"
-              >
-                Issue
-              </th>
+            <tr>
+              <th>&nbsp;</th>
               <th
                 v-for="candidate in candidates"
                 :key="candidate.id"
-                class="text-center p-4 font-semibold min-w-[150px]"
+                class="text-center p-0 font-semibold w-12 max-w-12 candidate-header"
               >
-                <div class="flex flex-col items-center gap-1">
+                <div class="vertical-text">
                   <span>{{ candidate.name }}</span>
-                  <span
-                    v-if="candidate.party"
-                    class="text-xs font-normal text-gray-600"
-                    >{{ candidate.party }}</span
-                  >
                 </div>
               </th>
             </tr>
@@ -186,27 +177,29 @@ const hasResponse = (answer) => {
               <td
                 v-for="candidate in candidates"
                 :key="candidate.id"
-                class="p-4 text-center bg-white"
+                class="text-center bg-white w-12 max-w-12 candidate-cell"
               >
-                <i
-                  v-if="
-                    hasResponse(getResponse(candidate, question.key)) &&
-                    isYesNoResponse(getResponse(candidate, question.key))
-                  "
-                  :class="[
-                    getAnswerIcon(getResponse(candidate, question.key)),
-                    getAnswerClass(getResponse(candidate, question.key)),
-                  ]"
-                  class="text-2xl"
-                ></i>
-                <span
-                  v-else-if="hasResponse(getResponse(candidate, question.key))"
-                  class="text-sm"
-                >
-                  {{
-                    getResponseLabel(getResponse(candidate, question.key), question.key)
-                  }}
-                </span>
+                <div class="icon-wrapper">
+                  <i
+                    v-if="
+                      hasResponse(getResponse(candidate, question.key)) &&
+                      isYesNoResponse(getResponse(candidate, question.key))
+                    "
+                    :class="[
+                      getAnswerIcon(getResponse(candidate, question.key)),
+                      getAnswerClass(getResponse(candidate, question.key)),
+                    ]"
+                    class="text-2xl"
+                  ></i>
+                  <span
+                    v-else-if="hasResponse(getResponse(candidate, question.key))"
+                    class="text-sm"
+                  >
+                    {{
+                      getResponseLabel(getResponse(candidate, question.key), question.key)
+                    }}
+                  </span>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -236,5 +229,55 @@ const hasResponse = (answer) => {
   position: sticky;
   left: 0;
   z-index: 5;
+}
+
+.vertical-text {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  min-height: 150px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 0 0 0;
+}
+
+.vertical-text span {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.candidate-header {
+  vertical-align: bottom !important;
+  height: 150px;
+}
+
+.candidate-header:nth-child(even) {
+  background-color: #f9fafb !important;
+}
+
+.candidate-cell {
+  vertical-align: middle !important;
+  padding: 0 !important;
+}
+
+.candidate-cell:nth-child(even) {
+  background-color: #f9fafb !important;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+}
+
+.candidate-cell i,
+.candidate-cell span {
+  display: inline-block;
+  line-height: 1;
 }
 </style>
