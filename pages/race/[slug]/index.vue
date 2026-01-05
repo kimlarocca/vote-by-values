@@ -69,6 +69,11 @@ onMounted(async () => {
       :race-slug="route.params.slug"
     />
 
+    <section v-if="race?.race_links" class="mt-16">
+      <h2>Key Links</h2>
+      <div v-html="race?.race_links" />
+    </section>
+
     <!-- Not Found Message -->
     <section v-if="notFound" class="container p-4 text-center py-16">
       <i class="pi pi-exclamation-triangle text-2xl text-red mb-4"></i>

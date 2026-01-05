@@ -158,7 +158,7 @@ const getBlueskyUrl = (candidate) => {
           class="candidate-card rounded-xl h-full flex items-center justify-center bg-black text-white p-6"
         >
           <div class="text-center">
-            <i class="pi pi-chart-bar text-4xl mb-3"></i>
+            <Compare />
             <p class="font-bold">Compare Candidates On Issues</p>
           </div>
         </div>

@@ -158,7 +158,10 @@ watch(
           </template>
 
           <!-- Social Media Links -->
-          <div v-if="hasSocialMedia" class="flex flex-col gap-3 mb-6">
+          <div
+            v-if="hasSocialMedia"
+            class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6 w-fit"
+          >
             <a
               v-if="candidate.website_url"
               :href="candidate.website_url"
