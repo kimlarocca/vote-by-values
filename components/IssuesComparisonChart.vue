@@ -131,6 +131,31 @@ const getAnswerClass = (answer) => {
 const hasResponse = (answer) => {
   return answer && answer !== "nr"
 }
+
+// Track expanded sections for mobile view
+const expandedSections = ref(new Set())
+
+// Initialize first section as expanded
+onMounted(() => {
+  const firstSection = Object.keys(groupedQuestions.value)[0]
+  if (firstSection) {
+    expandedSections.value.add(firstSection)
+  }
+})
+
+// Toggle section expansion
+const toggleSection = (section) => {
+  if (expandedSections.value.has(section)) {
+    expandedSections.value.delete(section)
+  } else {
+    expandedSections.value.add(section)
+  }
+}
+
+// Check if section is expanded
+const isSectionExpanded = (section) => {
+  return expandedSections.value.has(section)
+}
 </script>
 
 <template>
@@ -141,13 +166,23 @@ const hasResponse = (answer) => {
     <div
       v-for="(questions, section) in groupedQuestions"
       :key="section"
-      class="mb-8 border-1 rounded-xl border-black overflow-hidden"
+      class="mb-8 border-1 rounded-xl border-black section-container"
     >
-      <p class="inline-block bg-black text-white font-bold p-4 w-full">
-        {{ section }}
+      <p
+        class="inline-block bg-black text-white font-bold p-4 w-full cursor-pointer section-header"
+        @click="toggleSection(section)"
+      >
+        <span class="flex items-center justify-between">
+          <span>{{ section }}</span>
+          <i
+            class="pi mobile-chevron"
+            :class="isSectionExpanded(section) ? 'pi-chevron-up' : 'pi-chevron-down'"
+          ></i>
+        </span>
       </p>
 
-      <div class="overflow-x-auto">
+      <!-- Desktop Table View -->
+      <div class="overflow-x-auto desktop-view">
         <table class="bg-white table-fixed-mobile">
           <thead>
             <tr>
@@ -207,6 +242,53 @@ const hasResponse = (answer) => {
           </tbody>
         </table>
       </div>
+
+      <!-- Mobile List View -->
+      <div v-if="isSectionExpanded(section)" class="mobile-view bg-white">
+        <div
+          v-for="question in questions"
+          :key="question.key"
+          class="mobile-question-item p-4 border-b border-gray-200 last:border-b-0"
+        >
+          <h4 class="font-semibold mb-4 mobile-question-title">{{ question.title }}</h4>
+          <div class="space-y-3">
+            <div v-for="candidate in candidates" :key="candidate.id">
+              <!-- Yes/No Response: Icon + Name -->
+              <div
+                v-if="
+                  hasResponse(getResponse(candidate, question.key)) &&
+                  isYesNoResponse(getResponse(candidate, question.key))
+                "
+                class="flex items-center align-center"
+              >
+                <div class="w-6 mr-1">
+                  <i
+                    :class="[
+                      getAnswerIcon(getResponse(candidate, question.key)),
+                      getAnswerClass(getResponse(candidate, question.key)),
+                    ]"
+                    class="text-xl"
+                  ></i>
+                </div>
+                <span class="text-sm">{{ candidate.name }}</span>
+              </div>
+
+              <!-- Non-Yes/No Response: Name with Response Below -->
+              <div
+                v-else-if="hasResponse(getResponse(candidate, question.key))"
+                class="mb-3"
+              >
+                <div class="text-sm font-medium">{{ candidate.name }}</div>
+                <div class="text-sm text-gray-600 ml-4 mt-1">
+                  {{
+                    getResponseLabel(getResponse(candidate, question.key), question.key)
+                  }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div v-if="Object.keys(groupedQuestions).length === 0" class="text-center py-8">
@@ -216,6 +298,54 @@ const hasResponse = (answer) => {
 </template>
 
 <style scoped>
+.desktop-view {
+  display: none;
+}
+
+.mobile-view {
+  display: block;
+}
+
+.mobile-question-item {
+  background-color: white;
+}
+
+.mobile-question-item:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.mobile-question-title {
+  padding-bottom: 0.5rem;
+}
+
+.section-container {
+  overflow: hidden;
+}
+
+.section-header {
+  user-select: none;
+}
+
+.mobile-chevron {
+  display: none;
+}
+
+@media (max-width: 1199px) {
+  .mobile-chevron {
+    display: inline-block;
+  }
+}
+
+@media (min-width: 1200px) {
+  .desktop-view {
+    display: block;
+  }
+
+  .mobile-view {
+    display: none;
+  }
+}
+
 .issues-comparison-chart table {
   border-collapse: separate;
   border-spacing: 0;
