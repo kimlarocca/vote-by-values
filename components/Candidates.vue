@@ -1,4 +1,6 @@
 <script setup>
+import { formatFacebookUrl, formatUrl } from "~/utils/helpers"
+
 const props = defineProps({
   candidates: {
     type: Array,
@@ -91,6 +93,17 @@ const getBlueskyUrl = (candidate) => {
             </p>
             <div class="flex space-x-3 items-center justify-center">
               <a
+                v-if="candidate.website_url"
+                :href="candidate.website_url"
+                aria-label="website"
+                class="text-xl text-black plain block relative z-20"
+                target="_blank"
+                @click.stop
+              >
+                <i class="pi pi-globe"></i>
+              </a>
+
+              <a
                 v-if="candidate.tiktok"
                 :href="`https://www.tiktok.com/@${candidate.tiktok}`"
                 aria-label="tiktok"
@@ -113,7 +126,7 @@ const getBlueskyUrl = (candidate) => {
               <a
                 v-if="candidate.bluesky"
                 :href="getBlueskyUrl(candidate)"
-                aria-label="instagram"
+                aria-label="bluesky"
                 class="text-xl text-black plain block relative z-20"
                 target="_blank"
                 @click.stop

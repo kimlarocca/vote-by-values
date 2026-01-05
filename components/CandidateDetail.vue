@@ -17,7 +17,11 @@ const hasSocialMedia = computed(() => {
     props.candidate.tiktok ||
     props.candidate.instagram ||
     props.candidate.bluesky ||
-    props.candidate.youtube
+    props.candidate.youtube ||
+    props.candidate.facebook ||
+    props.candidate.twitter ||
+    props.candidate.threads ||
+    props.candidate.substack
   )
 })
 
@@ -59,6 +63,13 @@ watch(
 <template>
   <!-- Candidate Detail -->
   <section v-if="candidate" class="candidate-detail container p-4">
+    <!-- breadcrumbs -->
+    <p class="mb-8">
+      <NuxtLink :to="`/race/${candidate.race_slug}`">
+        <i class="pi pi-arrow-left mr-2"></i>Back to Race
+      </NuxtLink>
+    </p>
+
     <!-- Hero Section -->
     <div class="rounded-xl mb-12">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -159,6 +170,26 @@ watch(
               <p class="small ml-2">{{ formatUrl(candidate.website_url) }}</p>
             </a>
             <a
+              v-if="candidate.facebook"
+              :href="candidate.facebook"
+              target="_blank"
+              aria-label="Facebook"
+              class="text-black plain flex items-center"
+            >
+              <i class="text-xl pi pi-facebook" />
+              <div class="small ml-2">{{ formatFacebookUrl(candidate.facebook) }}</div>
+            </a>
+            <a
+              v-if="candidate.twitter"
+              :href="`https://x.com/${candidate.twitter}`"
+              target="_blank"
+              aria-label="X (Twitter)"
+              class="text-black plain flex items-center"
+            >
+              <i class="text-xl pi pi-twitter" />
+              <div class="small ml-2">{{ candidate.twitter }}</div>
+            </a>
+            <a
               v-if="candidate.tiktok"
               :href="`https://www.tiktok.com/@${candidate.tiktok}`"
               target="_blank"
@@ -197,6 +228,26 @@ watch(
             >
               <i class="text-2xl pi pi-youtube" />
               <div class="small ml-2">{{ candidate.youtube }}</div>
+            </a>
+            <a
+              v-if="candidate.threads"
+              :href="`https://www.threads.net/@${candidate.threads}`"
+              target="_blank"
+              aria-label="Threads"
+              class="text-black plain flex items-center"
+            >
+              <i class="text-xl pi pi-at" />
+              <div class="small ml-2">{{ candidate.threads }}</div>
+            </a>
+            <a
+              v-if="candidate.substack"
+              :href="`https://www.substack.com/@${candidate.substack}`"
+              target="_blank"
+              aria-label="Substack"
+              class="text-black plain flex items-center"
+            >
+              <i class="text-xl pi pi-book" />
+              <div class="small ml-2">{{ formatUrl(candidate.substack) }}</div>
             </a>
           </div>
         </div>
