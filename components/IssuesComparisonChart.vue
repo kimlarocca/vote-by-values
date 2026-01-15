@@ -1,6 +1,8 @@
 <script setup>
 import surveyData from "~/survey.json"
 
+const supabase = useSupabaseClient()
+
 const props = defineProps({
   candidates: {
     type: Array,
@@ -8,7 +10,7 @@ const props = defineProps({
   },
   initialKeywords: {
     type: String,
-    default: '',
+    default: "",
   },
 })
 
@@ -169,6 +171,34 @@ const showComment = (candidate, questionKey) => {
 // Search keyword
 const searchKeyword = ref(props.initialKeywords)
 
+// Quick filter options from database
+const quickFilters = ref([])
+
+// Fetch quick filters from settings
+const fetchQuickFilters = async () => {
+  const { data, error } = await supabase
+    .from("vote-by-values-settings")
+    .select("issue_quick_filters")
+    .eq("id", 1)
+    .single()
+
+  if (error) {
+    console.error("Error fetching quick filters:", error)
+  } else if (data?.issue_quick_filters) {
+    quickFilters.value = data.issue_quick_filters
+  }
+}
+
+// Fetch filters on mount
+onMounted(() => {
+  fetchQuickFilters()
+})
+
+// Apply quick filter
+const applyQuickFilter = (keyword) => {
+  searchKeyword.value = keyword
+}
+
 // Filtered candidates from the filter component
 const filteredCandidates = ref([])
 
@@ -235,6 +265,17 @@ const isSectionExpanded = (section) => {
     v-if="candidates.length > 0 && yesNoQuestions.length > 0"
     class="issues-comparison-chart"
   >
+    <!-- Quick Filters -->
+    <div class="mb-4 flex flex-wrap justify-center gap-2">
+      <Button
+        v-for="filter in quickFilters"
+        :key="filter.keyword"
+        :label="filter.label"
+        size="small"
+        @click="applyQuickFilter(filter.keyword)"
+      />
+    </div>
+
     <!-- Search and Filter Row -->
     <div class="mb-6 flex items-center gap-2">
       <!-- Search Input -->
