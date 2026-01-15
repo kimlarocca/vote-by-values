@@ -6,6 +6,7 @@ const loading = ref(true)
 const notFound = ref(false)
 const race = ref(null)
 const route = useRoute()
+const keywords = computed(() => route.query.keywords || "")
 
 const getCandidates = async () => {
   const { data, error } = await supabase
@@ -63,7 +64,7 @@ onMounted(async () => {
 
     <!-- Issues Comparison Chart -->
     <section v-if="!loading && candidates.length > 0">
-      <IssuesComparisonChart :candidates="candidates" />
+      <IssuesComparisonChart :candidates="candidates" :initial-keywords="keywords" />
     </section>
 
     <!-- Not Found Message -->

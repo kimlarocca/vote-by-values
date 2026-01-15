@@ -6,6 +6,10 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  initialKeywords: {
+    type: String,
+    default: '',
+  },
 })
 
 // Create a map of question names to their full question text
@@ -163,7 +167,7 @@ const showComment = (candidate, questionKey) => {
 }
 
 // Search keyword
-const searchKeyword = ref("")
+const searchKeyword = ref(props.initialKeywords)
 
 // Filtered candidates from the filter component
 const filteredCandidates = ref([])
