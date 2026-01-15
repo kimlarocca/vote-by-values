@@ -49,7 +49,7 @@ onMounted(async () => {
 
 <template>
   <div class="home container p-4">
-    <section v-if="race" class="text-center mb-8">
+    <section v-if="race" class="text-center mb-12">
       <Html lang="en">
         <Head>
           <Title>VoteByValues.com | {{ race?.name }} - Issues Comparison</Title>

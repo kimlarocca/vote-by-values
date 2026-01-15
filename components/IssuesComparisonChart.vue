@@ -265,19 +265,15 @@ const isSectionExpanded = (section) => {
     v-if="candidates.length > 0 && yesNoQuestions.length > 0"
     class="issues-comparison-chart"
   >
-    <!-- Quick Filters -->
-    <div class="mb-4 flex flex-wrap justify-center gap-2">
+    <!-- Search and Filter Row -->
+    <div class="mb-6 flex items-center gap-2">
       <Button
         v-for="filter in quickFilters"
         :key="filter.keyword"
         :label="filter.label"
-        size="small"
+        class="outlined trim"
         @click="applyQuickFilter(filter.keyword)"
       />
-    </div>
-
-    <!-- Search and Filter Row -->
-    <div class="mb-6 flex items-center gap-2">
       <!-- Search Input -->
       <div class="flex-1">
         <InputGroup>
