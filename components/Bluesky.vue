@@ -19,7 +19,6 @@
 .bluesky {
   width: 16px;
   height: 16px;
-  margin-bottom: -1px;
   overflow: visible;
   &.xl {
     width: 20px;

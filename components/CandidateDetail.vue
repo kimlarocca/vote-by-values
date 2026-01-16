@@ -169,7 +169,7 @@ watch(
               aria-label="Website"
               class="text-black plain flex items-center"
             >
-              <i class="text-xl pi pi-globe" />
+              <i class="pi pi-globe" />
               <p class="small ml-2">{{ formatUrl(candidate.website_url) }}</p>
             </a>
             <a
@@ -179,7 +179,7 @@ watch(
               aria-label="Facebook"
               class="text-black plain flex items-center"
             >
-              <i class="text-xl pi pi-facebook" />
+              <i class="pi pi-facebook" />
               <div class="small ml-2">{{ formatFacebookUrl(candidate.facebook) }}</div>
             </a>
             <a
@@ -189,7 +189,7 @@ watch(
               aria-label="X (Twitter)"
               class="text-black plain flex items-center"
             >
-              <i class="text-xl pi pi-twitter" />
+              <i class="pi pi-twitter" />
               <div class="small ml-2">{{ candidate.twitter }}</div>
             </a>
             <a
@@ -199,7 +199,7 @@ watch(
               aria-label="TikTok"
               class="text-black plain flex items-center"
             >
-              <i class="text-xl pi pi-tiktok" />
+              <i class="pi pi-tiktok" />
               <div class="small ml-2">{{ candidate.tiktok }}</div>
             </a>
             <a
@@ -209,7 +209,7 @@ watch(
               aria-label="Instagram"
               class="text-black plain flex items-cxenter"
             >
-              <i class="text-xl pi pi-instagram" />
+              <i class="pi pi-instagram" />
               <div class="small ml-2">{{ candidate.instagram }}</div>
             </a>
             <a
@@ -217,7 +217,7 @@ watch(
               :href="blueskyUrl"
               target="_blank"
               aria-label="Bluesky"
-              class="text-black plain flex items-center xl"
+              class="text-black plain flex items-center"
             >
               <Bluesky class="size2xl" />
               <div class="small ml-2">{{ candidate.bluesky }}</div>
@@ -229,7 +229,7 @@ watch(
               aria-label="YouTube"
               class="text-black plain flex items-center"
             >
-              <i class="text-2xl pi pi-youtube" />
+              <i class="pi pi-youtube" />
               <div class="small ml-2">{{ candidate.youtube }}</div>
             </a>
             <a
@@ -239,7 +239,7 @@ watch(
               aria-label="Threads"
               class="text-black plain flex items-center"
             >
-              <i class="text-xl pi pi-at" />
+              <i class="pi pi-at" />
               <div class="small ml-2">{{ candidate.threads }}</div>
             </a>
             <a
@@ -249,7 +249,7 @@ watch(
               aria-label="Substack"
               class="text-black plain flex items-center"
             >
-              <i class="text-xl pi pi-book" />
+              <i class="pi pi-book" />
               <div class="small ml-2">{{ formatUrl(candidate.substack) }}</div>
             </a>
           </div>

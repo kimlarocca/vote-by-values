@@ -98,8 +98,8 @@ const displayedCandidates = computed(() => {
             <th v-for="platform in socialMediaPlatforms" :key="platform.key" class="p-4">
               <div class="flex flex-col items-center gap-1">
                 <span class="text-xs uppercase mb-1">{{ platform.label }}</span>
-                <i v-if="platform.icon" :class="`pi ${platform.icon} text-xl`"></i>
-                <Bluesky v-else-if="platform.key === 'bluesky'" class="white xl" />
+                <i v-if="platform.icon" :class="`pi ${platform.icon}`"></i>
+                <Bluesky v-else-if="platform.key === 'bluesky'" class="white" />
               </div>
             </th>
             <th class="rounded-tr-xl">&nbsp;</th>
@@ -133,11 +133,11 @@ const displayedCandidates = computed(() => {
               >
                 <i
                   v-if="platform.icon"
-                  :class="`pi-check pi pi-check-circle text-green-600 text-2xl`"
+                  :class="`pi-check pi pi-check-circle text-green-600`"
                 ></i>
                 <i
                   v-else-if="platform.key === 'bluesky'"
-                  class="pi-check pi pi-check-circle text-green-600 text-2xl"
+                  class="pi-check pi pi-check-circle text-green-600"
                 ></i>
               </a>
             </td>
@@ -155,8 +155,8 @@ const displayedCandidates = computed(() => {
       >
         <!-- Platform Header -->
         <div class="bg-black text-white font-bold p-4 flex items-center gap-3">
-          <i v-if="platform.icon" :class="`pi ${platform.icon} text-xl`"></i>
-          <Bluesky v-else-if="platform.key === 'bluesky'" class="size2xl" />
+          <i v-if="platform.icon" :class="`pi ${platform.icon}`"></i>
+          <Bluesky v-else-if="platform.key === 'bluesky'" />
           <span>{{ platform.label }}</span>
         </div>
 
@@ -174,7 +174,7 @@ const displayedCandidates = computed(() => {
               v-if="hasSocialMedia(candidate, platform)"
               class="flex items-center gap-2"
             >
-              <i class="pi pi-check-circle text-green-600 text-xl"></i>
+              <i class="pi pi-check-circle text-green-600"></i>
               <a
                 :href="getSocialMediaUrl(candidate, platform)"
                 target="_blank"
@@ -185,7 +185,7 @@ const displayedCandidates = computed(() => {
               </a>
             </div>
             <div v-else class="flex items-center gap-2">
-              <i class="pi pi-times-circle text-xl text-red-600"></i>
+              <i class="pi pi-times-circle text-red-600"></i>
               <p>{{ candidate.name }}</p>
             </div>
           </div>
