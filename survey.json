@@ -6,6 +6,7 @@
         {
             "name": "Authoritarianism",
             "title": "Authoritarianism",
+            "slug": "authoritarianism",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -159,6 +160,7 @@
         {
             "name": "Election Integrity",
             "title": "Election Integrity",
+            "slug": "election-integrity",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -244,6 +246,7 @@
         {
             "name": "Federal Government Overreach",
             "title": "Federal Government Overreach",
+            "slug": "federal-government-overreach",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -392,6 +395,7 @@
         {
             "name": "Energy  & Environment",
             "title": "Energy  & Environment",
+            "slug": "energy-and-environment",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -660,6 +664,7 @@
         {
             "name": "Immigration",
             "title": "Immigration",
+            "slug": "immigration",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -876,6 +881,7 @@
         {
             "name": "Education",
             "title": "Education",
+            "slug": "education",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -987,6 +993,7 @@
         {
             "name": "Public Funding",
             "title": "Public Funding",
+            "slug": "public-funding",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -1098,6 +1105,7 @@
         {
             "name": "Healthcare",
             "title": "Healthcare",
+            "slug": "healthcare",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -1209,6 +1217,7 @@
         {
             "name": "Individual Freedoms & Rights",
             "title": "Individual Freedoms & Rights",
+            "slug": "individual-freedoms-and-rights",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -1483,6 +1492,7 @@
         {
             "name": "Dangerous Influences",
             "title": "Dangerous Influences",
+            "slug": "dangerous-influences",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -1573,6 +1583,7 @@
         {
             "name": "Taxation & Spending",
             "title": "Taxation & Spending",
+            "slug": "taxation-and-spending",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -1684,6 +1695,7 @@
         {
             "name": "Foreign Policy",
             "title": "Foreign Policy",
+            "slug": "foreign-policy",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -1891,6 +1903,7 @@
         {
             "name": "Labor Rights",
             "title": "Labor Rights",
+            "slug": "labor-rights",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -1960,6 +1973,7 @@
         {
             "name": "Corruption",
             "title": "Corruption",
+            "slug": "corruption",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -2029,6 +2043,7 @@
         {
             "name": "Campaign Funding",
             "title": "Campaign Funding",
+            "slug": "campaign-funding",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -2190,6 +2205,7 @@
         {
             "name": "Affordable Housing",
             "title": "Affordable Housing",
+            "slug": "affordable-housing",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -2267,6 +2283,7 @@
         {
             "name": "Bonus",
             "title": "Bonus",
+            "slug": "bonus",
             "elements": [
                 {
                     "type": "radiogroup",

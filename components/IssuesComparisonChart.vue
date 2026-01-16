@@ -12,6 +12,18 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  category: {
+    type: String,
+    default: "",
+  },
+  raceSlug: {
+    type: String,
+    default: "",
+  },
+  showQuickFilters: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 // Create a map of question names to their full question text
@@ -30,6 +42,11 @@ const questionMap = computed(() => {
   })
   return map
 })
+
+// Helper function to convert category name to slug
+const getCategorySlug = (categoryName) => {
+  return categoryName.toLowerCase().replace(/[^a-z0-9]+/g, "-")
+}
 
 // Get all yes/no questions that at least one candidate has answered
 const yesNoQuestions = computed(() => {
@@ -82,6 +99,11 @@ const groupedQuestions = computed(() => {
   const groups = {}
 
   yesNoQuestions.value.forEach((question) => {
+    // If a category is specified, only include questions from that category
+    if (props.category && question.page !== props.category) {
+      return
+    }
+
     if (!groups[question.page]) {
       groups[question.page] = []
     }
@@ -287,6 +309,7 @@ const isSectionExpanded = (section) => {
     <!-- Search and Filter Row -->
     <div class="mb-6 flex items-center gap-2">
       <Button
+        v-if="showQuickFilters"
         v-for="filter in quickFilters"
         :key="filter.keyword"
         :label="filter.label"
@@ -327,7 +350,18 @@ const isSectionExpanded = (section) => {
       :key="section"
       class="mb-6 lg:mb-12 border-1 rounded-xl border-black section-container"
     >
+      <NuxtLink
+        v-if="raceSlug"
+        :to="`/race/${raceSlug}/categories/${getCategorySlug(section)}`"
+        class="inline-block bg-black text-white font-bold p-4 w-full cursor-pointer section-header plain"
+      >
+        <span class="flex items-center justify-between">
+          <span>{{ section }}</span>
+          <i class="pi pi-arrow-right"></i>
+        </span>
+      </NuxtLink>
       <p
+        v-else
         class="inline-block bg-black text-white font-bold p-4 w-full cursor-pointer section-header"
         @click="toggleSection(section)"
       >
