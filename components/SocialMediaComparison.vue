@@ -102,17 +102,13 @@ const displayedCandidates = computed(() => {
                 <Bluesky v-else-if="platform.key === 'bluesky'" class="white" />
               </div>
             </th>
-            <th class="rounded-tr-xl">&nbsp;</th>
           </tr>
         </thead>
         <tbody>
           <tr
             v-for="(candidate, index) in displayedCandidates"
             :key="candidate.id"
-            :class="[
-              'border-b border-gray-200 last:border-b-0',
-              index % 2 === 0 ? 'bg-white' : 'bg-gray-100',
-            ]"
+            :class="[index % 2 === 0 ? 'bg-white' : 'bg-gray-100']"
           >
             <td class="p-4 font-medium">
               <NuxtLink :to="`/${candidate.slug}`" class="plain">
