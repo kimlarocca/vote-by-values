@@ -337,7 +337,9 @@ const isSectionExpanded = (section) => {
                 class="text-center p-0 font-semibold w-12 max-w-12 candidate-header"
               >
                 <div class="vertical-text">
-                  <span>{{ candidate.name }}</span>
+                  <NuxtLink :to="`/${candidate.slug}`" class="plain">
+                    <span>{{ candidate.name }}</span>
+                  </NuxtLink>
                 </div>
               </th>
             </tr>
@@ -416,7 +418,9 @@ const isSectionExpanded = (section) => {
                     class="text-xl"
                   ></i>
                 </div>
-                <span class="text-sm">{{ candidate.name }}</span>
+                <NuxtLink :to="`/${candidate.slug}`" class="text-sm plain">
+                  {{ candidate.name }}
+                </NuxtLink>
                 <i
                   v-if="hasComment(candidate, question.key)"
                   class="pi pi-info-circle text-xl text-blue cursor-pointer -mt-1 ml-2"
@@ -431,7 +435,9 @@ const isSectionExpanded = (section) => {
                 class="mb-3"
               >
                 <div class="text-sm font-medium flex items-center">
-                  <span>{{ candidate.name }}</span>
+                  <NuxtLink :to="`/${candidate.slug}`" class="plain">
+                    {{ candidate.name }}
+                  </NuxtLink>
                   <i
                     v-if="hasComment(candidate, question.key)"
                     class="pi pi-info-circle text-sm text-blue-600 cursor-pointer ml-2"
