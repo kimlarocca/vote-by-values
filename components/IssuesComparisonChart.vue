@@ -168,6 +168,25 @@ const showComment = (candidate, questionKey) => {
   }
 }
 
+// Dialog state for showing answer details
+const answerDialogVisible = ref(false)
+const currentAnswer = ref(null)
+
+// Show answer detail dialog
+const showAnswerDetail = (candidate, questionKey) => {
+  const answer = getResponse(candidate, questionKey)
+  if (answer) {
+    const comment = getComment(candidate, questionKey)
+    currentAnswer.value = {
+      candidateName: candidate.name,
+      questionTitle: questionMap.value[questionKey]?.title || "",
+      answerText: getResponseLabel(answer, questionKey),
+      comment: comment && comment.trim() !== "" ? comment : null,
+    }
+    answerDialogVisible.value = true
+  }
+}
+
 // Search keyword
 const searchKeyword = ref(props.initialKeywords)
 
@@ -368,22 +387,10 @@ const isSectionExpanded = (section) => {
                       getAnswerIcon(getResponse(candidate, question.key)),
                       getAnswerClass(getResponse(candidate, question.key)),
                     ]"
-                    class="text-2xl"
-                  ></i>
-                  <span
-                    v-else-if="hasResponse(getResponse(candidate, question.key))"
-                    class="text-sm"
-                  >
-                    {{
-                      getResponseLabel(getResponse(candidate, question.key), question.key)
-                    }}
-                  </span>
-                  <i
-                    v-if="hasComment(candidate, question.key)"
-                    class="pi pi-info-circle text-blue text-2xl cursor-pointer ml-1"
-                    @click.stop="showComment(candidate, question.key)"
-                    v-tooltip="'View Candidate Comment'"
-                  ></i>
+                    class="text-2xl cursor-pointer"
+                    @click="showAnswerDetail(candidate, question.key)"
+                    v-tooltip="'View Answer Details'"
+                  />
                 </div>
               </td>
             </tr>
@@ -415,18 +422,13 @@ const isSectionExpanded = (section) => {
                       getAnswerIcon(getResponse(candidate, question.key)),
                       getAnswerClass(getResponse(candidate, question.key)),
                     ]"
-                    class="text-xl"
+                    class="text-xl cursor-pointer"
+                    @click="showAnswerDetail(candidate, question.key)"
                   ></i>
                 </div>
                 <NuxtLink :to="`/${candidate.slug}`" class="text-sm plain">
                   {{ candidate.name }}
                 </NuxtLink>
-                <i
-                  v-if="hasComment(candidate, question.key)"
-                  class="pi pi-info-circle text-xl text-blue cursor-pointer -mt-1 ml-2"
-                  @click.stop="showComment(candidate, question.key)"
-                  title="View comment"
-                ></i>
               </div>
 
               <!-- Non-Yes/No Response: Name with Response Below -->
@@ -441,8 +443,8 @@ const isSectionExpanded = (section) => {
                   <i
                     v-if="hasComment(candidate, question.key)"
                     class="pi pi-info-circle text-sm text-blue-600 cursor-pointer ml-2"
-                    @click.stop="showComment(candidate, question.key)"
-                    title="View comment"
+                    @click.stop="showAnswerDetail(candidate, question.key)"
+                    title="View answer details"
                   ></i>
                 </div>
                 <div class="text-sm text-gray-600 ml-4 mt-1">
@@ -468,16 +470,20 @@ const isSectionExpanded = (section) => {
       <p class="text-gray-500">No survey responses available for comparison.</p>
     </div>
 
-    <!-- Comment Dialog -->
+    <!-- Answer Detail Dialog -->
     <Dialog
-      v-model:visible="commentDialogVisible"
+      v-model:visible="answerDialogVisible"
       modal
-      :header="currentComment?.candidateName"
+      :header="currentAnswer?.candidateName"
       :style="{ width: '90vw', maxWidth: '600px' }"
     >
-      <div v-if="currentComment">
-        <p class="font-semibold mb-3">{{ currentComment.questionTitle }}</p>
-        <p class="text-gray-700">{{ currentComment.comment }}</p>
+      <div v-if="currentAnswer">
+        <p class="font-semibold mb-3">{{ currentAnswer.questionTitle }}</p>
+        <p class="text-gray-700 mb-4">{{ currentAnswer.answerText }}</p>
+        <div v-if="currentAnswer.comment" class="mt-4 pt-4 border-t border-gray-200">
+          <p class="font-semibold mb-2">Additional Comment:</p>
+          <p class="text-gray-700">{{ currentAnswer.comment }}</p>
+        </div>
       </div>
     </Dialog>
   </div>
