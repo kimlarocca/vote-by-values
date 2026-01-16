@@ -24,6 +24,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 // Create a map of question names to their full question text
@@ -302,8 +306,14 @@ const isSectionExpanded = (section) => {
 </script>
 
 <template>
+  <!-- Loading State -->
+  <div v-if="loading" class="text-center bg-white rounded-xl p-8">
+    <i class="pi pi-spin pi-spinner text-4xl mb-4" />
+    <p>Loading issues comparison...</p>
+  </div>
+
   <div
-    v-if="candidates.length > 0 && yesNoQuestions.length > 0"
+    v-else-if="candidates.length > 0 && yesNoQuestions.length > 0"
     class="issues-comparison-chart"
   >
     <!-- Search and Filter Row -->

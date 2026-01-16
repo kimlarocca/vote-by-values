@@ -25,5 +25,10 @@
     width: 20px;
     height: 20px;
   }
+  &.white {
+    path {
+      fill: #ffffff;
+    }
+  }
 }
 </style>

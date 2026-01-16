@@ -148,18 +148,34 @@ const getBlueskyUrl = (candidate) => {
         </div>
       </NuxtLink>
 
-      <!-- Compare Candidates Card -->
+      <!-- Compare Issues Card -->
       <NuxtLink
         v-if="raceSlug"
         :to="`/race/${raceSlug}/compare`"
         class="plain flex flex-col h-full"
       >
         <div
-          class="candidate-card rounded-xl h-full flex items-center justify-center bg-black text-white p-6"
+          class="candidate-card p-4 rounded-xl h-full flex items-center justify-center bg-black text-white"
         >
           <div class="text-center">
             <Compare />
             <p class="font-bold">Compare Candidates On Issues</p>
+          </div>
+        </div>
+      </NuxtLink>
+
+      <!-- Compare Socials Card -->
+      <NuxtLink
+        v-if="raceSlug"
+        :to="`/race/${raceSlug}/social-media`"
+        class="plain flex flex-col h-full"
+      >
+        <div
+          class="candidate-card p-4 rounded-xl h-full flex items-center justify-center bg-black text-white"
+        >
+          <div class="text-center">
+            <i class="pi pi-share-alt text-2xl mb-4" />
+            <p class="font-bold">Compare Candidates On Social Media</p>
           </div>
         </div>
       </NuxtLink>
