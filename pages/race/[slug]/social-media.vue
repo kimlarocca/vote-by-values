@@ -71,7 +71,7 @@ onMounted(() => {
         </NuxtLink>
       </div>
       <h1 class="text-center mb-4">Social Media Comparison</h1>
-      <p class="max-w-2xl m-auto">{{ race.name }}</p>
+      <p class="like-h3">{{ race.name }}</p>
     </section>
 
     <!-- Social Media Comparison Component -->
