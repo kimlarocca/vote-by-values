@@ -317,42 +317,46 @@ const isSectionExpanded = (section) => {
     class="issues-comparison-chart"
   >
     <!-- Search and Filter Row -->
-    <div class="mb-6 flex items-center gap-2">
-      <Button
-        v-if="showQuickFilters"
-        v-for="filter in quickFilters"
-        :key="filter.keyword"
-        :label="filter.label"
-        class="outlined trim"
-        @click="applyQuickFilter(filter.keyword)"
-      />
-      <!-- Search Input -->
-      <div class="flex-1">
-        <InputGroup>
-          <InputText
-            v-model="searchKeyword"
-            placeholder="Search issues..."
-            class="w-full"
-          />
-          <InputGroupAddon>
-            <Button icon="pi pi-search" severity="secondary" variant="text" />
-          </InputGroupAddon>
-          <InputGroupAddon v-if="searchKeyword">
-            <Button
-              icon="pi pi-times"
-              severity="secondary"
-              variant="text"
-              @click="searchKeyword = ''"
-            />
-          </InputGroupAddon>
-        </InputGroup>
+    <div class="mb-6 flex flex-col lg:flex-row justify-center items-center gap-2">
+      <div class="flex gap-3 items-center">
+        <Button
+          v-if="showQuickFilters"
+          v-for="filter in quickFilters"
+          :key="filter.keyword"
+          :label="filter.label"
+          class="outlined trim"
+          @click="applyQuickFilter(filter.keyword)"
+        />
       </div>
+      <div class="flex gap-3 items-center">
+        <!-- Search Input -->
+        <div class="flex-1">
+          <InputGroup>
+            <InputText
+              v-model="searchKeyword"
+              placeholder="Search issues..."
+              class="w-full"
+            />
+            <InputGroupAddon>
+              <Button icon="pi pi-search" severity="secondary" variant="text" />
+            </InputGroupAddon>
+            <InputGroupAddon v-if="searchKeyword">
+              <Button
+                icon="pi pi-times"
+                severity="secondary"
+                variant="text"
+                @click="searchKeyword = ''"
+              />
+            </InputGroupAddon>
+          </InputGroup>
+        </div>
 
-      <!-- Candidate Filters -->
-      <CandidateFilters
-        :candidates="candidates"
-        @update:filteredCandidates="updateFilteredCandidates"
-      />
+        <!-- Candidate Filters -->
+        <CandidateFilters
+          :candidates="candidates"
+          @update:filteredCandidates="updateFilteredCandidates"
+        />
+      </div>
     </div>
 
     <div
