@@ -364,23 +364,19 @@ const isSectionExpanded = (section) => {
       :key="section"
       class="mb-6 lg:mb-12 border-1 rounded-xl border-black section-container"
     >
-      <NuxtLink
-        v-if="raceSlug"
-        :to="`/race/${raceSlug}/categories/${getCategorySlug(section)}`"
-        class="inline-block bg-black text-white font-bold p-4 w-full cursor-pointer section-header plain"
-      >
-        <span class="flex items-center justify-between">
-          <span>{{ section }}</span>
-          <i class="pi pi-arrow-right"></i>
-        </span>
-      </NuxtLink>
       <p
-        v-else
         class="inline-block bg-black text-white font-bold p-4 w-full cursor-pointer section-header"
         @click="toggleSection(section)"
       >
         <span class="flex items-center justify-between">
-          <span>{{ section }}</span>
+          <NuxtLink
+            v-if="raceSlug"
+            :to="`/race/${raceSlug}/categories/${getCategorySlug(section)}`"
+            class="text-white font-bold cursor-pointer section-header"
+          >
+            <span>{{ section }}</span>
+          </NuxtLink>
+          <span v-else>{{ section }}</span>
           <i
             class="pi mobile-chevron"
             :class="isSectionExpanded(section) ? 'pi-chevron-up' : 'pi-chevron-down'"
