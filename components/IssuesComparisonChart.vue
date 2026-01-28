@@ -365,7 +365,7 @@ const isSectionExpanded = (section) => {
       class="mb-6 lg:mb-12 border-1 rounded-xl border-black section-container"
     >
       <p
-        class="inline-block bg-black text-white font-bold p-4 w-full cursor-pointer section-header"
+        class="inline-block bg-black text-white font-bold p-4 w-full section-header"
         @click="toggleSection(section)"
       >
         <span class="flex items-center justify-between">
