@@ -41,9 +41,10 @@ const displayedCandidates = computed(() => {
         <thead>
           <tr class="bg-black text-white">
             <th class="rounded-tl-xl p-4 text-left">Candidate</th>
-            <th class="rounded-tr-xl p-4 text-center">
+            <th class="p-4 text-center">
               <div class="flex flex-col items-center gap-1">Issues Page</div>
             </th>
+            <th class="rounded-tr-xl p-4 text-left">Summary</th>
           </tr>
         </thead>
         <tbody>
@@ -69,6 +70,9 @@ const displayedCandidates = computed(() => {
               </a>
               <i v-else class="pi pi-times-circle text-red-600"></i>
             </td>
+            <td class="p-4">
+              <span class="text-sm">{{ candidate.issues_page_summary || "" }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -93,20 +97,30 @@ const displayedCandidates = computed(() => {
               index % 2 === 0 ? 'bg-white' : 'bg-gray-50',
             ]"
           >
-            <div v-if="hasIssuesPage(candidate)" class="flex items-center gap-2">
-              <i class="pi pi-check-circle text-green-600"></i>
-              <a
-                :href="candidate.issues_page_url"
-                target="_blank"
-                :aria-label="`${candidate.name} Issues Page`"
-                class="text-blue hover:text-blue-dark"
-              >
-                {{ candidate.name }}
-              </a>
+            <div v-if="hasIssuesPage(candidate)" class="flex flex-col gap-2">
+              <div class="flex items-center gap-2">
+                <i class="pi pi-check-circle text-green-600"></i>
+                <a
+                  :href="candidate.issues_page_url"
+                  target="_blank"
+                  :aria-label="`${candidate.name} Issues Page`"
+                  class="text-blue hover:text-blue-dark"
+                >
+                  {{ candidate.name }}
+                </a>
+              </div>
+              <p v-if="candidate.issues_page_summary" class="text-sm text-gray-600 ml-6">
+                {{ candidate.issues_page_summary }}
+              </p>
             </div>
-            <div v-else class="flex items-center gap-2">
-              <i class="pi pi-times-circle text-red-600"></i>
-              <p>{{ candidate.name }}</p>
+            <div v-else class="flex flex-col gap-2">
+              <div class="flex items-center gap-2">
+                <i class="pi pi-times-circle text-red-600"></i>
+                <p>{{ candidate.name }}</p>
+              </div>
+              <p v-if="candidate.issues_page_summary" class="text-sm text-gray-600 ml-6">
+                {{ candidate.issues_page_summary }}
+              </p>
             </div>
           </div>
         </div>
