@@ -6,7 +6,6 @@
         {
             "name": "Authoritarianism",
             "title": "Authoritarianism",
-            "slug": "authoritarianism",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -160,7 +159,6 @@
         {
             "name": "Election Integrity",
             "title": "Election Integrity",
-            "slug": "election-integrity",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -246,7 +244,6 @@
         {
             "name": "Federal Government Overreach",
             "title": "Federal Government Overreach",
-            "slug": "federal-government-overreach",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -395,7 +392,6 @@
         {
             "name": "Energy  & Environment",
             "title": "Energy  & Environment",
-            "slug": "energy-and-environment",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -664,8 +660,40 @@
         {
             "name": "Immigration",
             "title": "Immigration",
-            "slug": "immigration",
             "elements": [
+                {
+                    "type": "radiogroup",
+                    "name": "question107",
+                    "title": "Should ICE Exist?",
+                    "showCommentArea": true,
+                    "commentText": "Nuanced Answer",
+                    "choices": [
+                        {
+                            "value": "no",
+                            "text": "No, Abolish ICE"
+                        },
+                        {
+                            "value": "no-2",
+                            "text": "No, Defund ICE"
+                        },
+                        {
+                            "value": "yes-3",
+                            "text": "Yes, With Less Funding"
+                        },
+                        {
+                            "value": "yes-2",
+                            "text": "Yes, With Current Funding"
+                        },
+                        {
+                            "value": "yes",
+                            "text": "Yes, With Expanded Funding"
+                        },
+                        {
+                            "value": "nr",
+                            "text": "No Response"
+                        }
+                    ]
+                },
                 {
                     "type": "radiogroup",
                     "name": "question27",
@@ -881,7 +909,6 @@
         {
             "name": "Education",
             "title": "Education",
-            "slug": "education",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -993,7 +1020,6 @@
         {
             "name": "Public Funding",
             "title": "Public Funding",
-            "slug": "public-funding",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -1105,7 +1131,6 @@
         {
             "name": "Healthcare",
             "title": "Healthcare",
-            "slug": "healthcare",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -1217,7 +1242,6 @@
         {
             "name": "Individual Freedoms & Rights",
             "title": "Individual Freedoms & Rights",
-            "slug": "individual-freedoms-and-rights",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -1492,7 +1516,6 @@
         {
             "name": "Dangerous Influences",
             "title": "Dangerous Influences",
-            "slug": "dangerous-influences",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -1583,12 +1606,11 @@
         {
             "name": "Taxation & Spending",
             "title": "Taxation & Spending",
-            "slug": "taxation-and-spending",
             "elements": [
                 {
                     "type": "radiogroup",
                     "name": "question68",
-                    "title": "Should we increase taxes the wealthiest Americans?",
+                    "title": "Should we increase taxes on the wealthiest Americans?",
                     "showCommentArea": true,
                     "commentText": "Nuanced Position",
                     "choices": [
@@ -1695,104 +1717,11 @@
         {
             "name": "Foreign Policy",
             "title": "Foreign Policy",
-            "slug": "foreign-policy",
             "elements": [
                 {
                     "type": "radiogroup",
-                    "name": "question73",
-                    "title": "Should the US continue funding for Israel?",
-                    "showCommentArea": true,
-                    "commentText": "Nuanced Position",
-                    "choices": [
-                        {
-                            "value": "yes",
-                            "text": "Yes, Unconditionally"
-                        },
-                        {
-                            "value": "yes-2",
-                            "text": "Yes, with Conditions"
-                        },
-                        {
-                            "value": "no",
-                            "text": "No"
-                        },
-                        {
-                            "value": "nr",
-                            "text": "No Response"
-                        }
-                    ]
-                },
-                {
-                    "type": "radiogroup",
-                    "name": "question74",
-                    "title": "Do you consider Benjamin Netanyahu a war criminal?",
-                    "showCommentArea": true,
-                    "commentText": "Nuanced Position",
-                    "choices": [
-                        {
-                            "value": "yes",
-                            "text": "Yes"
-                        },
-                        {
-                            "value": "no",
-                            "text": "No"
-                        },
-                        {
-                            "value": "nr",
-                            "text": "No Response"
-                        }
-                    ]
-                },
-                {
-                    "type": "radiogroup",
-                    "name": "question75",
-                    "title": "Should Hamas be allowed to play a role in governing Gaza?",
-                    "showCommentArea": true,
-                    "commentText": "Nuanced Position",
-                    "choices": [
-                        {
-                            "value": "yes",
-                            "text": "Yes"
-                        },
-                        {
-                            "value": "no",
-                            "text": "No"
-                        },
-                        {
-                            "value": "nr",
-                            "text": "No Response"
-                        }
-                    ]
-                },
-                {
-                    "type": "radiogroup",
-                    "name": "question76",
-                    "title": "Should the US recognize a Palestinian state?",
-                    "showCommentArea": true,
-                    "commentText": "Nuanced Position",
-                    "choices": [
-                        {
-                            "value": "yes",
-                            "text": "Yes, Unconditionally"
-                        },
-                        {
-                            "value": "yes-2",
-                            "text": "Yes, with Conditions"
-                        },
-                        {
-                            "value": "no",
-                            "text": "No"
-                        },
-                        {
-                            "value": "nr",
-                            "text": "No Response"
-                        }
-                    ]
-                },
-                {
-                    "type": "radiogroup",
                     "name": "question77",
-                    "title": "Do you support the military strikes in the Caribbean targeting Venezuela?",
+                    "title": "Do you support the US military action in Venezuela?",
                     "showCommentArea": true,
                     "commentText": "Nuanced Position",
                     "choices": [
@@ -1901,9 +1830,232 @@
             ]
         },
         {
+            "name": "page1",
+            "title": "Middle East Policy",
+            "elements": [
+                {
+                    "type": "radiogroup",
+                    "name": "question101",
+                    "title": "Do you consider yourself a Zionist? [Interpreted Response from forum question \"Do you believe that the Jewish people have the right to self determination in their ancestral homeland, what is commonly referred to as Zionism\"]",
+                    "showCommentArea": true,
+                    "commentText": "Nuanced Position",
+                    "choices": [
+                        {
+                            "value": "yes",
+                            "text": "Yes"
+                        },
+                        {
+                            "value": "no",
+                            "text": "No"
+                        },
+                        {
+                            "value": "nr",
+                            "text": "No Response"
+                        }
+                    ]
+                },
+                {
+                    "type": "radiogroup",
+                    "name": "question102",
+                    "title": "Do you believe that the special US-Israel relationship should be a fundamental tenet of US foreign policy?",
+                    "showCommentArea": true,
+                    "commentText": "Nuanced Position",
+                    "choices": [
+                        {
+                            "value": "yes",
+                            "text": "Yes"
+                        },
+                        {
+                            "value": "no",
+                            "text": "No"
+                        },
+                        {
+                            "value": "nr",
+                            "text": "No Response"
+                        }
+                    ]
+                },
+                {
+                    "type": "radiogroup",
+                    "name": "question103",
+                    "title": "Should Israel not be fully capable of providing its own military defensive needs, when the program first expires, should the United States extend its commitment to provide Israel with an annual 3.8 billion dollars of military aid?",
+                    "showCommentArea": true,
+                    "commentText": "Nuanced Position",
+                    "choices": [
+                        {
+                            "value": "yes",
+                            "text": "Yes"
+                        },
+                        {
+                            "value": "no",
+                            "text": "No"
+                        },
+                        {
+                            "value": "nr",
+                            "text": "No Response"
+                        }
+                    ]
+                },
+                {
+                    "type": "radiogroup",
+                    "name": "question104",
+                    "title": "Do you support the United States government taking action to support the protesters in Iran?",
+                    "showCommentArea": true,
+                    "commentText": "Nuanced Position",
+                    "choices": [
+                        {
+                            "value": "yes",
+                            "text": "Yes"
+                        },
+                        {
+                            "value": "no",
+                            "text": "No"
+                        },
+                        {
+                            "value": "nr",
+                            "text": "No Response"
+                        }
+                    ]
+                },
+                {
+                    "type": "radiogroup",
+                    "name": "question105",
+                    "title": "Do you believe the US did the right thing by attacking Iran's Fordow nuclear facility last June?",
+                    "showCommentArea": true,
+                    "commentText": "Nuanced Position",
+                    "choices": [
+                        {
+                            "value": "yes",
+                            "text": "Yes"
+                        },
+                        {
+                            "value": "no",
+                            "text": "No"
+                        },
+                        {
+                            "value": "nr",
+                            "text": "No Response"
+                        }
+                    ]
+                },
+                {
+                    "type": "radiogroup",
+                    "name": "question106",
+                    "title": "Should the United States enshrine the IHRA definition of antisemitism into law?",
+                    "showCommentArea": true,
+                    "commentText": "Nuanced Position",
+                    "choices": [
+                        {
+                            "value": "yes",
+                            "text": "Yes"
+                        },
+                        {
+                            "value": "no",
+                            "text": "No"
+                        },
+                        {
+                            "value": "nr",
+                            "text": "No Response"
+                        }
+                    ]
+                },
+                {
+                    "type": "radiogroup",
+                    "name": "question73",
+                    "title": "Should the US continue funding for Israel?",
+                    "showCommentArea": true,
+                    "commentText": "Nuanced Position",
+                    "choices": [
+                        {
+                            "value": "yes",
+                            "text": "Yes, Unconditionally"
+                        },
+                        {
+                            "value": "yes-2",
+                            "text": "Yes, with Conditions"
+                        },
+                        {
+                            "value": "no",
+                            "text": "No"
+                        },
+                        {
+                            "value": "nr",
+                            "text": "No Response"
+                        }
+                    ]
+                },
+                {
+                    "type": "radiogroup",
+                    "name": "question74",
+                    "title": "Do you consider Benjamin Netanyahu a war criminal?",
+                    "showCommentArea": true,
+                    "commentText": "Nuanced Position",
+                    "choices": [
+                        {
+                            "value": "yes",
+                            "text": "Yes"
+                        },
+                        {
+                            "value": "no",
+                            "text": "No"
+                        },
+                        {
+                            "value": "nr",
+                            "text": "No Response"
+                        }
+                    ]
+                },
+                {
+                    "type": "radiogroup",
+                    "name": "question75",
+                    "title": "Should Hamas be allowed to play a role in governing Gaza?",
+                    "showCommentArea": true,
+                    "commentText": "Nuanced Position",
+                    "choices": [
+                        {
+                            "value": "yes",
+                            "text": "Yes"
+                        },
+                        {
+                            "value": "no",
+                            "text": "No"
+                        },
+                        {
+                            "value": "nr",
+                            "text": "No Response"
+                        }
+                    ]
+                },
+                {
+                    "type": "radiogroup",
+                    "name": "question76",
+                    "title": "Should the US recognize a Palestinian state?",
+                    "showCommentArea": true,
+                    "commentText": "Nuanced Position",
+                    "choices": [
+                        {
+                            "value": "yes",
+                            "text": "Yes, Unconditionally"
+                        },
+                        {
+                            "value": "yes-2",
+                            "text": "Yes, with Conditions"
+                        },
+                        {
+                            "value": "no",
+                            "text": "No"
+                        },
+                        {
+                            "value": "nr",
+                            "text": "No Response"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "name": "Labor Rights",
             "title": "Labor Rights",
-            "slug": "labor-rights",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -1973,7 +2125,6 @@
         {
             "name": "Corruption",
             "title": "Corruption",
-            "slug": "corruption",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -2043,7 +2194,6 @@
         {
             "name": "Campaign Funding",
             "title": "Campaign Funding",
-            "slug": "campaign-funding",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -2205,7 +2355,6 @@
         {
             "name": "Affordable Housing",
             "title": "Affordable Housing",
-            "slug": "affordable-housing",
             "elements": [
                 {
                     "type": "radiogroup",
@@ -2283,7 +2432,6 @@
         {
             "name": "Bonus",
             "title": "Bonus",
-            "slug": "bonus",
             "elements": [
                 {
                     "type": "radiogroup",
