@@ -71,7 +71,7 @@ const displayedCandidates = computed(() => {
               <i v-else class="pi pi-times-circle text-red-600"></i>
             </td>
             <td class="p-4">
-              <span class="text-sm">{{ candidate.issues_page_summary || "" }}</span>
+              <span>{{ candidate.issues_page_summary || "" }}</span>
             </td>
           </tr>
         </tbody>
