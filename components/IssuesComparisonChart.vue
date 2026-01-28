@@ -435,6 +435,19 @@ const isSectionExpanded = (section) => {
                     @click="showAnswerDetail(candidate, question.key)"
                     v-tooltip="'View Answer Details'"
                   />
+                  <p v-else>
+                    <span
+                      v-if="hasResponse(getResponse(candidate, question.key))"
+                      class="text-sm"
+                    >
+                      {{
+                        getResponseLabel(
+                          getResponse(candidate, question.key),
+                          question.key
+                        )
+                      }}
+                    </span>
+                  </p>
                 </div>
               </td>
             </tr>
