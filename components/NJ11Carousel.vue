@@ -41,12 +41,6 @@ const products = ref([
     to: "/race/NJ-11/compare?keywords=ice",
   },
   {
-    id: "4",
-    name: "nj 11 ICE budget image",
-    image: "nj11/4.jpg",
-    to: "/race/NJ-11/compare?keywords=ice",
-  },
-  {
     id: "5",
     name: "nj 11 antisemitism candidate comparison chart image",
     image: "nj11/5.jpg",
