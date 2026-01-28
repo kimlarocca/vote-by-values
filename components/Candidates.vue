@@ -184,7 +184,7 @@ const getBlueskyUrl = (candidate) => {
       <NuxtLink
         v-if="raceSlug"
         :to="`/race/${raceSlug}/social-media`"
-        class="plain flex flex-col h-full"
+        class="plain flex flex-col h-full min-h-[200px]"
       >
         <div
           class="candidate-card p-4 rounded-xl h-full flex items-center justify-center bg-black text-white"
