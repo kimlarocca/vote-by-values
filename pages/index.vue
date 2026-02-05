@@ -1,8 +1,10 @@
 <script setup>
 const supabase = useSupabaseClient()
 
-// today's date in timestampz format
-const today = new Date().toISOString()
+// start of today (midnight) in timestampz format
+const today = new Date()
+today.setHours(0, 0, 0, 0)
+const todayStart = today.toISOString()
 const loading = ref(true)
 const races = ref([])
 
@@ -10,7 +12,7 @@ const getRaces = async () => {
   const { data, error } = await supabase
     .from("races")
     .select(`*`)
-    .gt("election_date", today)
+    .gte("election_date", todayStart)
     .eq("draft", false)
     .order("name")
   if (error) {
