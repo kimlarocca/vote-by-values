@@ -48,7 +48,7 @@ const getBlueskyUrl = (candidate) => {
     />
 
     <div
-      class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"
+      class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
     >
       <NuxtLink
         :to="`/${candidate.slug}`"

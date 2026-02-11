@@ -11,6 +11,7 @@ const emit = defineEmits(["update:filteredCandidates"])
 const selectedParties = ref([])
 const selectedCandidates = ref([])
 const includeWithdrawn = ref(false)
+const includeLost = ref(false)
 const filterDialogVisible = ref(false)
 
 const parties = computed(() => {
@@ -29,6 +30,11 @@ const filteredCandidates = computed(() => {
   // Exclude withdrawn candidates by default
   if (!includeWithdrawn.value) {
     filtered = filtered.filter((candidate) => candidate.candidate_status !== "Withdrawn")
+  }
+
+  // Exclude lost candidates by default
+  if (!includeLost.value) {
+    filtered = filtered.filter((candidate) => candidate.candidate_status !== "Lost")
   }
 
   // Filter by party
@@ -61,7 +67,8 @@ const filterLabel = computed(() => {
   const totalFilters =
     selectedParties.value.length +
     selectedCandidates.value.length +
-    (includeWithdrawn.value ? 1 : 0)
+    (includeWithdrawn.value ? 1 : 0) +
+    (includeLost.value ? 1 : 0)
   if (totalFilters === 0) {
     return "Filter"
   }
@@ -72,13 +79,15 @@ const clearFilters = () => {
   selectedParties.value = []
   selectedCandidates.value = []
   includeWithdrawn.value = false
+  includeLost.value = false
 }
 
 const hasActiveFilters = computed(() => {
   return (
     selectedParties.value.length > 0 ||
     selectedCandidates.value.length > 0 ||
-    includeWithdrawn.value
+    includeWithdrawn.value ||
+    includeLost.value
   )
 })
 </script>
@@ -116,15 +125,23 @@ const hasActiveFilters = computed(() => {
         <!-- Filter by Status -->
         <div>
           <h3 class="mb-3 font-bold">Status</h3>
-          <div class="flex items-center gap-3">
-            <Checkbox
-              v-model="includeWithdrawn"
-              inputId="include-withdrawn"
-              :binary="true"
-            />
-            <label for="include-withdrawn" class="cursor-pointer"
-              >Include Withdrawn Candidates</label
-            >
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-3">
+              <Checkbox v-model="includeLost" inputId="include-lost" :binary="true" />
+              <label for="include-lost" class="cursor-pointer"
+                >Include Candidates Who Have Lost</label
+              >
+            </div>
+            <div class="flex items-center gap-3">
+              <Checkbox
+                v-model="includeWithdrawn"
+                inputId="include-withdrawn"
+                :binary="true"
+              />
+              <label for="include-withdrawn" class="cursor-pointer"
+                >Include Candidates Who Have Withdrawn</label
+              >
+            </div>
           </div>
         </div>
 
