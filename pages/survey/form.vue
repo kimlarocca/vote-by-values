@@ -559,8 +559,6 @@ const submitSurvey = async () => {
 
 .category-sidebar {
   width: 280px;
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
   position: sticky;
   top: 20px;
   flex-shrink: 0;

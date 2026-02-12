@@ -76,10 +76,17 @@ watch(
         <!-- Image -->
         <div class="lg:col-span-1">
           <img
+            v-if="candidate.image"
             :src="candidate.image"
             :alt="candidate.name"
             class="w-full rounded-xl shadow-lg"
           />
+          <div
+            v-else
+            class="w-full aspect-square rounded-xl shadow-lg bg-gray-200 flex items-center justify-center"
+          >
+            <i class="pi pi-user text-6xl text-gray-400" />
+          </div>
         </div>
 
         <!-- Main Info -->
