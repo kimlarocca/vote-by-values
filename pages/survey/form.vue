@@ -25,11 +25,11 @@ const lastSavedUpdateInterval = ref(null)
 
 // Load candidate info from database using URL parameter
 const loadCandidateInfo = async () => {
-  // Get candidate ID from URL parameters
+  // Get candidate code from URL parameters
   const urlParams = new URLSearchParams(window.location.search)
-  const candidateId = urlParams.get("id")
+  const candidateCode = urlParams.get("code")
 
-  if (!candidateId) {
+  if (!candidateCode) {
     window.location.href = "/survey"
     return false
   }
@@ -38,7 +38,7 @@ const loadCandidateInfo = async () => {
     const { data, error } = await supabase
       .from("candidates")
       .select("id, name, candidate_code, race_slug, party")
-      .eq("id", candidateId)
+      .eq("candidate_code", candidateCode)
       .single()
 
     if (error || !data) {
@@ -188,17 +188,17 @@ const autoSave = async () => {
   saveError.value = null
 
   try {
-    console.log("Attempting to save responses for candidate ID:", candidateInfo.value?.id)
+    console.log("Attempting to save responses for candidate:", candidateInfo.value?.name)
     console.log("Responses to save:", responses.value)
 
-    const { data, error } = await supabase
-      .from("candidates")
-      .update({ survey_response: responses.value })
-      .eq("id", candidateInfo.value.id)
-      .select()
+    // Use secure RPC function that validates candidate_code
+    const { data, error } = await supabase.rpc("update_survey_response", {
+      p_candidate_code: candidateInfo.value.candidate_code,
+      p_survey_response: responses.value,
+    })
 
     if (error) {
-      console.error("Supabase update error details:", {
+      console.error("Supabase RPC error details:", {
         message: error.message,
         details: error.details,
         hint: error.hint,
@@ -207,7 +207,12 @@ const autoSave = async () => {
       throw error
     }
 
-    console.log("Save successful, updated data:", data)
+    // Check if the function returned an error
+    if (!data.success) {
+      throw new Error(data.error || "Update failed")
+    }
+
+    console.log("Save successful:", data)
     lastSaved.value = new Date()
   } catch (err) {
     console.error("Autosave error:", err)

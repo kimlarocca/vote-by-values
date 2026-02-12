@@ -39,8 +39,8 @@ const verifyCode = async () => {
     // Store candidate info for the survey
     candidateInfo.value = data
 
-    // Navigate to survey form with candidate ID
-    await navigateTo(`/survey/form?id=${data.id}`)
+    // Navigate to survey form with candidate code (for security)
+    await navigateTo(`/survey/form?code=${candidateCode.value.trim()}`)
   } catch (err) {
     console.error("Verification error:", err)
     verificationError.value = "An error occurred. Please try again."
