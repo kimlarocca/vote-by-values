@@ -76,23 +76,11 @@ onMounted(async () => {
 // Load survey questions from database
 const loadSurveyQuestions = async () => {
   loading.value = true
-
-  const { data, error } = await supabase.rpc("get_survey_questions", {
-    p_survey_id: 1,
-  })
-
-  if (error) {
-    console.error("Error loading survey:", error)
-    // Fallback to direct query if RPC doesn't exist
-    await loadSurveyQuestionsDirect()
-  } else {
-    processSurveyData(data)
-  }
-
+  await loadSurveyQuestionsDirect()
   loading.value = false
 }
 
-// Direct query fallback
+// Direct query
 const loadSurveyQuestionsDirect = async () => {
   try {
     // Load categories first
@@ -175,39 +163,6 @@ const loadSurveyQuestionsDirect = async () => {
   }
 }
 
-const processSurveyData = (data) => {
-  // Group questions by category
-  const grouped = {}
-
-  data.forEach((item) => {
-    const categorySlug = item.category_slug
-
-    if (!grouped[categorySlug]) {
-      grouped[categorySlug] = {
-        name: item.category_name,
-        title: item.category_title,
-        slug: item.category_slug,
-        sort_order: item.category_sort_order,
-        questions: [],
-      }
-    }
-
-    grouped[categorySlug].questions.push({
-      id: item.question_id,
-      question_key: item.question_key,
-      question_type: item.question_type,
-      title: item.question_title,
-      description: item.description,
-      show_comment_area: item.show_comment_area,
-      comment_text: item.comment_text,
-      sort_order: item.sort_order,
-      choices: item.choices || [],
-    })
-  })
-
-  surveyData.value = Object.values(grouped).sort((a, b) => a.sort_order - b.sort_order)
-}
-
 // Load existing responses if any
 const loadExistingResponses = async () => {
   try {
@@ -233,17 +188,30 @@ const autoSave = async () => {
   saveError.value = null
 
   try {
-    const { error } = await supabase
+    console.log("Attempting to save responses for candidate ID:", candidateInfo.value?.id)
+    console.log("Responses to save:", responses.value)
+
+    const { data, error } = await supabase
       .from("candidates")
       .update({ survey_response: responses.value })
       .eq("id", candidateInfo.value.id)
+      .select()
 
-    if (error) throw error
+    if (error) {
+      console.error("Supabase update error details:", {
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+        code: error.code,
+      })
+      throw error
+    }
 
+    console.log("Save successful, updated data:", data)
     lastSaved.value = new Date()
   } catch (err) {
     console.error("Autosave error:", err)
-    saveError.value = "Failed to save"
+    saveError.value = `Failed to save: ${err.message || "Unknown error"}`
   } finally {
     saving.value = false
   }
