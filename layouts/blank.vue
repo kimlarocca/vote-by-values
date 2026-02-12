@@ -1,5 +1,5 @@
 <template>
-  <main class="mb-16">
-    <NuxtPage />
-  </main>
+  <div class="gradient-container flex flex-col h-full">
+    <slot />
+  </div>
 </template>

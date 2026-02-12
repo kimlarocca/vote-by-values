@@ -7,12 +7,3 @@
     <the-footer class="mt-auto" />
   </div>
 </template>
-
-<style scoped>
-.gradient-container {
-  min-height: 100vh;
-  background: linear-gradient(to top, transparent 0%, white 50%),
-    linear-gradient(to right, var(--red) 0%, var(--purple) 50%, var(--blue) 100%);
-  background-attachment: fixed;
-}
-</style>

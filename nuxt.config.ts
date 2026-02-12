@@ -6,6 +6,10 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: false },
 
+  routeRules: {
+    '/survey/**': { ssr: false }
+  },
+
   app: {
     head: {
       title: `VoteByValues.com | Choose wisely. Vote informed.`,
