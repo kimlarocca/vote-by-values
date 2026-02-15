@@ -37,7 +37,7 @@ const loadCandidateInfo = async () => {
   try {
     const { data, error } = await supabase
       .from("candidates")
-      .select("id, name, candidate_code, race_slug, party")
+      .select("id, name, candidate_code, race_slug, party, state")
       .eq("candidate_code", candidateCode)
       .single()
 
@@ -94,12 +94,50 @@ const loadSurveyQuestionsDirect = async () => {
       return
     }
 
-    // Load questions
-    const { data: questions, error: qError } = await supabase
-      .from("survey-questions")
-      .select("*")
-      .eq("survey_id", 1)
-      .order("sort_order", { ascending: true })
+    // Find the state-level survey ID if candidate has a state
+    let stateSurveyId = null
+    console.log("Candidate info:", candidateInfo.value)
+    console.log("Candidate state:", candidateInfo.value?.state)
+
+    if (candidateInfo.value.state) {
+      console.log(`Looking for survey with state = '${candidateInfo.value.state}'`)
+
+      const { data: surveyData, error: surveyError } = await supabase
+        .from("surveys")
+        .select("id")
+        .eq("state", candidateInfo.value.state)
+        .single()
+
+      console.log("Survey query result:", { surveyData, surveyError })
+
+      if (!surveyError && surveyData) {
+        stateSurveyId = surveyData.id
+        console.log(
+          `Found state survey for ${candidateInfo.value.state}: survey_id=${stateSurveyId}`
+        )
+      } else {
+        console.log(`No state survey found for ${candidateInfo.value.state}`)
+      }
+    } else {
+      console.log("No state specified for candidate")
+    }
+
+    // Build query for questions - national (survey_id=1) and state-specific if found
+    let questionsQuery = supabase.from("survey-questions").select("*")
+
+    if (stateSurveyId) {
+      console.log(
+        `Loading questions for survey_id 1 (national) and ${stateSurveyId} (${candidateInfo.value.state})`
+      )
+      questionsQuery = questionsQuery.or(`survey_id.eq.1,survey_id.eq.${stateSurveyId}`)
+    } else {
+      console.log("Loading questions for survey_id 1 (national only)")
+      questionsQuery = questionsQuery.eq("survey_id", 1)
+    }
+
+    const { data: questions, error: qError } = await questionsQuery.order("sort_order", {
+      ascending: true,
+    })
 
     if (qError) {
       console.error("Error loading questions:", qError)
@@ -459,7 +497,17 @@ const submitSurvey = async () => {
                 </div>
               </div>
 
-              <!-- Comment Area -->
+              <!-- Comment/Text Area Questions -->
+              <div v-if="question.question_type === 'comment'">
+                <Textarea
+                  v-model="responses[question.question_key]"
+                  rows="5"
+                  class="w-full"
+                  :placeholder="question.description || 'Enter your response...'"
+                />
+              </div>
+
+              <!-- Comment Area (for questions with show_comment_area) -->
               <div v-if="question.show_comment_area" class="mt-4">
                 <label class="block text-sm font-medium mb-2">
                   {{ question.comment_text || "Additional Comments" }}
