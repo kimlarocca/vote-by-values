@@ -329,11 +329,15 @@ watch(
   </section>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .candidate-detail {
   li {
     margin-bottom: 0.5rem;
     font-size: 1rem;
+  }
+  p span {
+    background-color: transparent !important;
+    word-break: break-all;
   }
 }
 </style>
