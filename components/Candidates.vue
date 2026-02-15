@@ -59,10 +59,17 @@ const getBlueskyUrl = (candidate) => {
         <div class="candidate-card rounded-xl">
           <div class="candidate-card-image z-0 relative">
             <img
+              v-if="candidate.image"
               :src="candidate.image"
               :alt="candidate.name"
               class="w-full h-auto rounded-xl"
             />
+            <div
+              v-else
+              class="w-full aspect-square rounded-xl bg-gray-200 flex items-center justify-center"
+            >
+              <i class="pi pi-user text-6xl text-gray-400" />
+            </div>
             <div
               v-if="
                 candidate.candidate_status === 'Won' ||
