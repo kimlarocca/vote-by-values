@@ -320,6 +320,7 @@ watch(
     <CandidateSurveyResponse
       v-if="candidate.survey_response"
       :survey-response="candidate.survey_response"
+      :candidate="candidate"
     />
 
     <!-- Back Button -->
