@@ -122,18 +122,49 @@ const loadSurveyQuestionsDirect = async () => {
       console.log("No state specified for candidate")
     }
 
-    // Build query for questions - national (survey_id=1) and state-specific if found
+    // Find the race-specific survey ID if candidate has a race_slug
+    let raceSurveyId = null
+    console.log("Candidate race_slug:", candidateInfo.value?.race_slug)
+
+    if (candidateInfo.value.race_slug) {
+      console.log(
+        `Looking for survey with race_slug = '${candidateInfo.value.race_slug}'`
+      )
+
+      const { data: raceSurveyData, error: raceSurveyError } = await supabase
+        .from("surveys")
+        .select("id")
+        .eq("race_slug", candidateInfo.value.race_slug)
+        .single()
+
+      console.log("Race survey query result:", { raceSurveyData, raceSurveyError })
+
+      if (!raceSurveyError && raceSurveyData) {
+        raceSurveyId = raceSurveyData.id
+        console.log(
+          `Found race survey for ${candidateInfo.value.race_slug}: survey_id=${raceSurveyId}`
+        )
+      } else {
+        console.log(`No race survey found for ${candidateInfo.value.race_slug}`)
+      }
+    } else {
+      console.log("No race_slug specified for candidate")
+    }
+
+    // Build query for questions - national (survey_id=1), state-specific, and race-specific if found
     let questionsQuery = supabase.from("survey-questions").select("*")
+    const surveyIds = [1] // Start with national
 
     if (stateSurveyId) {
-      console.log(
-        `Loading questions for survey_id 1 (national) and ${stateSurveyId} (${candidateInfo.value.state})`
-      )
-      questionsQuery = questionsQuery.or(`survey_id.eq.1,survey_id.eq.${stateSurveyId}`)
-    } else {
-      console.log("Loading questions for survey_id 1 (national only)")
-      questionsQuery = questionsQuery.eq("survey_id", 1)
+      surveyIds.push(stateSurveyId)
     }
+    if (raceSurveyId) {
+      surveyIds.push(raceSurveyId)
+    }
+
+    const orConditions = surveyIds.map((id) => `survey_id.eq.${id}`).join(",")
+    console.log(`Loading questions for survey_ids: ${surveyIds.join(", ")}`)
+    questionsQuery = questionsQuery.or(orConditions)
 
     const { data: questions, error: qError } = await questionsQuery.order("sort_order", {
       ascending: true,
@@ -184,10 +215,8 @@ const loadSurveyQuestionsDirect = async () => {
 
       grouped[categoryKey].questions.push({
         id: q.id,
-        question_key: q.question_key,
         question_type: q.question_type,
         title: q.title,
-        description: q.description,
         show_comment_area: q.show_comment_area,
         comment_text: q.comment_text,
         sort_order: q.sort_order,
@@ -467,7 +496,7 @@ const submitSurvey = async () => {
           <div class="space-y-8">
             <div
               v-for="question in currentCategory.questions"
-              :key="question.question_key"
+              :key="question.id"
               class="question-block"
             >
               <!-- Question Title -->
@@ -483,13 +512,13 @@ const submitSurvey = async () => {
                   class="flex items-center"
                 >
                   <RadioButton
-                    v-model="responses[question.question_key]"
-                    :inputId="`${question.question_key}-${choice.value}`"
+                    v-model="responses[question.id]"
+                    :inputId="`${question.id}-${choice.value}`"
                     :value="choice.value"
-                    :name="question.question_key"
+                    :name="question.id"
                   />
                   <label
-                    :for="`${question.question_key}-${choice.value}`"
+                    :for="`${question.id}-${choice.value}`"
                     class="ml-2 cursor-pointer"
                   >
                     {{ choice.text }}
@@ -500,10 +529,10 @@ const submitSurvey = async () => {
               <!-- Comment/Text Area Questions -->
               <div v-if="question.question_type === 'comment'">
                 <Textarea
-                  v-model="responses[question.question_key]"
+                  v-model="responses[question.id]"
                   rows="5"
                   class="w-full"
-                  :placeholder="question.description || 'Enter your response...'"
+                  placeholder="Enter your response..."
                 />
               </div>
 
@@ -513,7 +542,7 @@ const submitSurvey = async () => {
                   {{ question.comment_text || "Additional Comments" }}
                 </label>
                 <Textarea
-                  v-model="responses[`${question.question_key}-Comment`]"
+                  v-model="responses[`${question.id}-Comment`]"
                   rows="3"
                   class="w-full"
                   placeholder="Provide your nuanced position..."
