@@ -23,6 +23,35 @@ const getRaces = async () => {
   loading.value = false
 }
 
+// Helper function to determine which date to display
+const getDisplayDate = (race) => {
+  if (!race) return { label: "Election Date", date: null }
+
+  const now = new Date()
+  const todayStart = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())
+
+  // Check if there's a primary date
+  if (race.primary_date) {
+    const primaryDate = new Date(race.primary_date)
+    const primaryDateStart = Date.UTC(
+      primaryDate.getUTCFullYear(),
+      primaryDate.getUTCMonth(),
+      primaryDate.getUTCDate()
+    )
+
+    // Add 1 day to primary date (in milliseconds)
+    const primaryDatePlusOne = primaryDateStart + 24 * 60 * 60 * 1000
+
+    // If we're before primary date + 1 day, show primary date
+    if (todayStart < primaryDatePlusOne) {
+      return { label: "Primary Date", date: race.primary_date }
+    }
+  }
+
+  // Otherwise, show election date
+  return { label: "Election Date", date: race.election_date }
+}
+
 onMounted(async () => {
   getRaces()
 })
@@ -68,7 +97,8 @@ onMounted(async () => {
           <h2 class="mb-2">{{ race.name }}</h2>
           <p class="small mb-2">{{ race.description }}</p>
           <p class="tag m-auto">
-            Election Date: {{ new Date(race.election_date).toLocaleDateString() }}
+            {{ getDisplayDate(race).label }}:
+            {{ new Date(getDisplayDate(race).date).toLocaleDateString() }}
           </p>
         </NuxtLink>
       </div>
