@@ -361,6 +361,9 @@ const totalQuestions = computed(() => {
 
 const answeredQuestions = computed(() => {
   return Object.keys(responses.value).filter((key) => {
+    // Skip optional comment fields (keys ending with -Comment)
+    if (key.endsWith("-Comment")) return false
+
     const value = responses.value[key]
     // Count as answered if it has a value (for radio/select) or text content (for textarea)
     return value !== null && value !== undefined && value !== ""
