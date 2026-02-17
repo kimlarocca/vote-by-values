@@ -30,9 +30,51 @@ const props = defineProps({
   },
 })
 
+// Load database questions
+const dbQuestions = ref([])
+const dbCategories = ref([])
+const dbChoices = ref([])
+
+const loadDatabaseQuestions = async () => {
+  try {
+    // Load categories
+    const { data: categories } = await supabase
+      .from("survey-categories")
+      .select("*")
+      .order("sort_order", { ascending: true })
+
+    dbCategories.value = categories || []
+
+    // Load questions (national + all state surveys)
+    const { data: questions } = await supabase
+      .from("survey-questions")
+      .select("*")
+      .order("sort_order", { ascending: true })
+
+    dbQuestions.value = questions || []
+
+    // Load choices
+    const { data: choices } = await supabase
+      .from("survey-choices")
+      .select("*")
+      .order("sort_order", { ascending: true })
+
+    dbChoices.value = choices || []
+  } catch (err) {
+    console.error("Error loading database questions:", err)
+  }
+}
+
+onMounted(() => {
+  loadDatabaseQuestions()
+})
+
 // Create a map of question names to their full question text
+// Now supports both legacy (survey.json) and new database format
 const questionMap = computed(() => {
   const map = {}
+
+  // Legacy survey.json format (for backward compatibility)
   surveyData.pages.forEach((page) => {
     page.elements.forEach((element) => {
       if (element.name && element.title) {
@@ -44,6 +86,23 @@ const questionMap = computed(() => {
       }
     })
   })
+
+  // New database format - use "question{id}" as key
+  dbQuestions.value.forEach((question) => {
+    const category = dbCategories.value.find((c) => c.id === question.category_id)
+    const questionChoices = dbChoices.value.filter((c) => c.question_id === question.id)
+
+    const key = `question${question.id}`
+    map[key] = {
+      title: question.title,
+      choices: questionChoices.map((c) => ({
+        value: c.value,
+        text: c.text,
+      })),
+      page: category?.title || "Other",
+    }
+  })
+
   return map
 })
 
@@ -71,7 +130,10 @@ const yesNoQuestions = computed(() => {
       )
         return
 
-      const questionData = questionMap.value[key]
+      // Normalize key: if it's just a number, convert to "question{number}" format
+      const normalizedKey = /^\d+$/.test(key) ? `question${key}` : key
+
+      const questionData = questionMap.value[normalizedKey]
       if (questionData) {
         // Check if this is a yes/no question
         const hasYesNoChoices = questionData.choices.some(
@@ -83,10 +145,10 @@ const yesNoQuestions = computed(() => {
             choice.value === "nr"
         )
 
-        if (hasYesNoChoices && !questionKeys.has(key)) {
-          questionKeys.add(key)
+        if (hasYesNoChoices && !questionKeys.has(normalizedKey)) {
+          questionKeys.add(normalizedKey)
           questions.push({
-            key: key,
+            key: normalizedKey,
             title: questionData.title,
             page: questionData.page,
           })
@@ -120,7 +182,19 @@ const groupedQuestions = computed(() => {
 // Get a candidate's response for a specific question
 const getResponse = (candidate, questionKey) => {
   if (!candidate.survey_response) return null
-  return candidate.survey_response[questionKey] || null
+
+  // Try the key as-is first
+  if (candidate.survey_response[questionKey]) {
+    return candidate.survey_response[questionKey]
+  }
+
+  // If key is "question{number}", try just the number
+  if (questionKey.startsWith("question")) {
+    const numericKey = questionKey.replace("question", "")
+    return candidate.survey_response[numericKey] || null
+  }
+
+  return null
 }
 
 // Check if answer is a yes/no type response
@@ -167,8 +241,21 @@ const hasResponse = (answer) => {
 // Get comment for a specific question
 const getComment = (candidate, questionKey) => {
   if (!candidate.survey_response) return null
-  const commentKey = `${questionKey}-Comment`
-  return candidate.survey_response[commentKey] || null
+
+  // Try the key as-is first
+  let commentKey = `${questionKey}-Comment`
+  if (candidate.survey_response[commentKey]) {
+    return candidate.survey_response[commentKey]
+  }
+
+  // If key is \"question{number}\", try just the number
+  if (questionKey.startsWith("question")) {
+    const numericKey = questionKey.replace("question", "")
+    commentKey = `${numericKey}-Comment`
+    return candidate.survey_response[commentKey] || null
+  }
+
+  return null
 }
 
 // Check if candidate has a comment for a question
