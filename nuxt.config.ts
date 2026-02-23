@@ -9,7 +9,10 @@ export default defineNuxtConfig({
   routeRules: {
     '/survey/**': { ssr: false }
   },
-
+  site: {
+    url: 'https://votebyvalues.com',
+    name: 'VoteByValues.com | Choose wisely. Vote informed.'
+  },
   app: {
     head: {
       title: `VoteByValues.com | Choose wisely. Vote informed.`,
@@ -44,7 +47,19 @@ export default defineNuxtConfig({
 
   css: ['primeicons/primeicons.css', '~/assets/scss/main.scss'],
 
-  modules: ['@primevue/nuxt-module', '@nuxtjs/tailwindcss', '@nuxtjs/supabase'],
+  modules: ['@primevue/nuxt-module', '@nuxtjs/tailwindcss', '@nuxtjs/supabase', '@nuxtjs/sitemap'],
+
+  sitemap: {
+    sources: [
+      '/api/__sitemap__/urls'
+    ],
+    exclude: [
+      '/styleguide',
+      '/template',
+      '/survey/form',
+      '/survey/success',
+    ]
+  },
 
   supabase: {
     key: 'sb_publishable_hfb4cBZp-dppxuSEFkidtw_XdBFGbK2',
