@@ -3,13 +3,14 @@ const supabase = useSupabaseClient()
 
 // Set explicit SEO meta for home page
 useHead({
-  title: 'VoteByValues.com | Choose wisely. Vote informed.',
+  title: "VoteByValues.com | Choose wisely. Vote informed.",
   meta: [
     {
-      name: 'description',
-      content: 'Helping you compare your personal values with political candidates\' positions so you can make informed, confident decisions at the ballot box.'
-    }
-  ]
+      name: "description",
+      content:
+        "Helping you compare your personal values with political candidates' positions so you can make informed, confident decisions at the ballot box.",
+    },
+  ],
 })
 
 // start of today (midnight) in timestampz format
@@ -63,6 +64,40 @@ const getDisplayDate = (race) => {
   return { label: "Election Date", date: race.election_date }
 }
 
+// Helper function to format date as "Thursday, April 16th, 2026"
+const formatLongDate = (dateString) => {
+  if (!dateString) return ""
+  const date = new Date(dateString)
+
+  // Get ordinal suffix for day
+  const day = date.getDate()
+  const suffix = (day) => {
+    if (day > 3 && day < 21) return "th"
+    switch (day % 10) {
+      case 1:
+        return "st"
+      case 2:
+        return "nd"
+      case 3:
+        return "rd"
+      default:
+        return "th"
+    }
+  }
+
+  // Format the date
+  const weekday = date.toLocaleDateString("en-US", { weekday: "long" })
+  const month = date.toLocaleDateString("en-US", { month: "long" })
+  const year = date.getFullYear()
+
+  // Only show day of week if it's not Tuesday
+  if (weekday.toLowerCase() === "tuesday") {
+    return `${month} ${day}${suffix(day)}, ${year}`
+  }
+
+  return `${weekday}, ${month} ${day}${suffix(day)}, ${year}`
+}
+
 onMounted(async () => {
   getRaces()
 })
@@ -108,8 +143,7 @@ onMounted(async () => {
           <h2 class="mb-2">{{ race.name }}</h2>
           <p class="small mb-2">{{ race.description }}</p>
           <p class="tag m-auto">
-            {{ getDisplayDate(race).label }}:
-            {{ new Date(getDisplayDate(race).date).toLocaleDateString() }}
+            {{ formatLongDate(getDisplayDate(race).date) }}
           </p>
         </NuxtLink>
       </div>

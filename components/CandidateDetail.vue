@@ -281,11 +281,6 @@ watch(
           <h2 class="mb-4">Endorsements</h2>
           <p v-html="candidate.endorsements" class="mb-8" />
         </template>
-
-        <template v-if="candidate.special_interests">
-          <h2 class="mb-4">Special Interests</h2>
-          <p v-html="candidate.special_interests" class="mb-8" />
-        </template>
       </div>
       <div>
         <h2 class="mb-4">PAC Funding</h2>
