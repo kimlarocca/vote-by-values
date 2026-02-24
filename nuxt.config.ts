@@ -1,69 +1,68 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-import MyPreset from './assets/theme.js'
+import MyPreset from "./assets/theme.js"
 
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
+  compatibilityDate: "2024-11-01",
   devtools: { enabled: false },
 
   routeRules: {
-    '/survey/**': { ssr: false }
+    "/survey/**": { ssr: false },
   },
   site: {
-    url: 'https://votebyvalues.com',
-    name: 'VoteByValues.com | Choose wisely. Vote informed.'
+    url: "https://votebyvalues.com",
+    name: "VoteByValues.com",
   },
   app: {
     head: {
       title: `VoteByValues.com | Choose wisely. Vote informed.`,
       htmlAttrs: {
-        lang: 'en',
+        lang: "en",
       },
       meta: [
         {
-          name: 'description', content: `Helping you compare your personal values with political candidates' positions so you can make informed, confident decisions at the ballot box.`
+          name: "description",
+          content: `Helping you compare your personal values with political candidates' positions so you can make informed, confident decisions at the ballot box.`,
         },
-        { name: 'msapplication-TileColor', content: '#0a84ff' },
-        { name: 'theme-color', content: '#0a84ff' }
+        { name: "msapplication-TileColor", content: "#0a84ff" },
+        { name: "theme-color", content: "#0a84ff" },
       ],
       link: [
         {
-          rel: 'apple-touch-icon',
-          sizes: '180x180',
-          href: '/apple-touch-icon.png'
+          rel: "apple-touch-icon",
+          sizes: "180x180",
+          href: "/apple-touch-icon.png",
         },
-        { rel: 'manifest', href: '/site.webmanifest' },
-        { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#ff3904' },
+        { rel: "manifest", href: "/site.webmanifest" },
+        { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#ff3904" },
         {
-          rel: 'preconnect',
-          href: 'https://fonts.googleapis.com'
-        }
+          rel: "preconnect",
+          href: "https://fonts.googleapis.com",
+        },
       ],
       // script: [
       //   { src: 'https://www.googletagmanager.com/gtag/js?id=G-7GDC05EZKE' }
       // ]
-    }
+    },
   },
 
-  css: ['primeicons/primeicons.css', '~/assets/scss/main.scss'],
+  css: ["primeicons/primeicons.css", "~/assets/scss/main.scss"],
 
-  modules: ['@primevue/nuxt-module', '@nuxtjs/tailwindcss', '@nuxtjs/supabase', '@nuxtjs/sitemap'],
+  modules: [
+    "@primevue/nuxt-module",
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/supabase",
+    "@nuxtjs/sitemap",
+  ],
 
   sitemap: {
-    sources: [
-      '/api/__sitemap__/urls'
-    ],
-    exclude: [
-      '/styleguide',
-      '/template',
-      '/survey/form',
-      '/survey/success',
-    ]
+    sources: ["/api/__sitemap__/urls"],
+    exclude: ["/styleguide", "/template", "/survey/form", "/survey/success"],
   },
 
   supabase: {
-    key: 'sb_publishable_hfb4cBZp-dppxuSEFkidtw_XdBFGbK2',
-    url: 'https://udsyxtnbyejnwwvbifjr.supabase.co',
+    key: "sb_publishable_hfb4cBZp-dppxuSEFkidtw_XdBFGbK2",
+    url: "https://udsyxtnbyejnwwvbifjr.supabase.co",
     redirect: false,
   },
 
@@ -78,17 +77,17 @@ export default defineNuxtConfig({
         preset: MyPreset,
         options: {
           darkModeSelector: ".dark-mode",
-        }
-      }
-    }
+        },
+      },
+    },
   },
 
   runtimeConfig: {
     public: {
-      environment: process.env.environment ?? 'local',
-      gtagId: 'G-2YMMJJ5HJM',
-      supabaseKey: 'sb_publishable_hfb4cBZp-dppxuSEFkidtw_XdBFGbK2',
-      supabaseUrl: 'https://udsyxtnbyejnwwvbifjr.supabase.co',
-    }
-  }
+      environment: process.env.environment ?? "local",
+      gtagId: "G-2YMMJJ5HJM",
+      supabaseKey: "sb_publishable_hfb4cBZp-dppxuSEFkidtw_XdBFGbK2",
+      supabaseUrl: "https://udsyxtnbyejnwwvbifjr.supabase.co",
+    },
+  },
 })

@@ -1,6 +1,17 @@
 <script setup>
 const supabase = useSupabaseClient()
 
+// Set explicit SEO meta for home page
+useHead({
+  title: 'VoteByValues.com | Choose wisely. Vote informed.',
+  meta: [
+    {
+      name: 'description',
+      content: 'Helping you compare your personal values with political candidates\' positions so you can make informed, confident decisions at the ballot box.'
+    }
+  ]
+})
+
 // start of today (midnight) in timestampz format
 const today = new Date()
 today.setHours(0, 0, 0, 0)
