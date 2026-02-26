@@ -142,7 +142,8 @@ const yesNoQuestions = computed(() => {
             choice.value === "no" ||
             choice.value === "yes-2" ||
             choice.value === "no-2" ||
-            choice.value === "nr"
+            choice.value === "nr" ||
+            choice.value === "no-response"
         )
 
         if (hasYesNoChoices && !questionKeys.has(normalizedKey)) {
@@ -204,7 +205,8 @@ const isYesNoResponse = (answer) => {
     answer === "yes-2" ||
     answer === "no" ||
     answer === "no-2" ||
-    answer === "nr"
+    answer === "nr" ||
+    answer === "no-response"
   )
 }
 
@@ -235,7 +237,7 @@ const getAnswerClass = (answer) => {
 
 // Check if there's a valid response
 const hasResponse = (answer) => {
-  return answer && answer !== "nr"
+  return answer && answer !== "nr" && answer !== "no-response"
 }
 
 // Get comment for a specific question

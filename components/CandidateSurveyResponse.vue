@@ -21,7 +21,7 @@ const surveyCategories = ref([])
 // Load survey questions from database
 const loadSurveyQuestions = async () => {
   loading.value = true
-  
+
   try {
     // Load categories
     const { data: categories, error: catError } = await supabase
@@ -33,7 +33,7 @@ const loadSurveyQuestions = async () => {
       console.error("Error loading categories:", catError)
       return
     }
-    
+
     surveyCategories.value = categories || []
 
     // Find relevant survey IDs
@@ -109,11 +109,11 @@ onMounted(() => {
 const questionMap = computed(() => {
   const map = {}
   const categoryMap = {}
-  
+
   surveyCategories.value.forEach((cat) => {
     categoryMap[cat.id] = cat
   })
-  
+
   surveyQuestions.value.forEach((question) => {
     const category = categoryMap[question.category_id]
     map[question.id] = {
@@ -122,7 +122,7 @@ const questionMap = computed(() => {
       page: category?.title || "Other",
     }
   })
-  
+
   return map
 })
 
@@ -155,16 +155,16 @@ const groupedResponses = computed(() => {
     // Handle comment fields
     if (key.endsWith("-Comment")) {
       const questionKey = key.replace("-Comment", "")
-      
+
       // Try numeric ID first (new format)
       const questionId = parseInt(questionKey)
       let questionData = !isNaN(questionId) ? questionMap.value[questionId] : null
-      
+
       // Fall back to legacy format
       if (!questionData) {
         questionData = legacyQuestionMap.value[questionKey]
       }
-      
+
       if (questionData) {
         const page = questionData.page
         if (!groups[page]) groups[page] = []
@@ -180,12 +180,12 @@ const groupedResponses = computed(() => {
     // Try numeric ID first (new format)
     const questionId = parseInt(key)
     let questionData = !isNaN(questionId) ? questionMap.value[questionId] : null
-    
+
     // Fall back to legacy format
     if (!questionData) {
       questionData = legacyQuestionMap.value[key]
     }
-    
+
     if (questionData) {
       const page = questionData.page
       if (!groups[page]) groups[page] = []
@@ -214,7 +214,8 @@ const getAnswerLabel = (answer, choices) => {
 }
 
 const getAnswerClass = (answer) => {
-  if (!answer || answer === "nr") return "bg-gray-200 text-gray-700"
+  if (!answer || answer === "nr" || answer === "no-response")
+    return "bg-gray-200 text-gray-700"
   if (answer === "yes" || answer === "yes-2") return "bg-green-100 text-green-800"
   if (answer === "no" || answer === "no-2") return "bg-red-100 text-red-800"
   return "bg-gray-200 text-gray-700"
@@ -235,7 +236,9 @@ const getAnswerClass = (answer) => {
         :key="section"
         class="mb-8 border-1 rounded-xl border-black"
       >
-        <h3 class="inline-block bg-black text-white px-4 py-2 rounded-tl-xl rounded-br-xl">
+        <h3
+          class="inline-block bg-black text-white px-4 py-2 rounded-tl-xl rounded-br-xl"
+        >
           {{ section }}
         </h3>
 

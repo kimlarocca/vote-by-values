@@ -119,7 +119,7 @@ onMounted(async () => {
       <h1 class="mb-4">{{ race?.name }}</h1>
       <p v-if="race?.description" class="mb-4" v-html="race.description" />
     </section>
-    <NJ11Carousel v-if="route.params.slug === 'NJ-11'" class="mb-8" />
+    <!-- <NJ11Carousel v-if="route.params.slug === 'NJ-11'" class="mb-8" /> -->
     <Candidates
       :candidates="candidates"
       :loading="loading"
