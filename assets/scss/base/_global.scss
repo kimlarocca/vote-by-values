@@ -205,6 +205,9 @@ a {
 [data-js-focus-visible] .button:focus:not([data-focus-visible-added]) {
     outline: none;
 }
+.p-button:focus-visible {
+    outline: solid 2px yellow !important;
+}
 
 .unselectable {
     -webkit-user-select: none; /* Safari */

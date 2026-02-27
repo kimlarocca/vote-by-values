@@ -365,6 +365,19 @@ const answeredQuestions = computed(() => {
     if (key.endsWith("-Comment")) return false
 
     const value = responses.value[key]
+
+    // Skip "No Response" values UNLESS they have a comment (nuanced position)
+    if (value === "nr" || value === "no_response") {
+      // Check if there's a corresponding comment with actual text
+      const commentKey = `${key}-Comment`
+      const comment = responses.value[commentKey]
+      // Count as answered if there's a non-empty comment
+      if (comment && comment.trim() !== "") {
+        return true
+      }
+      return false
+    }
+
     // Count as answered if it has a value (for radio/select) or text content (for textarea)
     return value !== null && value !== undefined && value !== ""
   }).length
@@ -414,8 +427,8 @@ const submitSurvey = async () => {
       <section class="text-center bg-white rounded-xl p-6 mb-6">
         <Logo class="m-auto mb-4" />
         <h1 class="mb-3">Candidate Survey: {{ candidateInfo.name }}</h1>
-        <p class="text-sm text-gray-500 mt-2 flex items-center justify-center gap-1">
-          <i class="pi pi-info-circle" />
+        <p class="text-gray-500 mt-2">
+          <i class="pi pi-info-circle text-sm" />
           Your responses are automatically saved as you answer
         </p>
       </section>
@@ -557,16 +570,7 @@ const submitSurvey = async () => {
       </div>
 
       <!-- Navigation Buttons -->
-      <div class="flex justify-between items-center gap-4">
-        <Button
-          v-if="canGoBack"
-          label="Previous"
-          icon="pi pi-arrow-left"
-          @click="previousCategory"
-          outlined
-        />
-        <div v-else />
-
+      <div class="flex flex-row-reverse justify-between items-center gap-4">
         <Button
           v-if="!isLastCategory"
           label="Next"
@@ -583,6 +587,15 @@ const submitSurvey = async () => {
           :loading="submitting"
           severity="success"
         />
+
+        <Button
+          v-if="canGoBack"
+          label="Previous"
+          icon="pi pi-arrow-left"
+          @click="previousCategory"
+          outlined
+        />
+        <div v-else />
       </div>
     </div>
 
