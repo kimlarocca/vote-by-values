@@ -179,7 +179,7 @@ const getBlueskyUrl = (candidate) => {
         >
           <div class="text-center">
             <Compare />
-            <p class="font-bold">Compare Candidates On Issues</p>
+            <p class="font-bold">Candidate Super Comparison</p>
           </div>
         </div>
       </NuxtLink>
@@ -195,7 +195,7 @@ const getBlueskyUrl = (candidate) => {
         >
           <div class="text-center">
             <i class="pi pi-book text-2xl mb-4" />
-            <p class="font-bold">Compare Candidates On Issues-Like Pages</p>
+            <p class="font-bold">Website Issues Pages</p>
           </div>
         </div>
       </NuxtLink>
@@ -211,7 +211,7 @@ const getBlueskyUrl = (candidate) => {
         >
           <div class="text-center">
             <i class="pi pi-share-alt text-2xl mb-4" />
-            <p class="font-bold">Compare Candidates On Social Media</p>
+            <p class="font-bold">Compare Social Media</p>
           </div>
         </div>
       </NuxtLink>
