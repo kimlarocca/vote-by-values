@@ -62,7 +62,7 @@ const getBlueskyUrl = (candidate) => {
               v-if="candidate.image"
               :src="candidate.image"
               :alt="candidate.name"
-              class="w-full h-auto rounded-xl"
+              class="w-full aspect-square object-cover rounded-xl"
             />
             <div
               v-else
