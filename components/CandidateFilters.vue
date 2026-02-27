@@ -100,7 +100,7 @@ const hasActiveFilters = computed(() => {
         class="flex items-center gap-2 cursor-pointer"
         @click="filterDialogVisible = true"
       >
-        <i class="pi pi-filter text-2xl" />
+        <i class="pi pi-filter text-2xl" /> Filter Candidates
       </div>
       <Button
         v-if="hasActiveFilters"

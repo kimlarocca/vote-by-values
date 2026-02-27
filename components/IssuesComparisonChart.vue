@@ -430,6 +430,17 @@ const hasAnyResponse = (questionKey) => {
     hasResponse(getResponse(candidate, questionKey))
   )
 }
+
+// Track hovered column for desktop hover highlighting
+const hoveredColumnIndex = ref(null)
+
+const setHoveredColumn = (index) => {
+  hoveredColumnIndex.value = index
+}
+
+const clearHoveredColumn = () => {
+  hoveredColumnIndex.value = null
+}
 </script>
 
 <template>
@@ -445,6 +456,7 @@ const hasAnyResponse = (questionKey) => {
   >
     <!-- Search and Filter Row -->
     <div class="mb-6 flex flex-col lg:flex-row justify-center items-center gap-2">
+      Quick Filters:
       <div class="flex gap-3 items-center">
         <Button
           v-if="showQuickFilters"
@@ -461,7 +473,7 @@ const hasAnyResponse = (questionKey) => {
           <InputGroup>
             <InputText
               v-model="searchKeyword"
-              placeholder="Search issues..."
+              placeholder="Filter by keyword..."
               class="w-full"
             />
             <InputGroupAddon>
@@ -522,9 +534,12 @@ const hasAnyResponse = (questionKey) => {
                 Issue
               </th>
               <th
-                v-for="candidate in displayedCandidates"
+                v-for="(candidate, colIndex) in displayedCandidates"
                 :key="candidate.id"
                 class="text-center font-semibold candidate-header"
+                :class="{ 'column-hover': hoveredColumnIndex === colIndex }"
+                @mouseenter="setHoveredColumn(colIndex)"
+                @mouseleave="clearHoveredColumn"
               >
                 <div class="candidate-header-content">
                   <NuxtLink :to="`/${candidate.slug}`" class="plain">
@@ -550,16 +565,19 @@ const hasAnyResponse = (questionKey) => {
             <tr
               v-for="(question, qIndex) in questions"
               :key="question.key"
-              class="border-t border-gray-200 hover:bg-gray-50"
+              class="border-t border-gray-200 table-row"
               :class="{ 'row-odd': qIndex % 2 === 0, 'row-even': qIndex % 2 !== 0 }"
             >
-              <td class="p-4 text-sm sticky left-0 z-10 question-column">
+              <td class="p-4 text-sm sticky left-0 z-10 question-column table-cell">
                 {{ question.title }}
               </td>
               <td
-                v-for="candidate in displayedCandidates"
+                v-for="(candidate, colIndex) in displayedCandidates"
                 :key="candidate.id"
-                class="text-center candidate-cell"
+                class="text-center candidate-cell table-cell"
+                :class="{ 'column-hover': hoveredColumnIndex === colIndex }"
+                @mouseenter="setHoveredColumn(colIndex)"
+                @mouseleave="clearHoveredColumn"
               >
                 <div class="icon-wrapper">
                   <i
@@ -854,6 +872,37 @@ const hasAnyResponse = (questionKey) => {
 
 .row-odd .candidate-cell:nth-child(even) {
   background-color: #f9fafb !important;
+}
+
+/* Hover effects - light purple */
+@media (min-width: 1200px) {
+  /* Row hover */
+  .table-row:hover .table-cell {
+    background-color: #f3e8ff !important;
+  }
+
+  /* Column hover - need to override all striping patterns */
+  .column-hover,
+  .candidate-cell.column-hover,
+  .candidate-header.column-hover {
+    background-color: #f3e8ff !important;
+  }
+
+  /* Override striping for column hover on even columns */
+  .candidate-cell:nth-child(even).column-hover,
+  .row-even .candidate-cell.column-hover,
+  .row-even .candidate-cell:nth-child(even).column-hover,
+  .row-odd .candidate-cell.column-hover,
+  .row-odd .candidate-cell:nth-child(even).column-hover {
+    background-color: #f3e8ff !important;
+  }
+
+  /* Combined row and column hover - darker purple */
+  .table-row:hover .column-hover,
+  .table-row:hover .candidate-cell.column-hover,
+  .table-row:hover .candidate-cell:nth-child(even).column-hover {
+    background-color: #e9d5ff !important;
+  }
 }
 
 .icon-wrapper {
