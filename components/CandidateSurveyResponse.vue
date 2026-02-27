@@ -216,8 +216,10 @@ const getAnswerLabel = (answer, choices) => {
 const getAnswerClass = (answer) => {
   if (!answer || answer === "nr" || answer === "no-response")
     return "bg-gray-200 text-gray-700"
-  if (answer === "yes" || answer === "yes-2") return "bg-green-100 text-green-800"
-  if (answer === "no" || answer === "no-2") return "bg-red-100 text-red-800"
+  if (answer === "yes" || answer === "yes-2" || answer === "yes-3")
+    return "bg-green-100 text-green-800"
+  if (answer === "no" || answer === "no-2" || answer === "no-3")
+    return "bg-red-100 text-red-800"
   return "bg-gray-200 text-gray-700"
 }
 </script>

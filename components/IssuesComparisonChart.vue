@@ -141,7 +141,9 @@ const yesNoQuestions = computed(() => {
             choice.value === "yes" ||
             choice.value === "no" ||
             choice.value === "yes-2" ||
+            choice.value === "yes-3" ||
             choice.value === "no-2" ||
+            choice.value === "no-3" ||
             choice.value === "nr" ||
             choice.value === "no-response"
         )
@@ -203,8 +205,10 @@ const isYesNoResponse = (answer) => {
   return (
     answer === "yes" ||
     answer === "yes-2" ||
+    answer === "yes-3" ||
     answer === "no" ||
     answer === "no-2" ||
+    answer === "no-3" ||
     answer === "nr" ||
     answer === "no-response"
   )
@@ -223,15 +227,18 @@ const getResponseLabel = (answer, questionKey) => {
 
 // Get the icon class for an answer
 const getAnswerIcon = (answer) => {
-  if (answer === "yes" || answer === "yes-2") return "pi pi-check-circle"
-  if (answer === "no" || answer === "no-2") return "pi pi-times-circle"
+  if (answer === "yes" || answer === "yes-2" || answer === "yes-3")
+    return "pi pi-check-circle"
+  if (answer === "no" || answer === "no-2" || answer === "no-3")
+    return "pi pi-times-circle"
   return null
 }
 
 // Get styling class for an answer
 const getAnswerClass = (answer) => {
-  if (answer === "yes" || answer === "yes-2") return "text-green-600"
-  if (answer === "no" || answer === "no-2") return "text-red-600"
+  if (answer === "yes" || answer === "yes-2" || answer === "yes-3")
+    return "text-green-600"
+  if (answer === "no" || answer === "no-2" || answer === "no-3") return "text-red-600"
   return ""
 }
 
