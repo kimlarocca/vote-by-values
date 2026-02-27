@@ -33,6 +33,19 @@ const blueskyUrl = computed(() => {
   return `https://bsky.app/profile/${props.candidate.bluesky}.bsky.social`
 })
 
+const blueskyDisplayName = computed(() => {
+  if (!props.candidate?.bluesky) return ""
+  // If it's already a full URL, extract the profile part
+  if (props.candidate.bluesky.includes("bsky.app/profile/")) {
+    return props.candidate.bluesky.split("bsky.app/profile/")[1]
+  }
+  // Otherwise return as-is (with .bsky.social suffix if needed)
+  if (props.candidate.bluesky.includes(".bsky.social")) {
+    return props.candidate.bluesky
+  }
+  return `${props.candidate.bluesky}.bsky.social`
+})
+
 const getEndorsedCandidate = async () => {
   if (!props.candidate?.endorsing) return
 
@@ -90,7 +103,7 @@ watch(
         </div>
 
         <!-- Main Info -->
-        <div class="lg:col-span-2 p-4">
+        <div class="lg:col-span-2 p-4 bg-white-opacity-70 rounded-xl">
           <Message
             v-if="candidate.candidate_status === 'Withdrawn'"
             severity="warn"
@@ -146,6 +159,12 @@ watch(
               {{ candidate.party }}
             </p>
             <p
+              v-if="candidate.incumbent"
+              class="ml-2 inline-block bg-yellow-500 text-black px-4 py-1 rounded text-sm font-bold uppercase"
+            >
+              Incumbent
+            </p>
+            <p
               v-if="candidate.residence"
               class="ml-2 inline-block bg-gray px-4 py-1 rounded text-sm font-bold uppercase"
             >
@@ -167,7 +186,7 @@ watch(
           <!-- Social Media Links -->
           <div
             v-if="hasSocialMedia"
-            class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6 w-fit"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-8 w-fit"
           >
             <a
               v-if="candidate.website_url"
@@ -227,7 +246,7 @@ watch(
               class="text-black plain flex items-center"
             >
               <Bluesky class="size2xl" />
-              <div class="small ml-2">{{ candidate.bluesky }}</div>
+              <div class="small ml-2">{{ blueskyDisplayName }}</div>
             </a>
             <a
               v-if="candidate.youtube"
@@ -260,55 +279,85 @@ watch(
               <div class="small ml-2">{{ formatUrl(candidate.substack) }}</div>
             </a>
           </div>
+          <template v-if="candidate.experience">
+            <h2 class="mb-4">Experience</h2>
+            <p v-html="candidate.experience" class="mb-8" />
+          </template>
+
+          <template v-if="candidate.key_links">
+            <h2 class="mb-4">Key Links</h2>
+            <div v-html="candidate.key_links" class="mb-8" />
+          </template>
+
+          <template v-if="candidate.endorsements">
+            <h2 class="mb-4">Endorsements</h2>
+            <p v-html="candidate.endorsements" class="mb-8" />
+          </template>
+
+          <h2 class="mb-4">PAC Funding</h2>
+          <p class="mb-2">
+            <span class="font-bold">Corporate PACs?</span>
+            {{ candidate.corporate_pacs || "No Position On Record" }}
+          </p>
+          <p class="mb-2">
+            <span class="font-bold">Musk-Backed PACs?</span>
+            {{ candidate.musk_pacs || "No Position On Record" }}
+          </p>
+          <p class="mb-2">
+            <span class="font-bold">Bezos-Backed PACs?</span>
+            {{ candidate.bezos_pacs || "No Position On Record" }}
+          </p>
+          <p class="mb-2">
+            <span class="font-bold">AIPAC?</span>
+            {{ candidate.aipac || "No Position On Record" }}
+          </p>
+          <p class="mb-2">
+            <span class="font-bold">Any PACs?</span>
+            {{ candidate.any_pacs || "No Position On Record" }}
+          </p>
         </div>
       </div>
     </div>
 
-    <!-- Additional Info -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-16 mb-6">
-      <div class="lg:col-span-2">
-        <template v-if="candidate.experience">
-          <h2 class="mb-4">Experience</h2>
-          <p v-html="candidate.experience" class="mb-8" />
-        </template>
-
-        <template v-if="candidate.key_links">
-          <h2 class="mb-4">Key Links</h2>
-          <div v-html="candidate.key_links" class="mb-8" />
-        </template>
-
-        <template v-if="candidate.endorsements">
-          <h2 class="mb-4">Endorsements</h2>
-          <p v-html="candidate.endorsements" class="mb-8" />
-        </template>
-      </div>
-      <div>
-        <h2 class="mb-4">PAC Funding</h2>
-        <p class="mb-2">
-          <span class="font-bold">Corporate PACs?</span>
-          {{ candidate.corporate_pacs || "No Position On Record" }}
-        </p>
-        <p class="mb-2">
-          <span class="font-bold">Musk-Backed PACs?</span>
-          {{ candidate.musk_pacs || "No Position On Record" }}
-        </p>
-        <p class="mb-2">
-          <span class="font-bold">Bezos-Backed PACs?</span>
-          {{ candidate.bezos_pacs || "No Position On Record" }}
-        </p>
-        <p class="mb-2">
-          <span class="font-bold">AIPAC?</span>
-          {{ candidate.aipac || "No Position On Record" }}
-        </p>
-        <p class="mb-2">
-          <span class="font-bold">Any PACs?</span>
-          {{ candidate.any_pacs || "No Position On Record" }}
-        </p>
-
-        <div v-if="candidate.funding" class="mt-8">
-          <h2 class="mb-4">Funds Raised</h2>
-          <p v-html="candidate.funding" class="mb-8" />
+    <!-- Financial Summary -->
+    <div
+      v-if="
+        candidate.fec_link ||
+        candidate.total_raised ||
+        candidate.total_spent ||
+        candidate.cash_on_hand ||
+        candidate.funding
+      "
+      class="mb-12"
+    >
+      <h2 class="mb-4">Financial Summary</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div v-if="candidate.funding" class="bg-white-opacity-70 p-4 rounded-xl">
+          <h3 class="mb-2">Funds Raised</h3>
+          <p v-html="candidate.funding" />
         </div>
+        <div v-if="candidate.total_raised" class="bg-white-opacity-70 p-4 rounded-xl">
+          <p class="text-sm text-gray-600 mb-1">Total Raised</p>
+          <p class="text-2xl font-bold">{{ candidate.total_raised }}</p>
+        </div>
+        <div v-if="candidate.total_spent" class="bg-white-opacity-70 p-4 rounded-xl">
+          <p class="text-sm text-gray-600 mb-1">Total Spent</p>
+          <p class="text-2xl font-bold">{{ candidate.total_spent }}</p>
+        </div>
+        <div v-if="candidate.cash_on_hand" class="bg-white-opacity-70 p-4 rounded-xl">
+          <p class="text-sm text-gray-600 mb-1">Cash on Hand</p>
+          <p class="text-2xl font-bold">{{ candidate.cash_on_hand }}</p>
+        </div>
+      </div>
+      <div v-if="candidate.fec_link" class="mt-4">
+        <a
+          :href="candidate.fec_link"
+          target="_blank"
+          class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800"
+        >
+          <i class="pi pi-external-link"></i>
+          <span>View FEC Report</span>
+        </a>
       </div>
     </div>
 

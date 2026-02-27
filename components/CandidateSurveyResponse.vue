@@ -260,7 +260,7 @@ const getAnswerClass = (answer) => {
           <div
             v-for="response in responses"
             :key="response.question"
-            class="bg-white rounded-lg p-4"
+            class="bg-white-opacity-70 rounded-lg p-4"
           >
             <p class="font-semibold mb-2">{{ response.title }}</p>
             <div class="flex items-start gap-3">
