@@ -87,7 +87,7 @@ watch(
     <div class="rounded-xl mb-12">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Image -->
-        <div class="lg:col-span-1">
+        <div class="lg:col-span-1 relative">
           <img
             v-if="candidate.image"
             :src="candidate.image"
@@ -99,6 +99,16 @@ watch(
             class="w-full aspect-square rounded-xl shadow-lg bg-gray-200 flex items-center justify-center"
           >
             <i class="pi pi-user text-6xl text-gray-400" />
+          </div>
+          <div
+            v-if="
+              candidate.survey_response &&
+              Object.keys(candidate.survey_response).length > 0
+            "
+            class="absolute top-4 left-4 z-10"
+            v-tooltip="'Candidate Transparency Award'"
+          >
+            <i class="pi pi-star-fill text-5xl text-yellow-400 drop-shadow-lg"></i>
           </div>
         </div>
 

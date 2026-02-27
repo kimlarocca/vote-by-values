@@ -186,8 +186,16 @@ a {
         color: var(--blue) !important;
     }
 }
+.p-progressbar {
+    height: 28px !important;
+}
 .p-progressbar-value {
     background: var(--purple) !important;
+}
+.p-progressbar-label {
+    color: var(--p-progressbar-label-color);
+    font-size: 1rem !important;
+    font-weight: 600 !important;
 }
 .text-6xl {
     font-size: 3.75rem !important;

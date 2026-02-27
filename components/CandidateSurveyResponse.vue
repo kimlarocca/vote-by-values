@@ -234,6 +234,40 @@ const getAnswerClass = (answer) => {
     return "bg-red-100 text-red-800"
   return "bg-gray-200 text-gray-700"
 }
+
+// Progress calculation
+const totalQuestions = computed(() => {
+  return surveyQuestions.value.length
+})
+
+const answeredQuestions = computed(() => {
+  return Object.keys(props.surveyResponse).filter((key) => {
+    // Skip optional comment fields (keys ending with -Comment)
+    if (key.endsWith("-Comment")) return false
+
+    const value = props.surveyResponse[key]
+
+    // Skip "No Response" values UNLESS they have a comment (nuanced position)
+    if (value === "nr" || value === "no_response" || value === "no-response") {
+      // Check if there's a corresponding comment with actual text
+      const commentKey = `${key}-Comment`
+      const comment = props.surveyResponse[commentKey]
+      // Count as answered if there's a non-empty comment
+      if (comment && comment.trim() !== "") {
+        return true
+      }
+      return false
+    }
+
+    // Count as answered if it has a value (for radio/select) or text content (for textarea)
+    return value !== null && value !== undefined && value !== ""
+  }).length
+})
+
+const progress = computed(() => {
+  if (totalQuestions.value === 0) return 0
+  return Math.round((answeredQuestions.value / totalQuestions.value) * 100)
+})
 </script>
 
 <template>
@@ -245,6 +279,11 @@ const getAnswerClass = (answer) => {
     </div>
 
     <div v-else>
+      <!-- Progress Bar -->
+      <div v-if="answeredQuestions > 0" class="mb-6">
+        <ProgressBar :value="progress">{{ progress }}% Complete</ProgressBar>
+      </div>
+
       <div
         v-for="(responses, section) in groupedResponses"
         :key="section"
@@ -278,8 +317,10 @@ const getAnswerClass = (answer) => {
         </div>
       </div>
 
-      <div v-if="Object.keys(groupedResponses).length === 0" class="text-center py-8">
-        <p class="text-gray-500">No survey responses available.</p>
+      <div v-if="Object.keys(groupedResponses).length === 0" class="mb-8">
+        <Message severity="danger" icon="pi pi-info-circle">
+          This candidate has not answered any survey questions yet.
+        </Message>
       </div>
     </div>
   </div>
