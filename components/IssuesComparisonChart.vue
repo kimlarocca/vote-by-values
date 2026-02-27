@@ -423,6 +423,13 @@ const toggleSection = (section) => {
 const isSectionExpanded = (section) => {
   return expandedSections.value.has(section)
 }
+
+// Check if any candidate has responded to a question
+const hasAnyResponse = (questionKey) => {
+  return displayedCandidates.value.some((candidate) =>
+    hasResponse(getResponse(candidate, questionKey))
+  )
+}
 </script>
 
 <template>
@@ -510,18 +517,30 @@ const isSectionExpanded = (section) => {
           <thead>
             <tr>
               <th
-                class="bg-white sticky left-0 z-20 p-4 text-left font-semibold min-w-[400px]"
+                class="bg-white sticky left-0 z-20 p-4 text-left font-semibold question-column"
               >
                 Issue
               </th>
               <th
                 v-for="candidate in displayedCandidates"
                 :key="candidate.id"
-                class="text-center p-0 font-semibold w-12 max-w-12 candidate-header"
+                class="text-center font-semibold candidate-header"
               >
-                <div class="vertical-text">
+                <div class="candidate-header-content">
                   <NuxtLink :to="`/${candidate.slug}`" class="plain">
-                    <span>{{ candidate.name }}</span>
+                    <img
+                      v-if="candidate.image"
+                      :src="candidate.image"
+                      :alt="candidate.name"
+                      class="w-24 h-24 object-cover rounded-full mx-auto mb-2"
+                    />
+                    <div
+                      v-else
+                      class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center mx-auto mb-2"
+                    >
+                      <i class="pi pi-user text-3xl text-gray-400" />
+                    </div>
+                    <span class="block text-xs candidate-name">{{ candidate.name }}</span>
                   </NuxtLink>
                 </div>
               </th>
@@ -529,17 +548,18 @@ const isSectionExpanded = (section) => {
           </thead>
           <tbody>
             <tr
-              v-for="question in questions"
+              v-for="(question, qIndex) in questions"
               :key="question.key"
               class="border-t border-gray-200 hover:bg-gray-50"
+              :class="{ 'row-odd': qIndex % 2 === 0, 'row-even': qIndex % 2 !== 0 }"
             >
-              <td class="p-4 text-sm sticky left-0 bg-white z-10 min-w-[400px]">
+              <td class="p-4 text-sm sticky left-0 z-10 question-column">
                 {{ question.title }}
               </td>
               <td
                 v-for="candidate in displayedCandidates"
                 :key="candidate.id"
-                class="text-center bg-white w-12 max-w-12 candidate-cell"
+                class="text-center candidate-cell"
               >
                 <div class="icon-wrapper">
                   <i
@@ -583,17 +603,34 @@ const isSectionExpanded = (section) => {
           class="mobile-question-item p-4 border-b border-gray-200 last:border-b-0"
         >
           <p class="font-semibold mb-4">{{ question.title }}</p>
-          <div class="space-y-3">
+          <div v-if="!hasAnyResponse(question.key)" class="text-sm text-gray-500 italic">
+            No candidates have responded to this question yet.
+          </div>
+          <div v-else class="space-y-3">
             <div v-for="candidate in displayedCandidates" :key="candidate.id">
-              <!-- Yes/No Response: Icon + Name -->
+              <!-- Yes/No Response: Image + Icon + Name -->
               <div
                 v-if="
                   hasResponse(getResponse(candidate, question.key)) &&
                   isYesNoResponse(getResponse(candidate, question.key))
                 "
-                class="flex items-center"
+                class="flex items-center gap-2"
               >
-                <div class="w-6 mr-1">
+                <NuxtLink :to="`/${candidate.slug}`" class="plain shrink-0">
+                  <img
+                    v-if="candidate.image"
+                    :src="candidate.image"
+                    :alt="candidate.name"
+                    class="w-8 h-8 object-cover rounded-full"
+                  />
+                  <div
+                    v-else
+                    class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center"
+                  >
+                    <i class="pi pi-user text-xs text-gray-400" />
+                  </div>
+                </NuxtLink>
+                <div class="w-6">
                   <i
                     :class="[
                       getAnswerIcon(getResponse(candidate, question.key)),
@@ -608,26 +645,42 @@ const isSectionExpanded = (section) => {
                 </NuxtLink>
               </div>
 
-              <!-- Non-Yes/No Response: Name with Response Below -->
+              <!-- Non-Yes/No Response: Image + Name with Response Below -->
               <div
                 v-else-if="hasResponse(getResponse(candidate, question.key))"
-                class="mb-3"
+                class="mb-3 flex gap-2"
               >
-                <div class="text-sm font-medium flex items-center">
-                  <NuxtLink :to="`/${candidate.slug}`" class="plain">
-                    {{ candidate.name }}
-                  </NuxtLink>
-                  <i
-                    v-if="hasComment(candidate, question.key)"
-                    class="pi pi-info-circle text-sm text-blue-600 cursor-pointer ml-2"
-                    @click.stop="showAnswerDetail(candidate, question.key)"
-                    title="View answer details"
-                  ></i>
-                </div>
-                <div class="text-sm text-gray-600 ml-4 mt-1">
-                  {{
-                    getResponseLabel(getResponse(candidate, question.key), question.key)
-                  }}
+                <NuxtLink :to="`/${candidate.slug}`" class="plain shrink-0">
+                  <img
+                    v-if="candidate.image"
+                    :src="candidate.image"
+                    :alt="candidate.name"
+                    class="w-8 h-8 object-cover rounded-full"
+                  />
+                  <div
+                    v-else
+                    class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center"
+                  >
+                    <i class="pi pi-user text-xs text-gray-400" />
+                  </div>
+                </NuxtLink>
+                <div class="flex-1">
+                  <div class="text-sm font-medium flex items-center">
+                    <NuxtLink :to="`/${candidate.slug}`" class="plain">
+                      {{ candidate.name }}
+                    </NuxtLink>
+                    <i
+                      v-if="hasComment(candidate, question.key)"
+                      class="pi pi-info-circle text-sm text-blue-600 cursor-pointer ml-2"
+                      @click.stop="showAnswerDetail(candidate, question.key)"
+                      title="View answer details"
+                    ></i>
+                  </div>
+                  <div class="text-sm text-gray-600 mt-1">
+                    {{
+                      getResponseLabel(getResponse(candidate, question.key), question.key)
+                    }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -723,7 +776,12 @@ const isSectionExpanded = (section) => {
 
 .table-fixed-mobile {
   width: 100%;
-  min-width: 1200px;
+  table-layout: fixed;
+}
+
+.question-column {
+  width: 50%;
+  min-width: 300px;
 }
 
 .issues-comparison-chart thead th.sticky {
@@ -738,28 +796,25 @@ const isSectionExpanded = (section) => {
   z-index: 5;
 }
 
-.vertical-text {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  white-space: nowrap;
-  min-height: 150px;
-  width: 100%;
+.candidate-header-content {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 8px 0 0 0;
+  width: 100%;
 }
 
-.vertical-text span {
-  width: 100%;
-  text-align: center;
-  display: flex;
-  align-items: center;
+.candidate-name {
+  word-break: break-word;
+  hyphens: auto;
+  line-height: 1.2;
 }
 
 .candidate-header {
-  vertical-align: bottom !important;
-  height: 150px;
+  vertical-align: top !important;
+  padding: 16px 4px !important;
+  width: 96px;
+  max-width: 96px;
 }
 
 .candidate-header:nth-child(even) {
@@ -768,10 +823,36 @@ const isSectionExpanded = (section) => {
 
 .candidate-cell {
   vertical-align: middle !important;
-  padding: 0 !important;
+  padding: 12px 4px !important;
+  width: 96px;
+  max-width: 96px;
+  overflow: hidden;
 }
 
+/* Column striping */
 .candidate-cell:nth-child(even) {
+  background-color: #f9fafb !important;
+}
+
+/* Row striping */
+.row-even .question-column {
+  background-color: #f3f4f6 !important;
+}
+
+.row-even .candidate-cell {
+  background-color: #f3f4f6 !important;
+}
+
+.row-even .candidate-cell:nth-child(even) {
+  background-color: #e5e7eb !important;
+}
+
+.row-odd .question-column,
+.row-odd .candidate-cell {
+  background-color: #ffffff !important;
+}
+
+.row-odd .candidate-cell:nth-child(even) {
   background-color: #f9fafb !important;
 }
 
