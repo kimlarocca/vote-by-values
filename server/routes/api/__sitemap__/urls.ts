@@ -14,10 +14,11 @@ export default defineEventHandler(async (event) => {
         return name.toLowerCase().replace(/[^a-z0-9]+/g, '-')
     }
 
-    // Fetch all candidates
+    // Fetch all candidates (excluding those with visibility=false)
     const { data: candidates } = await supabase
         .from('candidates')
-        .select('slug, updated_at')
+        .select('slug, updated_at, visibility')
+        .neq('visibility', false)
 
     if (candidates) {
         candidates.forEach((candidate) => {
