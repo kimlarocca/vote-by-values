@@ -94,7 +94,20 @@ const getBlueskyUrl = (candidate) => {
               'border-purple': candidate.party === 'Independent',
             }"
           >
-            <p class="small font-bold mb-1">{{ candidate.name }}</p>
+            <p
+              v-if="candidate.incumbent"
+              :class="{
+                'bg-blue': candidate.party === 'Democrat',
+                'bg-red': candidate.party === 'Republican',
+                'bg-purple': candidate.party === 'Independent',
+              }"
+              class="mb-2 text-xs text-black font-bold p-1 rounded uppercase"
+            >
+              Incumbent
+            </p>
+            <p class="small font-bold mb-1">
+              {{ candidate.name }}
+            </p>
             <p class="text-xs mb-2" style="height: 40px">
               {{ candidate.micro_bio }}
             </p>
