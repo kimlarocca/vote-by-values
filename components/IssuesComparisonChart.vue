@@ -100,6 +100,8 @@ const questionMap = computed(() => {
         text: c.text,
       })),
       page: category?.title || "Other",
+      sortOrder: question.sort_order || 0,
+      categoryOrder: category?.sort_order || 0,
     }
   })
 
@@ -111,56 +113,45 @@ const getCategorySlug = (categoryName) => {
   return categoryName.toLowerCase().replace(/[^a-z0-9]+/g, "-")
 }
 
-// Get all yes/no questions that at least one candidate has answered
+// Get all yes/no questions from the database
 const yesNoQuestions = computed(() => {
   const questions = []
-  const questionKeys = new Set()
 
-  // Collect all questions that have yes/no/nr responses from any candidate
-  props.candidates.forEach((candidate) => {
-    if (!candidate.survey_response) return
+  // Get all questions from the questionMap that have yes/no choices
+  Object.keys(questionMap.value).forEach((key) => {
+    const questionData = questionMap.value[key]
 
-    Object.keys(candidate.survey_response).forEach((key) => {
-      // Skip metadata and comment fields
-      if (
-        key === "HappendAt" ||
-        key === "InstanceId" ||
-        key.startsWith("question100") ||
-        key.endsWith("-Comment")
-      )
-        return
+    // Check if this is a yes/no question
+    const hasYesNoChoices = questionData.choices.some(
+      (choice) =>
+        choice.value === "yes" ||
+        choice.value === "no" ||
+        choice.value === "yes-2" ||
+        choice.value === "yes-3" ||
+        choice.value === "no-2" ||
+        choice.value === "no-3" ||
+        choice.value === "nr" ||
+        choice.value === "no-response"
+    )
 
-      // Normalize key: if it's just a number, convert to "question{number}" format
-      const normalizedKey = /^\d+$/.test(key) ? `question${key}` : key
-
-      const questionData = questionMap.value[normalizedKey]
-      if (questionData) {
-        // Check if this is a yes/no question
-        const hasYesNoChoices = questionData.choices.some(
-          (choice) =>
-            choice.value === "yes" ||
-            choice.value === "no" ||
-            choice.value === "yes-2" ||
-            choice.value === "yes-3" ||
-            choice.value === "no-2" ||
-            choice.value === "no-3" ||
-            choice.value === "nr" ||
-            choice.value === "no-response"
-        )
-
-        if (hasYesNoChoices && !questionKeys.has(normalizedKey)) {
-          questionKeys.add(normalizedKey)
-          questions.push({
-            key: normalizedKey,
-            title: questionData.title,
-            page: questionData.page,
-          })
-        }
-      }
-    })
+    if (hasYesNoChoices) {
+      questions.push({
+        key: key,
+        title: questionData.title,
+        page: questionData.page,
+        sortOrder: questionData.sortOrder || 0,
+        categoryOrder: questionData.categoryOrder || 0,
+      })
+    }
   })
 
-  return questions
+  // Sort questions by category order, then by question sort order
+  return questions.sort((a, b) => {
+    if (a.categoryOrder !== b.categoryOrder) {
+      return a.categoryOrder - b.categoryOrder
+    }
+    return a.sortOrder - b.sortOrder
+  })
 })
 
 // Group questions by section/page
@@ -639,6 +630,11 @@ const isSectionExpanded = (section) => {
         </div>
       </div>
     </Dialog>
+  </div>
+
+  <!-- No Survey Responses -->
+  <div v-else class="text-center bg-white rounded-xl p-8">
+    <p>No survey responses are available for comparison yet. Please check back later!</p>
   </div>
 </template>
 
