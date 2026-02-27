@@ -216,9 +216,21 @@ const getAnswerLabel = (answer, choices) => {
 const getAnswerClass = (answer) => {
   if (!answer || answer === "nr" || answer === "no-response")
     return "bg-gray-200 text-gray-700"
-  if (answer === "yes" || answer === "yes-2" || answer === "yes-3")
+  if (
+    answer === "yes" ||
+    answer === "yes-2" ||
+    answer === "yes-3" ||
+    answer === "yes-4" ||
+    answer === "yes-5"
+  )
     return "bg-green-100 text-green-800"
-  if (answer === "no" || answer === "no-2" || answer === "no-3")
+  if (
+    answer === "no" ||
+    answer === "no-2" ||
+    answer === "no-3" ||
+    answer === "no-4" ||
+    answer === "no-5"
+  )
     return "bg-red-100 text-red-800"
   return "bg-gray-200 text-gray-700"
 }
