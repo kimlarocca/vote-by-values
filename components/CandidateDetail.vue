@@ -88,11 +88,22 @@ watch(
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Image -->
         <div class="lg:col-span-1 relative">
+          <p
+            v-if="candidate.incumbent"
+            :class="{
+              'bg-blue': candidate.party === 'Democrat',
+              'bg-red': candidate.party === 'Republican',
+              'bg-purple': candidate.party === 'Independent',
+            }"
+            class="absolute text-white rounded-tl-xl rounded-br-xl px-4 py-1 text-sm font-bold uppercase w-fit m-auto"
+          >
+            Incumbent
+          </p>
           <img
             v-if="candidate.image"
             :src="candidate.image"
             :alt="candidate.name"
-            class="w-full rounded-xl shadow-lg"
+            class="w-full aspect-square object-cover rounded-xl shadow-lg"
           />
           <div
             v-else
@@ -113,7 +124,7 @@ watch(
         </div>
 
         <!-- Main Info -->
-        <div class="lg:col-span-2 p-4 bg-white-opacity-70 rounded-xl">
+        <div class="lg:col-span-2 p-4 bg-white-opacity-20 rounded-xl">
           <Message
             v-if="candidate.candidate_status === 'Withdrawn'"
             severity="warn"
@@ -167,12 +178,6 @@ watch(
               ]"
             >
               {{ candidate.party }}
-            </p>
-            <p
-              v-if="candidate.incumbent"
-              class="ml-2 inline-block bg-yellow-500 text-black px-4 py-1 rounded text-sm font-bold uppercase"
-            >
-              Incumbent
             </p>
             <p
               v-if="candidate.residence"
@@ -338,24 +343,24 @@ watch(
         candidate.cash_on_hand ||
         candidate.funding
       "
-      class="mb-12"
+      class="mb-12 p-4 bg-white-opacity-20 rounded-xl"
     >
-      <h2 class="mb-4">Financial Summary</h2>
+      <h2 class="mb-6">Financial Summary</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div v-if="candidate.funding" class="bg-white-opacity-70 p-4 rounded-xl">
-          <h3 class="mb-2">Funds Raised</h3>
+        <div v-if="candidate.funding">
+          <h4 class="mb-2">Funds Raised</h4>
           <p v-html="candidate.funding" />
         </div>
-        <div v-if="candidate.total_raised" class="bg-white-opacity-70 p-4 rounded-xl">
-          <p class="text-sm text-gray-600 mb-1">Total Raised</p>
+        <div v-if="candidate.total_raised">
+          <h4>Total Raised</h4>
           <p class="text-2xl font-bold">{{ candidate.total_raised }}</p>
         </div>
-        <div v-if="candidate.total_spent" class="bg-white-opacity-70 p-4 rounded-xl">
-          <p class="text-sm text-gray-600 mb-1">Total Spent</p>
+        <div v-if="candidate.total_spent">
+          <h4>Total Spent</h4>
           <p class="text-2xl font-bold">{{ candidate.total_spent }}</p>
         </div>
-        <div v-if="candidate.cash_on_hand" class="bg-white-opacity-70 p-4 rounded-xl">
-          <p class="text-sm text-gray-600 mb-1">Cash on Hand</p>
+        <div v-if="candidate.cash_on_hand">
+          <h4>Cash on Hand</h4>
           <p class="text-2xl font-bold">{{ candidate.cash_on_hand }}</p>
         </div>
       </div>
@@ -363,7 +368,7 @@ watch(
         <a
           :href="candidate.fec_link"
           target="_blank"
-          class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800"
+          class="inline-flex items-center gap-2"
         >
           <i class="pi pi-external-link"></i>
           <span>View FEC Report</span>

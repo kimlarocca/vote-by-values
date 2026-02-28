@@ -10,8 +10,8 @@ const emit = defineEmits(["update:filteredCandidates"])
 
 const selectedParties = ref([])
 const selectedCandidates = ref([])
-const includeWithdrawn = ref(false)
-const includeLost = ref(false)
+const includeWithdrawn = ref(true)
+const includeLost = ref(true)
 const filterDialogVisible = ref(false)
 
 const parties = computed(() => {
@@ -78,16 +78,16 @@ const filterLabel = computed(() => {
 const clearFilters = () => {
   selectedParties.value = []
   selectedCandidates.value = []
-  includeWithdrawn.value = false
-  includeLost.value = false
+  includeWithdrawn.value = true
+  includeLost.value = true
 }
 
 const hasActiveFilters = computed(() => {
   return (
     selectedParties.value.length > 0 ||
     selectedCandidates.value.length > 0 ||
-    includeWithdrawn.value ||
-    includeLost.value
+    !includeWithdrawn.value ||
+    !includeLost.value
   )
 })
 </script>

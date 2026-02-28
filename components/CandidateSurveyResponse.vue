@@ -214,8 +214,7 @@ const getAnswerLabel = (answer, choices) => {
 }
 
 const getAnswerClass = (answer) => {
-  if (!answer || answer === "nr" || answer === "no-response")
-    return "bg-gray-200 text-gray-700"
+  if (!answer || answer === "nr" || answer === "no-response") return "bg-white-opacity-70"
   if (
     answer === "yes" ||
     answer === "yes-2" ||
@@ -299,7 +298,7 @@ const progress = computed(() => {
           <div
             v-for="response in responses"
             :key="response.question"
-            class="bg-white-opacity-70 rounded-lg p-4"
+            class="bg-white-opacity-20 rounded-xl p-4"
           >
             <p class="font-semibold mb-2">{{ response.title }}</p>
             <div class="flex items-start gap-3">
