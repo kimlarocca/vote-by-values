@@ -493,6 +493,8 @@ const clearHoveredColumn = () => {
         <!-- Candidate Filters -->
         <CandidateFilters
           :candidates="candidates"
+          :defaultIncludeWithdrawn="false"
+          :defaultIncludeLost="false"
           @update:filteredCandidates="updateFilteredCandidates"
         />
       </div>
@@ -547,11 +549,13 @@ const clearHoveredColumn = () => {
                       v-if="candidate.image"
                       :src="candidate.image"
                       :alt="candidate.name"
-                      class="w-24 h-24 object-cover rounded-full mx-auto mb-2"
+                      class="object-cover rounded-full mx-auto mb-2"
+                      style="width: 100px; height: 100px"
                     />
                     <div
                       v-else
-                      class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center mx-auto mb-2"
+                      class="rounded-full bg-gray-200 flex items-center justify-center mx-auto mb-2"
+                      style="width: 100px; height: 100px"
                     >
                       <i class="pi pi-user text-3xl text-gray-400" />
                     </div>
@@ -798,8 +802,8 @@ const clearHoveredColumn = () => {
 }
 
 .question-column {
-  width: 50%;
-  min-width: 300px;
+  width: 500px;
+  min-width: 500px;
 }
 
 .issues-comparison-chart thead th.sticky {
@@ -830,9 +834,10 @@ const clearHoveredColumn = () => {
 
 .candidate-header {
   vertical-align: top !important;
-  padding: 16px 4px !important;
-  width: 96px;
-  max-width: 96px;
+  padding: 16px 8px !important;
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
 }
 
 .candidate-header:nth-child(even) {
@@ -841,9 +846,10 @@ const clearHoveredColumn = () => {
 
 .candidate-cell {
   vertical-align: middle !important;
-  padding: 12px 4px !important;
-  width: 96px;
-  max-width: 96px;
+  padding: 12px 8px !important;
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
   overflow: hidden;
 }
 
