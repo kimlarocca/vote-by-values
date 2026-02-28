@@ -111,7 +111,7 @@ const getBlueskyUrl = (candidate) => {
                 'bg-red': candidate.party === 'Republican',
                 'bg-purple': candidate.party === 'Independent',
               }"
-              class="mb-2 text-xs text-white font-bold p-1 rounded uppercase"
+              class="mb-2 text-white px-4 py-1 rounded text-sm font-bold uppercase w-fit m-auto"
             >
               Incumbent
             </p>
