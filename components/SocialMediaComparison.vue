@@ -220,8 +220,15 @@ const displayedCandidates = computed(() => {
   overflow: hidden;
 }
 
-.social-media-comparison tbody tr:hover {
-  transition: background-color 0.2s ease;
+@media (min-width: 1024px) {
+  .social-media-comparison tbody tr:hover {
+    background-color: #f3e8ff !important;
+    transition: background-color 0.2s ease;
+  }
+
+  .social-media-comparison tbody tr:hover td {
+    background-color: #f3e8ff !important;
+  }
 }
 
 .social-media-comparison tbody tr:last-child td:first-child {

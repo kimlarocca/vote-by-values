@@ -158,8 +158,15 @@ const displayedCandidates = computed(() => {
   overflow: hidden;
 }
 
-.issues-page-comparison tbody tr:hover {
-  transition: background-color 0.2s ease;
+@media (min-width: 1024px) {
+  .issues-page-comparison tbody tr:hover {
+    background-color: #f3e8ff !important;
+    transition: background-color 0.2s ease;
+  }
+
+  .issues-page-comparison tbody tr:hover td {
+    background-color: #f3e8ff !important;
+  }
 }
 
 .issues-page-comparison tbody tr:last-child td:first-child {
