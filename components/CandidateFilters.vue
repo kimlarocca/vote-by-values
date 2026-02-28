@@ -4,14 +4,22 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  defaultIncludeWithdrawn: {
+    type: Boolean,
+    default: true,
+  },
+  defaultIncludeLost: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const emit = defineEmits(["update:filteredCandidates"])
 
 const selectedParties = ref([])
 const selectedCandidates = ref([])
-const includeWithdrawn = ref(true)
-const includeLost = ref(true)
+const includeWithdrawn = ref(props.defaultIncludeWithdrawn)
+const includeLost = ref(props.defaultIncludeLost)
 const filterDialogVisible = ref(false)
 
 const parties = computed(() => {
@@ -78,8 +86,8 @@ const filterLabel = computed(() => {
 const clearFilters = () => {
   selectedParties.value = []
   selectedCandidates.value = []
-  includeWithdrawn.value = true
-  includeLost.value = true
+  includeWithdrawn.value = props.defaultIncludeWithdrawn
+  includeLost.value = props.defaultIncludeLost
 }
 
 const hasActiveFilters = computed(() => {
@@ -102,16 +110,6 @@ const hasActiveFilters = computed(() => {
       >
         <i class="pi pi-filter text-2xl" />Filter Candidates
       </div>
-      <Button
-        v-if="hasActiveFilters"
-        icon="pi pi-times"
-        severity="secondary"
-        variant="text"
-        @click="clearFilters"
-        size="small"
-        aria-label="Clear filters"
-        :label="filterLabel"
-      />
     </div>
 
     <!-- Filter Dialog -->

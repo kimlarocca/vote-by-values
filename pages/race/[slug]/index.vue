@@ -101,7 +101,7 @@ onMounted(async () => {
 
 <template>
   <div class="home container p-4">
-    <section v-if="race" class="text-center">
+    <section v-if="race" class="text-center mb-8">
       <Html lang="en">
         <Head>
           <Title>VoteByValues.com | {{ race?.name }}</Title>
@@ -124,6 +124,8 @@ onMounted(async () => {
       :candidates="candidates"
       :loading="loading"
       :race-slug="route.params.slug"
+      :defaultIncludeWithdrawn="false"
+      :defaultIncludeLost="false"
     />
 
     <section v-if="race?.race_links" class="mt-16">

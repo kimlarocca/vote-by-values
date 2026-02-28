@@ -14,6 +14,14 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  defaultIncludeWithdrawn: {
+    type: Boolean,
+    default: true,
+  },
+  defaultIncludeLost: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const filteredCandidates = ref([])
@@ -43,6 +51,8 @@ const getBlueskyUrl = (candidate) => {
     <!-- Filter Component -->
     <CandidateFilters
       :candidates="candidates"
+      :defaultIncludeWithdrawn="defaultIncludeWithdrawn"
+      :defaultIncludeLost="defaultIncludeLost"
       @update:filteredCandidates="updateFilteredCandidates"
       class="mb-4"
     />
