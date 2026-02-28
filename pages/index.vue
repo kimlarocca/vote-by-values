@@ -118,35 +118,39 @@ onMounted(async () => {
       </p>
     </section>
 
-    <RacesSkeleton v-if="loading" />
+    <transition name="fade" mode="out-in">
+      <RacesSkeleton v-if="loading" />
+    </transition>
 
-    <section v-if="!loading && races.length" class="races-list mb-12">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        <NuxtLink
-          v-for="race in races"
-          :key="race.id"
-          :to="`/race/${race.slug}`"
-          class="p-6 rounded-xl border-black text-center clickable plain"
-        >
-          <states-nj />
-          <h2 class="mb-2">{{ race.name }}</h2>
-          <p class="small mb-2">{{ race.description }}</p>
-          <p class="tag m-auto">
-            {{ formatLongDate(getDisplayDate(race).date) }}
-          </p>
-        </NuxtLink>
-        <NuxtLink
-          to="/suggest-a-race"
-          class="p-6 rounded-xl border-black flex flex-col justify-center items-center text-center clickable plain"
-        >
-          <i class="pi pi-plus text-2xl mb-3" />
-          <h2 class="mb-2">Suggest a Race</h2>
-          <p class="small mb-2">
-            We starting small, but do you want to see a local election here? Click here to
-            share some details!
-          </p>
-        </NuxtLink>
-      </div>
-    </section>
+    <transition name="fade" mode="out-in">
+      <section v-if="!loading && races.length" class="races-list mb-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <NuxtLink
+            v-for="race in races"
+            :key="race.id"
+            :to="`/race/${race.slug}`"
+            class="p-6 rounded-xl border-black text-center clickable plain"
+          >
+            <states-nj />
+            <h2 class="mb-2">{{ race.name }}</h2>
+            <p class="small mb-2">{{ race.description }}</p>
+            <p class="tag m-auto">
+              {{ formatLongDate(getDisplayDate(race).date) }}
+            </p>
+          </NuxtLink>
+          <NuxtLink
+            to="/suggest-a-race"
+            class="p-6 rounded-xl border-black flex flex-col justify-center items-center text-center clickable plain"
+          >
+            <i class="pi pi-plus text-2xl mb-3" />
+            <h2 class="mb-2">Suggest a Race</h2>
+            <p class="small mb-2">
+              We starting small, but do you want to see a local election here? Click here
+              to share some details!
+            </p>
+          </NuxtLink>
+        </div>
+      </section>
+    </transition>
   </div>
 </template>
