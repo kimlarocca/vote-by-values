@@ -21,6 +21,7 @@ const search = async () => {
   const { data, error } = await supabase
     .from("candidates")
     .select("*")
+    .eq("visibility", true)
     .or(
       `name.ilike.%${searchQuery.value}%,micro_bio.ilike.%${searchQuery.value}%,bio.ilike.%${searchQuery.value}%,experience.ilike.%${searchQuery.value}%`
     )
