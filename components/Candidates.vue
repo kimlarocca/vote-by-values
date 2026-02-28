@@ -86,7 +86,10 @@ const getBlueskyUrl = (candidate) => {
               {{ candidate.candidate_status }}
             </div>
             <div
-              v-if="candidate.survey_response && Object.keys(candidate.survey_response).length > 0"
+              v-if="
+                candidate.survey_response &&
+                Object.keys(candidate.survey_response).length > 0
+              "
               class="absolute top-2 left-2 z-10"
               v-tooltip="'This candidate has completed at least part our survey!'"
             >
@@ -94,7 +97,7 @@ const getBlueskyUrl = (candidate) => {
             </div>
           </div>
           <div
-            class="candidate-card-details bg-white z-10 rounded-xl p-2 text-center text-black"
+            class="candidate-card-details bg-white-opacity-20-gradient z-10 rounded-xl p-2 text-center text-black"
             :class="{
               'border-blue': candidate.party === 'Democrat',
               'border-red': candidate.party === 'Republican',
@@ -108,7 +111,7 @@ const getBlueskyUrl = (candidate) => {
                 'bg-red': candidate.party === 'Republican',
                 'bg-purple': candidate.party === 'Independent',
               }"
-              class="mb-2 text-xs text-black font-bold p-1 rounded uppercase"
+              class="mb-2 text-xs text-white font-bold p-1 rounded uppercase"
             >
               Incumbent
             </p>

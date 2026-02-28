@@ -107,7 +107,7 @@ onMounted(() => {
             v-for="race in races"
             :key="race.id"
             :to="`/race/${race.slug}`"
-            class="p-6 rounded-xl shadow-lg border-black text-center clickable plain"
+            class="p-6 rounded-xl border-black card bg-white-opacity-20 text-center clickable plain"
           >
             <states-nj />
             <h2 class="mb-2">{{ race.name }}</h2>
