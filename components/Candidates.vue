@@ -58,6 +58,17 @@ const getBlueskyUrl = (candidate) => {
       >
         <div class="candidate-card rounded-xl">
           <div class="candidate-card-image z-0 relative">
+            <p
+              v-if="candidate.incumbent"
+              :class="{
+                'bg-blue': candidate.party === 'Democrat',
+                'bg-red': candidate.party === 'Republican',
+                'bg-purple': candidate.party === 'Independent',
+              }"
+              class="absolute text-white rounded-tl-xl rounded-br-xl px-4 py-1 text-sm font-bold uppercase w-fit m-auto"
+            >
+              Incumbent
+            </p>
             <img
               v-if="candidate.image"
               :src="candidate.image"
@@ -104,17 +115,6 @@ const getBlueskyUrl = (candidate) => {
               'border-purple': candidate.party === 'Independent',
             }"
           >
-            <p
-              v-if="candidate.incumbent"
-              :class="{
-                'bg-blue': candidate.party === 'Democrat',
-                'bg-red': candidate.party === 'Republican',
-                'bg-purple': candidate.party === 'Independent',
-              }"
-              class="mb-2 text-white px-4 py-1 rounded text-sm font-bold uppercase w-fit m-auto"
-            >
-              Incumbent
-            </p>
             <p class="small font-bold mb-1">
               {{ candidate.name }}
             </p>
