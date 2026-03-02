@@ -884,14 +884,14 @@ const clearHoveredColumn = () => {
 @media (min-width: 1200px) {
   /* Row hover */
   .table-row:hover .table-cell {
-    background-color: #f3e8ff !important;
+    background-color: var(--light-purple) !important;
   }
 
   /* Column hover - need to override all striping patterns */
   .column-hover,
   .candidate-cell.column-hover,
   .candidate-header.column-hover {
-    background-color: #f3e8ff !important;
+    background-color: var(--light-purple) !important;
   }
 
   /* Override striping for column hover on even columns */
@@ -900,14 +900,14 @@ const clearHoveredColumn = () => {
   .row-even .candidate-cell:nth-child(even).column-hover,
   .row-odd .candidate-cell.column-hover,
   .row-odd .candidate-cell:nth-child(even).column-hover {
-    background-color: #f3e8ff !important;
+    background-color: var(--light-purple) !important;
   }
 
   /* Combined row and column hover - darker purple */
   .table-row:hover .column-hover,
   .table-row:hover .candidate-cell.column-hover,
   .table-row:hover .candidate-cell:nth-child(even).column-hover {
-    background-color: #e9d5ff !important;
+    background-color: var(--purple) !important;
   }
 }
 
