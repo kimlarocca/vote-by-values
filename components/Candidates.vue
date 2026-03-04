@@ -112,7 +112,7 @@ const getBlueskyUrl = (candidate) => {
                 Object.keys(candidate.survey_response).length > 49
               "
               class="absolute top-2 right-2 z-10"
-              v-tooltip="'Candidate Transparency Superstar'"
+              v-tooltip="'Transparency Superstar'"
             >
               <i class="pi pi-star-fill text-3xl text-yellow-400 drop-shadow-lg"></i>
             </div>

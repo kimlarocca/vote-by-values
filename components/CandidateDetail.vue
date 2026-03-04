@@ -117,7 +117,7 @@ watch(
               Object.keys(candidate.survey_response).length > 0
             "
             class="absolute top-4 right-4 z-10"
-            v-tooltip="'Candidate Transparency Superstar'"
+            v-tooltip="'Transparency Superstar'"
           >
             <i class="pi pi-star-fill text-5xl text-yellow-400 drop-shadow-lg"></i>
           </div>
