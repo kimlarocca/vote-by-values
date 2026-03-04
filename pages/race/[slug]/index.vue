@@ -133,6 +133,22 @@ onMounted(async () => {
       <div v-html="race?.race_links" />
     </section>
 
+    <!-- Volunteer to Manage Message -->
+    <section
+      v-if="!race?.admin_id"
+      class="mt-16 bg-white-opacity-20 rounded-xl p-6 text-center"
+    >
+      <i class="pi pi-heart text-2xl mb-3"></i>
+      <h3 class="mb-3">Become an Election Manager</h3>
+      <p class="mb-4">
+        Want to help your neighbors choose wisely? We need your help! This election needs
+        a volunteer to help keep information up-to-date and engage with candidates.
+      </p>
+      <NuxtLink to="/manage-an-election" class="inline-block">
+        <Button label="Volunteer Now" />
+      </NuxtLink>
+    </section>
+
     <!-- Not Found Message -->
     <section v-if="notFound" class="container p-4 text-center py-16">
       <i class="pi pi-exclamation-triangle text-2xl text-red mb-4"></i>
