@@ -245,8 +245,10 @@ a {
     border: 1px solid black;
 }
 .text-6xl {
+    font-size: 1.5rem !important;
+}
+.text-6xl {
     font-size: 3.75rem !important;
-    line-height: 1 !important;
 }
 
 // accessibility
