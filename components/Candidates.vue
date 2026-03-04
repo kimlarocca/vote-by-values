@@ -109,7 +109,7 @@ const getBlueskyUrl = (candidate) => {
             <div
               v-if="
                 candidate.survey_response &&
-                Object.keys(candidate.survey_response).length > 0
+                Object.keys(candidate.survey_response).length > 49
               "
               class="absolute top-2 left-2 z-10"
               v-tooltip="'This candidate has completed at least part our survey!'"
