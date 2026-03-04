@@ -34,9 +34,57 @@ const props = defineProps({
 const dbQuestions = ref([])
 const dbCategories = ref([])
 const dbChoices = ref([])
+const raceInfo = ref(null)
 
 const loadDatabaseQuestions = async () => {
   try {
+    // First, load the race information to determine which surveys are relevant
+    if (props.raceSlug) {
+      const { data: race } = await supabase
+        .from("races")
+        .select("slug, state")
+        .eq("slug", props.raceSlug)
+        .single()
+
+      raceInfo.value = race
+    }
+
+    // Determine which survey IDs to include
+    const surveyConditions = []
+
+    // Always include national survey (id = 1)
+    surveyConditions.push({ column: "id", value: 1 })
+
+    // Include state survey if race has a state
+    if (raceInfo.value?.state) {
+      const { data: stateSurvey } = await supabase
+        .from("surveys")
+        .select("id")
+        .eq("state", raceInfo.value.state)
+        .is("race_slug", null)
+        .single()
+
+      if (stateSurvey) {
+        surveyConditions.push({ column: "id", value: stateSurvey.id })
+      }
+    }
+
+    // Include race-specific survey if it exists
+    if (raceInfo.value?.slug) {
+      const { data: raceSurvey } = await supabase
+        .from("surveys")
+        .select("id")
+        .eq("race_slug", raceInfo.value.slug)
+        .single()
+
+      if (raceSurvey) {
+        surveyConditions.push({ column: "id", value: raceSurvey.id })
+      }
+    }
+
+    // Get the list of valid survey IDs
+    const validSurveyIds = surveyConditions.map((c) => c.value)
+
     // Load categories
     const { data: categories } = await supabase
       .from("survey-categories")
@@ -45,21 +93,33 @@ const loadDatabaseQuestions = async () => {
 
     dbCategories.value = categories || []
 
-    // Load questions (national + all state surveys)
-    const { data: questions } = await supabase
+    // Load questions filtered by survey_id
+    let questionsQuery = supabase
       .from("survey-questions")
       .select("*")
       .order("sort_order", { ascending: true })
 
+    // Filter by valid survey IDs if we have a race context
+    if (raceInfo.value && validSurveyIds.length > 0) {
+      questionsQuery = questionsQuery.in("survey_id", validSurveyIds)
+    }
+
+    const { data: questions } = await questionsQuery
     dbQuestions.value = questions || []
 
-    // Load choices
-    const { data: choices } = await supabase
-      .from("survey-choices")
-      .select("*")
-      .order("sort_order", { ascending: true })
+    // Load choices only for the filtered questions
+    if (dbQuestions.value.length > 0) {
+      const questionIds = dbQuestions.value.map((q) => q.id)
+      const { data: choices } = await supabase
+        .from("survey-choices")
+        .select("*")
+        .in("question_id", questionIds)
+        .order("sort_order", { ascending: true })
 
-    dbChoices.value = choices || []
+      dbChoices.value = choices || []
+    } else {
+      dbChoices.value = []
+    }
   } catch (err) {
     console.error("Error loading database questions:", err)
   }
@@ -907,7 +967,7 @@ const clearHoveredColumn = () => {
   .table-row:hover .column-hover,
   .table-row:hover .candidate-cell.column-hover,
   .table-row:hover .candidate-cell:nth-child(even).column-hover {
-    background-color: var(--purple) !important;
+    background-color: var(--medium-purple) !important;
   }
 }
 

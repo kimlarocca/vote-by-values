@@ -64,8 +64,8 @@ onMounted(async () => {
 
     <!-- Issues Comparison Chart -->
     <section v-if="!loading && candidates.length > 0">
-      <IssuesComparisonChart 
-        :candidates="candidates" 
+      <IssuesComparisonChart
+        :candidates="candidates"
         :initial-keywords="keywords"
         :race-slug="route.params.slug"
       />

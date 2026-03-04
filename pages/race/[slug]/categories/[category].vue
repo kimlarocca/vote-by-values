@@ -81,6 +81,7 @@ onMounted(async () => {
         :candidates="candidates"
         :initial-keywords="keywords"
         :category="categoryName"
+        :race-slug="route.params.slug"
         :show-quick-filters="false"
       />
 
