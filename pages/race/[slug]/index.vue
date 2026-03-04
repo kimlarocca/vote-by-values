@@ -140,7 +140,7 @@ onMounted(async () => {
     >
       <i class="pi pi-heart text-2xl mb-3"></i>
       <h3 class="mb-3">Become an Election Manager</h3>
-      <p class="mb-4">
+      <p class="mb-4 max-w-2xl m-auto">
         Want to help your neighbors choose wisely? We need your help! This election needs
         a volunteer to help keep information up-to-date and engage with candidates.
       </p>
