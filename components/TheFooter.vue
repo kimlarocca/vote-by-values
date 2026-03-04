@@ -3,8 +3,8 @@ const currentYear = new Date().getFullYear()
 </script>
 
 <template>
-  <footer class="p-4 container !mb-6">
-    <div class="py-8 px-4 bg-white-opacity-20 rounded-xl text-center">
+  <footer>
+    <div class="py-8 px-4 bg-white-opacity-50 text-center">
       <p class="small mb-3">
         This website was not requested or authorized by any candidate or candidate's
         committee. Paid for by

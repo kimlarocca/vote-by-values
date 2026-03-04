@@ -214,7 +214,7 @@ const getAnswerLabel = (answer, choices) => {
 }
 
 const getAnswerClass = (answer) => {
-  if (!answer || answer === "nr" || answer === "no-response") return "bg-white-opacity-70"
+  if (!answer || answer === "nr" || answer === "no-response") return "bg-white-opacity-50"
   if (
     answer === "yes" ||
     answer === "yes-2" ||
