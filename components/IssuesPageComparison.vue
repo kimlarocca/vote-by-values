@@ -31,6 +31,8 @@ const displayedCandidates = computed(() => {
     <div class="mb-6 flex justify-end">
       <CandidateFilters
         :candidates="candidates"
+        :defaultIncludeWithdrawn="false"
+        :defaultIncludeLost="false"
         @update:filteredCandidates="updateFilteredCandidates"
       />
     </div>
