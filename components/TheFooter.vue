@@ -4,7 +4,7 @@ const currentYear = new Date().getFullYear()
 
 <template>
   <footer>
-    <div class="py-8 px-4 bg-white-opacity-20 text-center">
+    <div class="py-6 px-4 bg-white-opacity-20 text-center">
       <p class="small mb-3">
         This website was not requested or authorized by any candidate or candidate's
         committee. Paid for by
