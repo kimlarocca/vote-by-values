@@ -134,14 +134,24 @@ onMounted(() => {
 const questionMap = computed(() => {
   const map = {}
 
+  // First, load database questions to get a set of titles
+  const dbQuestionTitles = new Set()
+  dbQuestions.value.forEach((question) => {
+    dbQuestionTitles.add(question.title)
+  })
+
   // Legacy survey.json format (for backward compatibility)
+  // Skip questions that already exist in the database
   surveyData.pages.forEach((page) => {
     page.elements.forEach((element) => {
       if (element.name && element.title) {
-        map[element.name] = {
-          title: element.title,
-          choices: element.choices || [],
-          page: page.title,
+        // Skip if this question already exists in the database
+        if (!dbQuestionTitles.has(element.title)) {
+          map[element.name] = {
+            title: element.title,
+            choices: element.choices || [],
+            page: page.title,
+          }
         }
       }
     })
