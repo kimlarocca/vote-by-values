@@ -140,6 +140,12 @@ const questionMap = computed(() => {
     dbQuestionTitles.add(question.title)
   })
 
+  // Create a map of category titles to their sort order
+  const categoryOrderMap = {}
+  dbCategories.value.forEach((category) => {
+    categoryOrderMap[category.title] = category.sort_order
+  })
+
   // Legacy survey.json format (for backward compatibility)
   // Skip questions that already exist in the database
   surveyData.pages.forEach((page) => {
@@ -151,6 +157,8 @@ const questionMap = computed(() => {
             title: element.title,
             choices: element.choices || [],
             page: page.title,
+            sortOrder: 0,
+            categoryOrder: categoryOrderMap[page.title] || 999, // Default to end if not found
           }
         }
       }
@@ -449,36 +457,59 @@ const displayedCandidates = computed(() => {
 
 // Filter questions based on search keyword
 const filteredGroupedQuestions = computed(() => {
-  if (!searchKeyword.value.trim()) {
-    return groupedQuestions.value
+  const groups = searchKeyword.value.trim() ? {} : groupedQuestions.value
+
+  if (searchKeyword.value.trim()) {
+    const keyword = searchKeyword.value.toLowerCase()
+
+    Object.keys(groupedQuestions.value).forEach((section) => {
+      const matchingQuestions = groupedQuestions.value[section].filter((question) =>
+        question.title.toLowerCase().includes(keyword)
+      )
+
+      if (matchingQuestions.length > 0) {
+        groups[section] = matchingQuestions
+      }
+    })
   }
 
-  const keyword = searchKeyword.value.toLowerCase()
-  const filtered = {}
+  return groups
+})
 
-  Object.keys(groupedQuestions.value).forEach((section) => {
-    const matchingQuestions = groupedQuestions.value[section].filter((question) =>
-      question.title.toLowerCase().includes(keyword)
-    )
+// Get sorted section entries [sectionName, questions[]] in proper category order
+const sortedSections = computed(() => {
+  const sections = Object.entries(filteredGroupedQuestions.value)
 
-    if (matchingQuestions.length > 0) {
-      filtered[section] = matchingQuestions
-    }
+  // Create a map of category titles to their sort order
+  const categoryOrderMap = {}
+  dbCategories.value.forEach((category) => {
+    categoryOrderMap[category.title] = category.sort_order
   })
 
-  return filtered
+  // Sort sections by category order
+  return sections.sort((a, b) => {
+    const orderA = categoryOrderMap[a[0]] || 999
+    const orderB = categoryOrderMap[b[0]] || 999
+    return orderA - orderB
+  })
 })
 
 // Track expanded sections for mobile view
 const expandedSections = ref(new Set())
 
-// Initialize first section as expanded
-onMounted(() => {
-  const firstSection = Object.keys(groupedQuestions.value)[0]
-  if (firstSection) {
-    expandedSections.value.add(firstSection)
-  }
-})
+// Initialize first section as expanded when sections are available
+watch(
+  sortedSections,
+  (sections) => {
+    if (sections.length > 0 && expandedSections.value.size === 0) {
+      const firstSection = sections[0]?.[0]
+      if (firstSection) {
+        expandedSections.value.add(firstSection)
+      }
+    }
+  },
+  { immediate: true }
+)
 
 // Toggle section expansion
 const toggleSection = (section) => {
@@ -571,7 +602,7 @@ const clearHoveredColumn = () => {
     </div>
 
     <div
-      v-for="(questions, section) in filteredGroupedQuestions"
+      v-for="[section, questions] in sortedSections"
       :key="section"
       class="mb-6 lg:mb-12 border-1 rounded-xl border-black section-container"
     >
