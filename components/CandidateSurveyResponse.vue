@@ -120,9 +120,25 @@ const questionMap = computed(() => {
       title: question.title,
       choices: question.choices || [],
       page: category?.title || "Other",
+      sortOrder: category?.sort_order || 999,
     }
   })
 
+  return map
+})
+
+// Create a map from category title to sort order
+const categorySortOrder = computed(() => {
+  const map = {}
+  surveyCategories.value.forEach((cat) => {
+    map[cat.title] = cat.sort_order
+  })
+  // Add legacy categories from survey.json if they don't exist
+  surveyData.pages.forEach((page, index) => {
+    if (!map[page.title]) {
+      map[page.title] = 999 + index
+    }
+  })
   return map
 })
 
@@ -206,6 +222,16 @@ const groupedResponses = computed(() => {
   return groups
 })
 
+// Get sections in sorted order based on category sort_order
+const sortedSections = computed(() => {
+  const sections = Object.keys(groupedResponses.value)
+  return sections.sort((a, b) => {
+    const orderA = categorySortOrder.value[a] || 999
+    const orderB = categorySortOrder.value[b] || 999
+    return orderA - orderB
+  })
+})
+
 const getAnswerLabel = (answer, choices) => {
   if (!answer) return "No Response"
 
@@ -287,7 +313,7 @@ const progress = computed(() => {
       </div>
 
       <div
-        v-for="(responses, section) in groupedResponses"
+        v-for="section in sortedSections"
         :key="section"
         class="mb-8 border-1 rounded-xl border-black"
       >
@@ -299,7 +325,7 @@ const progress = computed(() => {
 
         <div class="space-y-4 p-6">
           <div
-            v-for="response in responses"
+            v-for="response in groupedResponses[section]"
             :key="response.question"
             class="bg-white-opacity-20 rounded-xl p-4"
           >
