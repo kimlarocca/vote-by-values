@@ -114,7 +114,7 @@ watch(
           <div
             v-if="
               candidate.survey_response &&
-              Object.keys(candidate.survey_response).length > 0
+              Object.keys(candidate.survey_response).length > 49
             "
             class="absolute top-4 left-4 z-10"
             v-tooltip="'Questionnaire Completed'"

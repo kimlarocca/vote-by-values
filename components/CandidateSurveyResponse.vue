@@ -280,7 +280,10 @@ const progress = computed(() => {
     <div v-else>
       <!-- Progress Bar -->
       <div v-if="answeredQuestions > 0" class="mb-6">
-        <ProgressBar :value="progress">{{ progress }}% Complete</ProgressBar>
+        <ProgressBar :value="progress" />
+        <p class="mt-2 text-sm">
+          This candidate has completed {{ progress }}% of the survey.
+        </p>
       </div>
 
       <div
