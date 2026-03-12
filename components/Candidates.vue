@@ -75,7 +75,7 @@ const getBlueskyUrl = (candidate) => {
                 'bg-red': candidate.party === 'Republican',
                 'bg-purple': candidate.party === 'Independent',
               }"
-              class="absolute text-white rounded-tl-xl rounded-br-xl px-4 py-1 text-sm font-bold uppercase w-fit m-auto"
+              class="absolute right-0 text-white rounded-bl-xl rounded-tr-xl px-4 py-1 text-sm font-bold uppercase w-fit m-auto"
             >
               Incumbent
             </p>
@@ -111,10 +111,10 @@ const getBlueskyUrl = (candidate) => {
                 candidate.survey_response &&
                 Object.keys(candidate.survey_response).length > 49
               "
-              class="absolute top-2 right-2 z-10"
-              v-tooltip="'Transparency Superstar'"
+              class="absolute top-2 left-2 z-10"
+              v-tooltip="'Questionnaire Completed'"
             >
-              <i class="pi pi-star-fill text-3xl text-yellow-400 drop-shadow-lg"></i>
+              <i class="pi pi-bookmark-fill text-3xl text-yellow-400 drop-shadow-lg"></i>
             </div>
           </div>
           <div
