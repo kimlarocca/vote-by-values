@@ -134,12 +134,6 @@ onMounted(() => {
 const questionMap = computed(() => {
   const map = {}
 
-  // First, load database questions to get a set of titles
-  const dbQuestionTitles = new Set()
-  dbQuestions.value.forEach((question) => {
-    dbQuestionTitles.add(question.title)
-  })
-
   // Create a map of category titles to their sort order
   const categoryOrderMap = {}
   dbCategories.value.forEach((category) => {
@@ -147,12 +141,12 @@ const questionMap = computed(() => {
   })
 
   // Legacy survey.json format (for backward compatibility)
-  // Skip questions that already exist in the database
-  surveyData.pages.forEach((page) => {
-    page.elements.forEach((element) => {
-      if (element.name && element.title) {
-        // Skip if this question already exists in the database
-        if (!dbQuestionTitles.has(element.title)) {
+  // Only load from survey.json if we have NO database questions
+  // This prevents duplicates and ensures we use the authoritative database source
+  if (dbQuestions.value.length === 0) {
+    surveyData.pages.forEach((page) => {
+      page.elements.forEach((element) => {
+        if (element.name && element.title) {
           map[element.name] = {
             title: element.title,
             choices: element.choices || [],
@@ -161,9 +155,9 @@ const questionMap = computed(() => {
             categoryOrder: categoryOrderMap[page.title] || 999, // Default to end if not found
           }
         }
-      }
+      })
     })
-  })
+  }
 
   // New database format - use "question{id}" as key
   dbQuestions.value.forEach((question) => {
