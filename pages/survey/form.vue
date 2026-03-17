@@ -359,26 +359,23 @@ const totalQuestions = computed(() => {
   }, 0)
 })
 
+const validQuestionIds = computed(() => {
+  const ids = new Set()
+  surveyData.value.forEach((category) => {
+    category.questions?.forEach((q) => ids.add(String(q.id)))
+  })
+  return ids
+})
+
 const answeredQuestions = computed(() => {
   return Object.keys(responses.value).filter((key) => {
     // Skip optional comment fields (keys ending with -Comment)
     if (key.endsWith("-Comment")) return false
 
+    // Only count keys that correspond to actual survey questions
+    if (!validQuestionIds.value.has(key)) return false
+
     const value = responses.value[key]
-
-    // Skip "No Response" values UNLESS they have a comment (nuanced position)
-    if (value === "nr" || value === "no_response") {
-      // Check if there's a corresponding comment with actual text
-      const commentKey = `${key}-Comment`
-      const comment = responses.value[commentKey]
-      // Count as answered if there's a non-empty comment
-      if (comment && comment.trim() !== "") {
-        return true
-      }
-      return false
-    }
-
-    // Count as answered if it has a value (for radio/select) or text content (for textarea)
     return value !== null && value !== undefined && value !== ""
   }).length
 })

@@ -270,21 +270,15 @@ const answeredQuestions = computed(() => {
     // Skip optional comment fields (keys ending with -Comment)
     if (key.endsWith("-Comment")) return false
 
-    const value = props.surveyResponse[key]
-
-    // Skip "No Response" values UNLESS they have a comment (nuanced position)
-    if (value === "nr" || value === "no_response" || value === "no-response") {
-      // Check if there's a corresponding comment with actual text
-      const commentKey = `${key}-Comment`
-      const comment = props.surveyResponse[commentKey]
-      // Count as answered if there's a non-empty comment
-      if (comment && comment.trim() !== "") {
-        return true
-      }
-      return false
+    // Only count keys that correspond to actual survey questions
+    const questionId = parseInt(key)
+    let questionData = !isNaN(questionId) ? questionMap.value[questionId] : null
+    if (!questionData) {
+      questionData = legacyQuestionMap.value[key]
     }
+    if (!questionData) return false
 
-    // Count as answered if it has a value (for radio/select) or text content (for textarea)
+    const value = props.surveyResponse[key]
     return value !== null && value !== undefined && value !== ""
   }).length
 })
