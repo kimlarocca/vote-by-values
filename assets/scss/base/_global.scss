@@ -245,6 +245,9 @@ a {
     font-size: 1rem !important;
     font-weight: 600 !important;
 }
+.p-progressbar-determinate .p-progressbar-value {
+    min-width: 2% !important;
+}
 .p-skeleton {
     background-color: rgba(255, 255, 255, 0.2) !important;
     backdrop-filter: blur(2px) saturate(130%);
