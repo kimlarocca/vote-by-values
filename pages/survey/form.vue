@@ -376,7 +376,22 @@ const answeredQuestions = computed(() => {
     if (!validQuestionIds.value.has(key)) return false
 
     const value = responses.value[key]
-    return value !== null && value !== undefined && value !== ""
+
+    // Check if value exists and is not empty
+    if (value === null || value === undefined || value === "") {
+      return false
+    }
+
+    // If "No Response" is selected, check if there's a nuanced position/comment
+    if (value === "nr") {
+      const commentKey = `${key}-Comment`
+      const comment = responses.value[commentKey]
+      // Count as answered only if there's a non-empty comment
+      return comment && comment.trim() !== ""
+    }
+
+    // All other non-empty values count as answered
+    return true
   }).length
 })
 
