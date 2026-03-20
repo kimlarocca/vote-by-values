@@ -56,6 +56,10 @@ const hasMoreEndorsements = computed(() => {
   return endorsements.value.length > visibleEndorsementCount.value
 })
 
+const remainingEndorsementsCount = computed(() => {
+  return endorsements.value.length - visibleEndorsementCount.value
+})
+
 const loadMoreEndorsements = () => {
   visibleEndorsementCount.value = endorsements.value.length
 }
@@ -453,7 +457,7 @@ watch(
       <div v-if="hasMoreEndorsements" class="text-center">
         <Button
           @click="loadMoreEndorsements"
-          label="Load More Endorsements"
+          :label="`Load ${remainingEndorsementsCount} More Endorsements`"
           icon="pi pi-chevron-down"
           outlined
         />
