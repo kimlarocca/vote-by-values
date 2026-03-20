@@ -9,6 +9,8 @@ const props = defineProps({
 })
 
 const endorsedCandidate = ref(null)
+const endorsements = ref([])
+const visibleEndorsementCount = ref(6)
 
 const hasSocialMedia = computed(() => {
   if (!props.candidate) return false
@@ -46,6 +48,18 @@ const blueskyDisplayName = computed(() => {
   return `${props.candidate.bluesky}.bsky.social`
 })
 
+const visibleEndorsements = computed(() => {
+  return endorsements.value.slice(0, visibleEndorsementCount.value)
+})
+
+const hasMoreEndorsements = computed(() => {
+  return endorsements.value.length > visibleEndorsementCount.value
+})
+
+const loadMoreEndorsements = () => {
+  visibleEndorsementCount.value = endorsements.value.length
+}
+
 const getEndorsedCandidate = async () => {
   if (!props.candidate?.endorsing) return
 
@@ -62,11 +76,30 @@ const getEndorsedCandidate = async () => {
   }
 }
 
+const getEndorsements = async () => {
+  if (!props.candidate?.id) return
+
+  const { data, error } = await supabase
+    .from("endorsements")
+    .select("*")
+    .eq("candidate_id", props.candidate.id)
+    .order("sort_order", { ascending: true })
+
+  if (error) {
+    console.error(error)
+  } else {
+    endorsements.value = data || []
+  }
+}
+
 watch(
   () => props.candidate,
   () => {
     if (props.candidate?.endorsing) {
       getEndorsedCandidate()
+    }
+    if (props.candidate?.id) {
+      getEndorsements()
     }
   },
   { immediate: true }
@@ -304,11 +337,6 @@ watch(
             <div v-html="candidate.key_links" class="mb-8" />
           </template>
 
-          <template v-if="candidate.endorsements">
-            <h2 class="mb-4">Endorsements</h2>
-            <p v-html="candidate.endorsements" class="mb-8" />
-          </template>
-
           <h2 class="mb-4">PAC Funding</h2>
           <p class="mb-2">
             <span class="font-bold">Corporate PACs?</span>
@@ -373,6 +401,67 @@ watch(
           <i class="pi pi-external-link"></i>
           <span>View FEC Report</span>
         </a>
+      </div>
+    </div>
+
+    <!-- Endorsements Section -->
+    <div v-if="endorsements.length > 0" class="mb-16">
+      <h2 class="mb-6">Endorsements</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <NuxtLink
+          v-for="endorsement in visibleEndorsements"
+          :key="endorsement.id"
+          :to="endorsement.link || endorsement.link2 || '#'"
+          target="_blank"
+          class="plain p-4 bg-white-opacity-20 rounded-tr-xl rounded-br-xl"
+          style="border-left: 4px solid black; padding-left: 1rem"
+        >
+          <QuotationMark v-if="endorsement.quote" class="mb-2" />
+          <i v-else class="pi pi-thumbs-up text-3xl mb-2" />
+          <div class="px-6">
+            <p v-if="endorsement.quote" class="italic mb-4">"{{ endorsement.quote }}"</p>
+            <p v-if="endorsement.quote" class="font-bold small mb-2">
+              — {{ endorsement.endorser }}
+              <span class="font-normal italic" v-if="endorsement.description">
+                {{ endorsement.description }}
+              </span>
+            </p>
+            <template v-else>
+              <p class="font-bold mb-2" v-if="endorsement.endorser">
+                {{ endorsement.endorser }}
+              </p>
+              <p class="font-normal italic small mb-2" v-if="endorsement.type">
+                {{ endorsement.type }}
+              </p>
+            </template>
+            <p v-if="endorsement.link || endorsement.link2" class="small flex gap-3">
+              <a
+                v-if="endorsement.link"
+                :href="endorsement.link"
+                target="_blank"
+                class="text-sm inline-flex items-center gap-1"
+              >
+                <span>View Source</span>
+              </a>
+              <a
+                v-if="endorsement.link2"
+                :href="endorsement.link2"
+                target="_blank"
+                class="text-sm inline-flex items-center gap-1"
+              >
+                <span>Additional Source</span>
+              </a>
+            </p>
+          </div>
+        </NuxtLink>
+      </div>
+      <div v-if="hasMoreEndorsements" class="text-center">
+        <Button
+          @click="loadMoreEndorsements"
+          label="Load More Endorsements"
+          icon="pi pi-chevron-down"
+          outlined
+        />
       </div>
     </div>
 
