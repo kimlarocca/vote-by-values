@@ -418,7 +418,7 @@ watch(
         >
           <QuotationMark v-if="endorsement.quote" class="mb-2" />
           <i v-else class="pi pi-thumbs-up text-3xl mb-2" />
-          <div class="px-6">
+          <div class="lg:px-6">
             <p v-if="endorsement.quote" class="italic mb-4">"{{ endorsement.quote }}"</p>
             <p v-if="endorsement.quote" class="font-bold small mb-2">
               — {{ endorsement.endorser }}
@@ -426,14 +426,9 @@ watch(
                 {{ endorsement.description }}
               </span>
             </p>
-            <template v-else>
-              <p class="font-bold mb-2" v-if="endorsement.endorser">
-                {{ endorsement.endorser }}
-              </p>
-              <p class="font-normal italic small mb-2" v-if="endorsement.type">
-                {{ endorsement.type }}
-              </p>
-            </template>
+            <p v-else class="font-bold mb-2" v-if="endorsement.endorser">
+              {{ endorsement.endorser }}
+            </p>
             <p v-if="endorsement.link || endorsement.link2" class="small flex gap-3">
               <a
                 v-if="endorsement.link"
