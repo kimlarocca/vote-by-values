@@ -5,9 +5,10 @@ definePageMeta({
 })
 
 const supabase = useSupabaseClient()
+const route = useRoute()
 
 // State management
-const candidateCode = ref("")
+const candidateCode = ref(route.query.code || "")
 const isVerifying = ref(false)
 const verificationError = ref("")
 const candidateInfo = ref(null)
