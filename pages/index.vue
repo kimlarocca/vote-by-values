@@ -3,7 +3,7 @@ const supabase = useSupabaseClient()
 
 // Set explicit SEO meta for home page
 useHead({
-  title: "VoteByValues.com | Choose wisely. Vote informed.",
+  title: "VoteByValues.com | Choose wisely. Vote informed",
   meta: [
     {
       name: "description",

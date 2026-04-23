@@ -15,7 +15,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: `VoteByValues.com | Choose wisely. Vote informed.`,
+      title: `VoteByValues.com | Choose wisely. Vote informed`,
       htmlAttrs: {
         lang: "en",
       },
